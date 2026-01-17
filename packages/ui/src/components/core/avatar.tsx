@@ -4,7 +4,7 @@ import * as React from "react"
 import { motion, type HTMLMotionProps } from "framer-motion"
 import { cn } from "../../lib/utils"
 
-export interface AvatarProps extends Omit<HTMLMotionProps<"div">, "children"> {
+export interface AvatarProps extends HTMLMotionProps<"div"> {
     src?: string
     alt?: string
     fallback?: string
@@ -43,7 +43,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 {...props}
             >
-                {src && !imgError ? (
+                {children || (src && !imgError ? (
                     <>
                         {isLoading && (
                             <div className="absolute inset-0 animate-pulse bg-surface-elevated" />
@@ -63,7 +63,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
                     <div className="flex h-full w-full items-center justify-center bg-brand/10 font-medium text-brand">
                         {fallback || alt?.charAt(0).toUpperCase() || "?"}
                     </div>
-                )}
+                ))}
                 {status && (
                     <motion.div
                         className={cn(
