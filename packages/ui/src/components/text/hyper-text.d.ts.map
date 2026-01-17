@@ -1,0 +1,1 @@
+{"version":3,"file":"hyper-text.d.ts","sourceRoot":"","sources":["hyper-text.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAI9B,MAAM,WAAW,cAAe,SAAQ,KAAK,CAAC,cAAc,CAAC,eAAe,CAAC;IAC3E,IAAI,EAAE,MAAM,CAAA;IACZ,QAAQ,CAAC,EAAE,MAAM,CAAA;IACjB,KAAK,CAAC,EAAE,MAAM,CAAA;CACf;AAID;;;GAGG;AACH,eAAO,MAAM,SAAS,wFAoDrB,CAAA"}

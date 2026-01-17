@@ -1,0 +1,1 @@
+{"version":3,"file":"flip-text.d.ts","sourceRoot":"","sources":["flip-text.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAI9B,MAAM,WAAW,aAAc,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IACvE,IAAI,EAAE,MAAM,CAAA;IACZ,QAAQ,CAAC,EAAE,MAAM,CAAA;IACjB,aAAa,CAAC,EAAE,MAAM,CAAA;CACzB;AAED;;GAEG;AACH,eAAO,MAAM,QAAQ,sFAqBpB,CAAA"}
