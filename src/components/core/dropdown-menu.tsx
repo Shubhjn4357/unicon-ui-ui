@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useState, useRef, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
+import React, { useState, useRef, useEffect } from "react"
 import { cn } from "../../lib/utils"
 // import { ChevronRight } from "lucide-react" // Not used in this version
 
@@ -55,10 +55,14 @@ export function DropdownMenuTrigger({ children, className, asChild }: DropdownTr
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children as React.ReactElement<any>, {
       onClick: (e: any) => {
-        (children as React.ReactElement<any>).props.onClick?.(e)
+        ;(children as React.ReactElement<any>).props.onClick?.(e)
         setIsOpen(!isOpen)
       },
-      className: cn((children as React.ReactElement<any>).props.className, className, "cursor-pointer")
+      className: cn(
+        (children as React.ReactElement<any>).props.className,
+        className,
+        "cursor-pointer"
+      ),
     })
   }
 

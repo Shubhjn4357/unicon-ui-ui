@@ -6,7 +6,7 @@ import { cn } from "../../lib/utils"
 
 interface Card {
   id: number
-  name:string
+  name: string
   content: React.ReactNode
 }
 
@@ -44,9 +44,7 @@ export const CardStack = React.forwardRef<HTMLDivElement, CardStackProps>(
               }}
             >
               <div className="group flex h-full w-full flex-col">
-                <p className="text-lg font-bold text-[hsl(var(--foreground))]">
-                  {card.name}
-                </p>
+                <p className="text-lg font-bold text-[hsl(var(--foreground))]">{card.name}</p>
                 <div className="mt-2 text-sm font-normal text-[hsl(var(--muted-foreground))] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   {card.content}
                 </div>

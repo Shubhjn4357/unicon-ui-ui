@@ -1,11 +1,11 @@
 "use client"
 
+import { Center, Environment, Float } from "@react-three/drei"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Environment, Float, Center } from "@react-three/drei"
 import * as React from "react"
-import { cn } from "../../lib/utils"
 // @ts-ignore
-import * as THREE from "three"
+import type * as THREE from "three"
+import { cn } from "../../lib/utils"
 
 interface Scene3DProps {
   children?: React.ReactNode
@@ -27,36 +27,25 @@ function FloatingShape() {
   return (
     <mesh ref={meshRef}>
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
-      <meshStandardMaterial 
-        color="#fff" 
-        roughness={0.1} 
-        metalness={0.8}
-      />
+      <meshStandardMaterial color="#fff" roughness={0.1} metalness={0.8} />
     </mesh>
   )
 }
 
-export function Scene3D({ 
-  children, 
-  className 
-}: Scene3DProps) {
+export function Scene3D({ children, className }: Scene3DProps) {
   return (
     <div className={cn("relative h-[400px] w-full", className)}>
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -10, -10]} />
-        
+
         <Center>
-          <Float 
-            speed={4} 
-            rotationIntensity={1} 
-            floatIntensity={2}
-          >
-             {children || <FloatingShape />}
+          <Float speed={4} rotationIntensity={1} floatIntensity={2}>
+            {children || <FloatingShape />}
           </Float>
         </Center>
-        
+
         <Environment preset="city" />
       </Canvas>
     </div>

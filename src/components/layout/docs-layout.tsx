@@ -20,7 +20,7 @@ import {
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { getSidebarData } from "@/data/component-docs" 
+import { getSidebarData } from "@/data/component-docs"
 
 export function DocsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()

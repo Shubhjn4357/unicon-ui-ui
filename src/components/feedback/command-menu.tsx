@@ -129,9 +129,7 @@ export const CommandMenu = React.forwardRef<HTMLDivElement, CommandMenuProps>(
               {/* Results */}
               <div className="max-h-96 overflow-y-auto p-2">
                 {Object.keys(groupedCommands).length === 0 ? (
-                  <div className="py-8 text-center text-muted-foreground">
-                    No results found
-                  </div>
+                  <div className="py-8 text-center text-muted-foreground">No results found</div>
                 ) : (
                   Object.entries(groupedCommands).map(([group, cmds]) => (
                     <div key={group} className="mb-4">

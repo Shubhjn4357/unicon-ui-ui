@@ -58,8 +58,8 @@ export const Marquee = React.forwardRef<HTMLDivElement, MarqueeProps>(
               prefersReduced
                 ? {}
                 : {
-                  x: reverse ? ["0%", "100%"] : ["0%", "-100%"],
-                }
+                    x: reverse ? ["0%", "100%"] : ["0%", "-100%"],
+                  }
             }
             transition={{
               x: {

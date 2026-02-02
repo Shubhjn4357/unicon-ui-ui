@@ -54,9 +54,12 @@ export const ShootingStars = React.forwardRef<HTMLDivElement, ShootingStarsProps
 
     React.useEffect(() => {
       createStar()
-      const timer = setInterval(() => {
-        createStar()
-      }, (minDelay + maxDelay) / 2)
+      const timer = setInterval(
+        () => {
+          createStar()
+        },
+        (minDelay + maxDelay) / 2
+      )
       return () => clearInterval(timer)
     }, [createStar, minDelay, maxDelay])
 

@@ -1,9 +1,10 @@
 "use client"
 
-import React, { useState, createContext, useContext, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { createPortal } from "react-dom"
 import { X } from "lucide-react"
+import type React from "react"
+import { createContext, useContext, useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { cn } from "../../lib/utils"
 
 // --- Context ---
@@ -43,11 +44,7 @@ export function Dialog({ children, open, onOpenChange }: DialogProps) {
     onOpenChange?.(newOpen)
   }
 
-  return (
-    <DialogContext.Provider value={{ isOpen, setIsOpen }}>
-      {children}
-    </DialogContext.Provider>
-  )
+  return <DialogContext.Provider value={{ isOpen, setIsOpen }}>{children}</DialogContext.Provider>
 }
 
 interface DialogTriggerProps {
@@ -125,10 +122,7 @@ export function DialogContent({ children, className }: DialogContentProps) {
   )
 }
 
-export function DialogHeader({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+export function DialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)}
@@ -137,33 +131,18 @@ export function DialogHeader({
   )
 }
 
-export function DialogFooter({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+export function DialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn(
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-        className
-      )}
+      className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
       {...props}
     />
   )
 }
 
-export function DialogTitle({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLHeadingElement>) {
+export function DialogTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h2
-      className={cn(
-        "text-lg font-semibold leading-none tracking-tight",
-        className
-      )}
-      {...props}
-    />
+    <h2 className={cn("text-lg font-semibold leading-none tracking-tight", className)} {...props} />
   )
 }
 
@@ -171,10 +150,5 @@ export function DialogDescription({
   className,
   ...props
 }: React.HTMLAttributes<HTMLParagraphElement>) {
-  return (
-    <p
-      className={cn("text-sm text-muted-foreground", className)}
-      {...props}
-    />
-  )
+  return <p className={cn("text-sm text-muted-foreground", className)} {...props} />
 }

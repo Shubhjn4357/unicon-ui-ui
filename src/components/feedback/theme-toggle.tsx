@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils"
 import React, { useEffect, useState } from "react"
 
-interface ThemeToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> { }
+interface ThemeToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 /**
  * Animated theme toggle using View Transitions API
@@ -33,7 +33,7 @@ export const ThemeToggle = React.forwardRef<HTMLButtonElement, ThemeToggleProps>
         (document as any).startViewTransition &&
         !window.matchMedia("(prefers-reduced-motion: reduce)").matches
       ) {
-        (document as any).startViewTransition(() => {
+        ;(document as any).startViewTransition(() => {
           setTheme(newTheme)
           document.documentElement.classList.toggle("dark", newTheme === "dark")
           localStorage.setItem("theme", newTheme)

@@ -1,9 +1,9 @@
-import { Command } from "commander"
-import chalk from "chalk"
-import prompts from "prompts"
-import ora from "ora"
-import { existsSync, promises as fs } from "fs" // Use native fs instead of fs-extra for now if possible, but we installed fs-extra
+import { promises as fs, existsSync } from "fs" // Use native fs instead of fs-extra for now if possible, but we installed fs-extra
 import path from "path"
+import chalk from "chalk"
+import { Command } from "commander"
+import ora from "ora"
+import prompts from "prompts"
 
 export const init = new Command()
   .name("init")
@@ -27,21 +27,20 @@ export const init = new Command()
 
       // 2. Ask for global css file
       if (!opts.yes) {
-         const response = await prompts({
-            type: "text",
-            name: "css",
-            message: "Where is your global CSS file?",
-            initial: "app/globals.css"
-         })
-         // For now we just log it, but in real implementation we would append styles
-         console.log(chalk.blue(`Noted global CSS at: ${response.css}`))
+        const response = await prompts({
+          type: "text",
+          name: "css",
+          message: "Where is your global CSS file?",
+          initial: "app/globals.css",
+        })
+        // For now we just log it, but in real implementation we would append styles
+        console.log(chalk.blue(`Noted global CSS at: ${response.css}`))
       }
 
       console.log(chalk.green("\nSuccess! Project initialized for unicorn-ui."))
       console.log(chalk.gray("You can now run 'npx unicorn-ui add [component]' to add components."))
-
     } catch (error) {
-       console.error(chalk.red("Failed to initialize project:"))
-       console.error(error)
+      console.error(chalk.red("Failed to initialize project:"))
+      console.error(error)
     }
   })

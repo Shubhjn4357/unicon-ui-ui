@@ -1,8 +1,9 @@
 "use client"
 
-import React, { useState, createContext, useContext, useRef, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { ChevronDown, Check } from "lucide-react"
+import { Check, ChevronDown } from "lucide-react"
+import type React from "react"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
 import { cn } from "../../lib/utils"
 
 // --- Context ---
@@ -37,7 +38,14 @@ interface SelectProps {
   disabled?: boolean
 }
 
-export function Select({ children, value: controlledValue, defaultValue, placeholder, onValueChange, disabled }: SelectProps) {
+export function Select({
+  children,
+  value: controlledValue,
+  defaultValue,
+  placeholder,
+  onValueChange,
+  disabled,
+}: SelectProps) {
   const [internalValue, setInternalValue] = useState(defaultValue)
   const [isOpen, setIsOpen] = useState(false)
   const optionsMap = useRef(new Map<string, string>()).current
@@ -93,14 +101,13 @@ export function SelectValue({ placeholder: propPlaceholder }: { placeholder?: st
   const { value, placeholder: contextPlaceholder, optionsMap } = useSelect()
   const label = (value && optionsMap.get(value)) || propPlaceholder || contextPlaceholder
 
-  return (
-    <span className={cn(!value && "text-muted-foreground")}>
-      {label || "Select..."}
-    </span>
-  )
+  return <span className={cn(!value && "text-muted-foreground")}>{label || "Select..."}</span>
 }
 
-export function SelectContent({ children, className }: { children: React.ReactNode, className?: string }) {
+export function SelectContent({
+  children,
+  className,
+}: { children: React.ReactNode; className?: string }) {
   const { isOpen, setIsOpen } = useSelect()
   const ref = useRef<HTMLDivElement>(null)
 
@@ -135,12 +142,22 @@ export function SelectContent({ children, className }: { children: React.ReactNo
   )
 }
 
-export function SelectGroup({ children, className }: { children: React.ReactNode, className?: string }) {
+export function SelectGroup({
+  children,
+  className,
+}: { children: React.ReactNode; className?: string }) {
   return <div className={cn("p-1", className)}>{children}</div>
 }
 
-export function SelectLabel({ children, className }: { children: React.ReactNode, className?: string }) {
-  return <div className={cn("px-2 py-1.5 text-xs font-semibold text-muted-foreground", className)}>{children}</div>
+export function SelectLabel({
+  children,
+  className,
+}: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={cn("px-2 py-1.5 text-xs font-semibold text-muted-foreground", className)}>
+      {children}
+    </div>
+  )
 }
 
 interface SelectItemProps {
@@ -153,7 +170,7 @@ export function SelectItem({ value, children, className }: SelectItemProps) {
   const { value: selectedValue, setValue, setIsOpen, optionsMap } = useSelect()
 
   // Register option label
-  if (typeof children === 'string') {
+  if (typeof children === "string") {
     optionsMap.set(value, children)
   }
 

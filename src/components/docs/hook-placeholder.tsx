@@ -1,32 +1,30 @@
 "use client"
 
-import { AlertCircle } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/core/alert"
+import { AlertCircle } from "lucide-react"
 
 interface HookPlaceholderProps {
-    example?: {
-        code: string
-    }
+  example?: {
+    code: string
+  }
 }
 
 export function HookPlaceholder({ example }: HookPlaceholderProps) {
-    return (
-        <div className="flex flex-col items-center justify-center p-6 space-y-4 w-full">
-            <Alert>
-                <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Hook Documentation</AlertTitle>
-                <AlertDescription>
-                    This is a React Hook. It does not have a visual component preview.
-                    Please refer to the code example below.
-                </AlertDescription>
-            </Alert>
-            {example && (
-                <div className="w-full rounded-md border bg-muted p-4 overflow-x-auto">
-                    <pre className="text-sm font-mono text-foreground">
-                        {example.code}
-                    </pre>
-                </div>
-            )}
+  return (
+    <div className="flex flex-col items-center justify-center p-6 space-y-4 w-full">
+      <Alert>
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>Hook Documentation</AlertTitle>
+        <AlertDescription>
+          This is a React Hook. It does not have a visual component preview. Please refer to the
+          code example below.
+        </AlertDescription>
+      </Alert>
+      {example && (
+        <div className="w-full rounded-md border bg-muted p-4 overflow-x-auto">
+          <pre className="text-sm font-mono text-foreground">{example.code}</pre>
         </div>
-    )
+      )}
+    </div>
+  )
 }

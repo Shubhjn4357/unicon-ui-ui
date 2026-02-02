@@ -9,13 +9,10 @@ interface CustomCursorProps {
   color?: string
 }
 
-export function CustomCursor({ 
-  className,
-  color = "black" 
-}: CustomCursorProps) {
+export function CustomCursor({ className, color = "black" }: CustomCursorProps) {
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
-  
+
   const springConfig = { damping: 25, stiffness: 700 }
   const cursorXSpring = useSpring(cursorX, springConfig)
   const cursorYSpring = useSpring(cursorY, springConfig)
@@ -25,7 +22,7 @@ export function CustomCursor({
       cursorX.set(e.clientX)
       cursorY.set(e.clientY)
     }
-    
+
     window.addEventListener("mousemove", moveCursor)
     return () => {
       window.removeEventListener("mousemove", moveCursor)
@@ -41,7 +38,7 @@ export function CustomCursor({
       style={{
         x: cursorXSpring,
         y: cursorYSpring,
-        borderColor: color
+        borderColor: color,
       }}
     >
       <div className="absolute inset-0 m-auto h-2 w-2 rounded-full bg-primary" />

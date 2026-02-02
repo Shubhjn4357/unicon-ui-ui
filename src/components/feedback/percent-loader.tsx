@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import * as React from "react"
 import { cn } from "../../lib/utils"
 
@@ -10,11 +10,7 @@ interface PercentLoaderProps {
   className?: string
 }
 
-export function PercentLoader({ 
-  onComplete, 
-  duration = 2000, 
-  className 
-}: PercentLoaderProps) {
+export function PercentLoader({ onComplete, duration = 2000, className }: PercentLoaderProps) {
   const [progress, setProgress] = React.useState(0)
   const [isComplete, setIsComplete] = React.useState(false)
 
@@ -25,7 +21,7 @@ export function PercentLoader({
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp
       const elapsed = timestamp - startTime
-      
+
       const nextProgress = Math.min((elapsed / duration) * 100, 100)
       setProgress(nextProgress)
 
@@ -46,28 +42,23 @@ export function PercentLoader({
     <AnimatePresence>
       {!isComplete && (
         <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-            className={cn(
-              "fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background",
-              className
-            )}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, y: -50 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className={cn(
+            "fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background",
+            className
+          )}
         >
-           <div className="relative">
-             <motion.span 
-               className="text-8xl font-bold font-mono tracking-tighter"
-             >
-               {Math.floor(progress)}%
-             </motion.span>
-           </div>
-           {/* Progress Line */}
-           <div className="w-64 h-1 bg-muted mt-4 overflow-hidden rounded-full">
-             <motion.div 
-               className="h-full bg-primary"
-               style={{ width: `${progress}%` }}
-             />
-           </div>
+          <div className="relative">
+            <motion.span className="text-8xl font-bold font-mono tracking-tighter">
+              {Math.floor(progress)}%
+            </motion.span>
+          </div>
+          {/* Progress Line */}
+          <div className="w-64 h-1 bg-muted mt-4 overflow-hidden rounded-full">
+            <motion.div className="h-full bg-primary" style={{ width: `${progress}%` }} />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

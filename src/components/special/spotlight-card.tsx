@@ -12,15 +12,7 @@ export interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement>
  * Spotlight Card - Card with mouse-following spotlight effect
  */
 export const SpotlightCard = React.forwardRef<HTMLDivElement, SpotlightCardProps>(
-  (
-    {
-      children,
-      spotlightColor = "hsl(var(--primary) / 0.1)",
-      className,
-      ...props
-    },
-    ref
-  ) => {
+  ({ children, spotlightColor = "hsl(var(--primary) / 0.1)", className, ...props }, ref) => {
     const [position, setPosition] = React.useState({ x: 0, y: 0 })
     const cardRef = React.useRef<HTMLDivElement>(null)
 

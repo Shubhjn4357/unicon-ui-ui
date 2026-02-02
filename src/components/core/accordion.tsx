@@ -50,7 +50,10 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
         {items.map((item, idx) => {
           const isOpen = openItems.has(item.id)
           return (
-            <div key={item.id || idx} className="overflow-hidden rounded-(--radius) border border-border">
+            <div
+              key={item.id || idx}
+              className="overflow-hidden rounded-(--radius) border border-border"
+            >
               <button
                 type="button"
                 onClick={() => toggleItem(item.id)}

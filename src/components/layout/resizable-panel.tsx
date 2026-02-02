@@ -25,10 +25,7 @@ export const ResizablePanel = React.forwardRef<HTMLDivElement, ResizablePanelPro
       <div className="flex h-full">
         <motion.div
           ref={ref}
-          className={cn(
-            "relative overflow-hidden border-r border-border bg-card",
-            className
-          )}
+          className={cn("relative overflow-hidden border-r border-border bg-card", className)}
           style={{ width }}
           {...props}
         >

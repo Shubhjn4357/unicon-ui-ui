@@ -34,7 +34,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = "Card"
 
-export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> { }
+export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ children, className, ...props }, ref) => {
@@ -48,7 +48,7 @@ export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
 
 CardHeader.displayName = "CardHeader"
 
-export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> { }
+export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 
 export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ children, className, ...props }, ref) => {
@@ -69,16 +69,12 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
 
 CardTitle.displayName = "CardTitle"
 
-export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> { }
+export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
 
 export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
   ({ children, className, ...props }, ref) => {
     return (
-      <p
-        ref={ref}
-        className={cn("text-sm text-muted-foreground", className)}
-        {...props}
-      >
+      <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props}>
         {children}
       </p>
     )
@@ -87,7 +83,7 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescri
 
 CardDescription.displayName = "CardDescription"
 
-export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> { }
+export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
   ({ children, className, ...props }, ref) => {
@@ -101,7 +97,7 @@ export const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
 
 CardContent.displayName = "CardContent"
 
-export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> { }
+export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
   ({ children, className, ...props }, ref) => {

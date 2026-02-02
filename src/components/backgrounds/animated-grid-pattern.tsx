@@ -115,9 +115,7 @@ export function AnimatedGridPattern({
               repeatType: "reverse",
             }}
             onAnimationComplete={() => {
-              setSquares((prev) =>
-                prev.map((s) => (s.id === sq.id ? { ...s, pos: getPos() } : s))
-              )
+              setSquares((prev) => prev.map((s) => (s.id === sq.id ? { ...s, pos: getPos() } : s)))
             }}
             width={width - 1}
             height={height - 1}

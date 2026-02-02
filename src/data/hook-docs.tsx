@@ -95,10 +95,25 @@ export const hooks = [
         },
       ],
       props: [
-        { name: "execute", type: "() => Promise<void>", description: "Trigger the async operation", default: "-" },
-        { name: "status", type: "'idle' | 'pending' | 'success' | 'error'", description: "Current status", default: "idle" },
+        {
+          name: "execute",
+          type: "() => Promise<void>",
+          description: "Trigger the async operation",
+          default: "-",
+        },
+        {
+          name: "status",
+          type: "'idle' | 'pending' | 'success' | 'error'",
+          description: "Current status",
+          default: "idle",
+        },
         { name: "value", type: "T | null", description: "Resolved value", default: "null" },
-        { name: "error", type: "Error | null", description: "Error object if failed", default: "null" },
+        {
+          name: "error",
+          type: "Error | null",
+          description: "Error object if failed",
+          default: "null",
+        },
       ],
     },
   },
@@ -108,7 +123,8 @@ export const hooks = [
     description: "Detect clicks outside of a specified element.",
     data: {
       title: "useClickOutside",
-      description: "A hook to handle click events outside a specific DOM element, useful for closing modals or dropdowns.",
+      description:
+        "A hook to handle click events outside a specific DOM element, useful for closing modals or dropdowns.",
       examples: [
         {
           title: "Close on Outside Click",
@@ -117,8 +133,18 @@ export const hooks = [
         },
       ],
       props: [
-        { name: "ref", type: "RefObject<HTMLElement>", description: "Ref of the element to monitor", default: "-" },
-        { name: "handler", type: "(event: MouseEvent | TouchEvent) => void", description: "Function called on outside click", default: "-" },
+        {
+          name: "ref",
+          type: "RefObject<HTMLElement>",
+          description: "Ref of the element to monitor",
+          default: "-",
+        },
+        {
+          name: "handler",
+          type: "(event: MouseEvent | TouchEvent) => void",
+          description: "Function called on outside click",
+          default: "-",
+        },
       ],
     },
   },
@@ -148,7 +174,8 @@ export const hooks = [
     description: "Responsive design hooks for checking screen sizes.",
     data: {
       title: "useResponsive",
-      description: "Use different boolean flags (isMobile, isTablet, isDesktop) based on window width.",
+      description:
+        "Use different boolean flags (isMobile, isTablet, isDesktop) based on window width.",
       examples: [
         {
           title: "Responsive Text",
@@ -158,7 +185,12 @@ export const hooks = [
       ],
       props: [
         { name: "isMobile", type: "boolean", description: "Width < 768px", default: "false" },
-        { name: "isTablet", type: "boolean", description: "768px <= Width < 1024px", default: "false" },
+        {
+          name: "isTablet",
+          type: "boolean",
+          description: "768px <= Width < 1024px",
+          default: "false",
+        },
         { name: "isDesktop", type: "boolean", description: "Width >= 1024px", default: "false" },
       ],
     },
@@ -178,7 +210,12 @@ export const hooks = [
         },
       ],
       props: [
-        { name: "scrollYProgress", type: "MotionValue<number>", description: "Framer Motion value 0-1", default: "0" },
+        {
+          name: "scrollYProgress",
+          type: "MotionValue<number>",
+          description: "Framer Motion value 0-1",
+          default: "0",
+        },
       ],
     },
   },

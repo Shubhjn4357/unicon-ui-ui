@@ -83,9 +83,7 @@ export const RevealLoader = React.forwardRef<HTMLDivElement, RevealLoaderProps>(
                 transition={{ duration: 0.3 }}
               />
             </motion.div>
-            <p className="text-sm text-muted-foreground">
-              {Math.round(progress)}%
-            </p>
+            <p className="text-sm text-muted-foreground">{Math.round(progress)}%</p>
           </div>
         </motion.div>
 

@@ -14,14 +14,16 @@ export interface MeteorsProps extends React.HTMLAttributes<HTMLDivElement> {
  */
 export const Meteors = React.forwardRef<HTMLDivElement, MeteorsProps>(
   ({ number = 20, className, ...props }, ref) => {
-    const [meteors, setMeteors] = React.useState<Array<{
-      id: number
-      left: string
-      animationDelay: string
-      animationDuration: string
-      transitionDuration: number
-      transitionDelay: number
-    }>>([])
+    const [meteors, setMeteors] = React.useState<
+      Array<{
+        id: number
+        left: string
+        animationDelay: string
+        animationDuration: string
+        transitionDuration: number
+        transitionDelay: number
+      }>
+    >([])
 
     React.useEffect(() => {
       const styles = Array.from({ length: number }).map((_, idx) => ({

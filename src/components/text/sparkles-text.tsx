@@ -26,7 +26,15 @@ export const SparklesText = React.forwardRef<HTMLSpanElement, SparklesTextProps>
     ref
   ) => {
     const [sparkles, setSparkles] = React.useState<
-      Array<{ id: number; x: number; y: number; color: string; delay: number; scale: number; duration: number }>
+      Array<{
+        id: number
+        x: number
+        y: number
+        color: string
+        delay: number
+        scale: number
+        duration: number
+      }>
     >([])
 
     const memoizedColors = React.useMemo(() => colors, [colors.first, colors.second])
@@ -68,10 +76,7 @@ export const SparklesText = React.forwardRef<HTMLSpanElement, SparklesTextProps>
               ease: "easeInOut",
             }}
           >
-            <Sparkle
-              className="h-4 w-4 fill-current"
-              style={{ color: sparkle.color }}
-            />
+            <Sparkle className="h-4 w-4 fill-current" style={{ color: sparkle.color }} />
           </motion.div>
         ))}
       </span>

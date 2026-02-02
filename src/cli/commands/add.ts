@@ -1,9 +1,9 @@
-import { Command } from "commander"
-import chalk from "chalk"
-import prompts from "prompts"
-import ora from "ora"
-import { existsSync, promises as fs } from "fs"
+import { promises as fs, existsSync } from "fs"
 import path from "path"
+import chalk from "chalk"
+import { Command } from "commander"
+import ora from "ora"
+import prompts from "prompts"
 import { registry } from "../registry"
 
 const BASE_URL = "https://raw.githubusercontent.com/Shubhjn4357/unicorn-ui/main"
@@ -64,7 +64,6 @@ export const add = new Command()
 
             const targetPath = path.join(targetDir, fileName)
             await fs.writeFile(targetPath, content)
-
           } catch (err) {
             spinner.fail(`Failed to install ${componentName}`)
             console.error(err)
@@ -76,15 +75,15 @@ export const add = new Command()
 
         if (entry.dependencies?.length) {
           console.log(chalk.gray(`  - Dependencies: ${entry.dependencies.join(", ")}`))
-          console.log(chalk.gray(`  (Run 'npm install ${entry.dependencies.join(" ")}' to install)`))
+          console.log(
+            chalk.gray(`  (Run 'npm install ${entry.dependencies.join(" ")}' to install)`)
+          )
         }
       }
 
       console.log(chalk.green("\nDone."))
-
     } catch (error) {
       console.error(chalk.red("Failed to add components:"))
       console.error(error)
     }
   })
-

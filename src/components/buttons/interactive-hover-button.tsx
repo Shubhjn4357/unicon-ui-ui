@@ -8,7 +8,7 @@ export interface InteractiveHoverButtonProps
   extends Omit<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart" | "onAnimationEnd"
-  > { }
+  > {}
 
 /**
  * Native InteractiveHoverButton - Mouse tracking hover effect

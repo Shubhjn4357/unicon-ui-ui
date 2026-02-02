@@ -4,39 +4,39 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowRight, BookOpen, Code, Layers, Palette, Rocket, Sparkles, Zap } from "lucide-react"
 import Link from "next/link"
 import { useRef } from "react"
+import { useState } from "react"
 import {
   AnimatedGradientText,
   AnimatedShinyText,
   AuroraBackground,
   BentoGrid,
   Button,
-  GlowBorderCard,
-  GridPattern,
-  Marquee,
-  OrbitingCircles,
-  ShootingStars,
-  SparklesText,
-  Stars,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  GlowBorderCard,
+  GridPattern,
+  Marquee,
+  OrbitingCircles,
   Sheet,
-  SheetTrigger,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-  useToast,
+  SheetTrigger,
+  ShootingStars,
+  SparklesText,
+  Stars,
   ToastProvider,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
   cn,
+  useToast,
 } from "../src"
-import { useState } from "react"
 
 const features = [
   {
@@ -148,8 +148,8 @@ export default function LandingPage() {
                 />
               </h1>
               <AnimatedShinyText className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                A modern React component library with 5 stunning design styles. Built with TypeScript,
-                Tailwind CSS v4, and Framer Motion.
+                A modern React component library with 5 stunning design styles. Built with
+                TypeScript, Tailwind CSS v4, and Framer Motion.
               </AnimatedShinyText>
             </motion.div>
 
@@ -221,7 +221,12 @@ export default function LandingPage() {
               {features.map((feature) => (
                 <GlowBorderCard
                   key={feature.title}
-                  className={cn("p-8 space-y-4", feature.title === "5 Design Styles" || feature.title === "Framer Motion" ? "md:col-span-2" : "")}
+                  className={cn(
+                    "p-8 space-y-4",
+                    feature.title === "5 Design Styles" || feature.title === "Framer Motion"
+                      ? "md:col-span-2"
+                      : ""
+                  )}
                 >
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-primary/10">{feature.icon}</div>
@@ -321,9 +326,7 @@ function SheetDemo() {
               Make changes to your profile here. Click save when you're done.
             </SheetDescription>
           </SheetHeader>
-          <div className="py-8 text-center text-muted-foreground">
-            Content goes here...
-          </div>
+          <div className="py-8 text-center text-muted-foreground">Content goes here...</div>
           <div className="flex justify-end">
             <Button onClick={() => setOpen(false)}>Save Changes</Button>
           </div>
@@ -338,11 +341,13 @@ function ToastDemo() {
   return (
     <Button
       variant="ghost"
-      onClick={() => addToast({
-        title: "Success",
-        description: "Your changes have been saved.",
-        type: "success"
-      })}
+      onClick={() =>
+        addToast({
+          title: "Success",
+          description: "Your changes have been saved.",
+          type: "success",
+        })
+      }
     >
       Trigger Toast
     </Button>

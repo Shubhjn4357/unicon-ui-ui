@@ -1,10 +1,10 @@
+import { ComponentPlayground } from "@/components/docs/component-playground"
 import { DocumentationPage } from "@/components/docs/documentation-page"
 import { ComponentPageSkeleton } from "@/components/skeletons/component-page-skeleton"
 import { getComponentBySlug } from "@/data/component-docs" // Using the new data file
-import { ComponentPlayground } from "@/components/docs/component-playground"
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
-import { Metadata } from "next"
 
 interface ComponentPageProps {
   params: Promise<{
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: ComponentPageProps): Promise<
   const component = getComponentBySlug(slug)
 
   if (!component) {
-    return { title: 'Component Not Found' }
+    return { title: "Component Not Found" }
   }
 
   return {

@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useInView, UseInViewOptions } from "framer-motion"
+import { type UseInViewOptions, motion, useInView } from "framer-motion"
 import * as React from "react"
 import { cn } from "../../lib/utils"
 
@@ -10,10 +10,10 @@ interface InViewProps {
   options?: UseInViewOptions
 }
 
-export function InView({ 
-  children, 
+export function InView({
+  children,
   className,
-  options = { once: true, amount: 0.3 }
+  options = { once: true, amount: 0.3 },
 }: InViewProps) {
   const ref = React.useRef(null)
   const isInView = useInView(ref, options)

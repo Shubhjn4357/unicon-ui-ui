@@ -55,7 +55,7 @@ export const PopoverTrigger = React.forwardRef<
 
   const combinedRef = React.useCallback(
     (node: HTMLButtonElement) => {
-      ; (context.triggerRef as React.MutableRefObject<HTMLButtonElement | null>).current = node
+      ;(context.triggerRef as React.MutableRefObject<HTMLButtonElement | null>).current = node
       if (typeof ref === "function") ref(node)
       else if (ref) ref.current = node
     },

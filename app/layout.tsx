@@ -1,7 +1,7 @@
 import "../dist/styles.css"
 import "./globals.css"
 import { LayoutContent } from "@/app/components/layout/layout-content"
-import { DesignStyleProvider, ThemeProvider, SmoothScroll } from "@unicorn-ui/ui"
+import { DesignStyleProvider, SmoothScroll, ThemeProvider } from "@unicorn-ui/ui"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {

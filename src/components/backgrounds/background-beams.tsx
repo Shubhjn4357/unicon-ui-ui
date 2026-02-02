@@ -2,7 +2,7 @@ import { motion } from "framer-motion"
 import * as React from "react"
 import { cn } from "../../lib/utils"
 
-export interface BackgroundBeamsProps extends React.HTMLAttributes<HTMLDivElement> { }
+export interface BackgroundBeamsProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const BackgroundBeams = React.forwardRef<HTMLDivElement, BackgroundBeamsProps>(
   ({ className, ...props }, ref) => {

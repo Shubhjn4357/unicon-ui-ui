@@ -15,10 +15,7 @@ export interface SpotlightProps extends React.HTMLAttributes<HTMLDivElement> {
  - Mouse-following spotlight beam
  */
 export const Spotlight = React.forwardRef<HTMLDivElement, SpotlightProps>(
-  (
-    { size = 600, color = "hsl(var(--primary) / 0.15)", className, ...props },
-    ref
-  ) => {
+  ({ size = 600, color = "hsl(var(--primary) / 0.15)", className, ...props }, ref) => {
     const mouseX = useMotionValue(0)
     const mouseY = useMotionValue(0)
 

@@ -11,11 +11,11 @@ interface MagneticWrapperProps {
   range?: number
 }
 
-export function MagneticWrapper({ 
-  children, 
-  className, 
-  intensity = 0.5, 
-  range = 100 
+export function MagneticWrapper({
+  children,
+  className,
+  intensity = 0.5,
+  range = 100,
 }: MagneticWrapperProps) {
   const ref = React.useRef<HTMLDivElement>(null)
   const [position, setPosition] = React.useState({ x: 0, y: 0 })
@@ -34,9 +34,9 @@ export function MagneticWrapper({
 
     // If mouse is close enough, act magnetic
     if (Math.abs(distanceX) < width + range && Math.abs(distanceY) < height + range) {
-      setPosition({ 
+      setPosition({
         x: distanceX * intensity,
-        y: distanceY * intensity 
+        y: distanceY * intensity,
       })
     } else {
       setPosition({ x: 0, y: 0 })
@@ -54,11 +54,11 @@ export function MagneticWrapper({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       animate={{ x: position.x, y: position.y }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 150, 
-        damping: 15, 
-        mass: 0.1 
+      transition={{
+        type: "spring",
+        stiffness: 150,
+        damping: 15,
+        mass: 0.1,
       }}
     >
       {children}

@@ -13,11 +13,7 @@
     },
     "./styles": "./dist/styles.css"
   },
-  "files": [
-    "dist",
-    "README.md",
-    "CHANGELOG.md"
-  ],
+  "files": ["dist", "README.md", "CHANGELOG.md"],
   "scripts": {
     "dev": "concurrently \"next dev\" \"tsup --watch\"",
     "dev:docs": "next dev",
