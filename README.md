@@ -2,9 +2,9 @@
 
 A modern, production-ready React component library with **131 components** featuring advanced design styles including Claymorphism, Liquid Glass, Glassmorphism, Skeuomorphism, and Minimalism. Built with TypeScript, Tailwind CSS v4, and Framer Motion.
 
-[![npm version](https://img.shields.io/npm/v/@unicorn-ui/ui.svg)](https://www.npmjs.com/package/@unicorn-ui/ui)
-[![License](https://img.shields.io/npm/l/@unicorn-ui/ui.svg)](https://github.com/yourusername/unicorn-ui/blob/main/LICENSE)
-[![CI](https://github.com/yourusername/unicorn-ui/workflows/CI/badge.svg)](https://github.com/yourusername/unicorn-ui/actions)
+[![npm version](https://img.shields.io/npm/v/@unicorn-ui/ui.svg)](https://www.npmjs.com/package/@unicorn_ui/ui)
+[![License](https://img.shields.io/npm/l/@unicorn-ui/ui.svg)](https://github.com/Shubhjn4357/unicorn-ui-ui/blob/main/LICENSE)
+[![CI](https://github.com/Shubhjn4357/unicorn-ui-ui/workflows/CI/badge.svg)](https://github.com/Shubhjn4357/unicorn-ui-ui/actions)
 
 ## ✨ Features
 
@@ -21,11 +21,11 @@ A modern, production-ready React component library with **131 components** featu
 ## 📦 Installation
 
 ```bash
-npm install @unicorn-ui/ui
+npm install @unicorn_ui/ui
 # or
-pnpm add @unicorn-ui/ui
+pnpm add @unicorn_ui/ui
 # or
-yarn add @unicorn-ui/ui
+yarn add @unicorn_ui/ui
 ```
 
 ### Peer Dependencies
@@ -41,7 +41,7 @@ npm install react react-dom framer-motion tailwindcss
 Add to your `app/layout.tsx` or `_app.tsx`:
 
 ```tsx
-import '@unicorn-ui/ui/dist/styles.css'
+import '@unicorn_ui/ui/dist/styles.css'
 ```
 
 ### 2. Configure Tailwind
@@ -73,7 +73,7 @@ export default config
 ### 3. Use Components
 
 ```tsx
-import { Button, Card, AnimatedGradientText } from '@unicorn-ui/ui'
+import { Button, Card, AnimatedGradientText } from '@unicorn_ui/ui'
 
 export default function App() {
   return (
@@ -90,6 +90,7 @@ export default function App() {
 ## 📚 Component Categories
 
 ### Animation (1)
+
 `FadeIn`
 
 ### Backgrounds (14)
@@ -152,6 +153,7 @@ export default function App() {
 ## 🛠️ Development
 
 ### Prerequisites
+
 - Node.js 20+
 - pnpm 9+
 
@@ -159,8 +161,8 @@ export default function App() {
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/unicorn-ui.git
-cd unicorn-ui
+git clone https://github.com/Shubhjn4357/unicorn-ui-ui.git
+cd unicorn-ui-ui
 
 # Install dependencies
 pnpm install
@@ -211,9 +213,8 @@ This creates:
 - `src/components/buttons/my-button.tsx`
 - Automatically updates exports in `src/index.ts`
 
-## 🔄 Version Management
 
-We use [Changesets](https://github.com/changesets/changesets) for version management:
+## 🔄 Version Management
 
 ### 1. Create a Changeset
 
@@ -249,6 +250,7 @@ Or let GitHub Actions handle it automatically when you push to `main`.
 ### GitHub Actions Workflows
 
 #### CI (`ci.yml`)
+
 Runs on every push and PR:
 - ✅ Linting
 - ✅ Type checking
@@ -256,6 +258,7 @@ Runs on every push and PR:
 - ✅ Documentation build
 
 #### Release (`release.yml`)
+
 Runs on push to `main`:
 - 📦 Automatic version bumping
 - 📝 Changelog generation
@@ -272,7 +275,7 @@ Add to GitHub repository secrets:
 
 ## 📖 Documentation
 
-Visit our [documentation site](https://yourusername.github.io/unicorn-ui) for:
+Visit our [documentation site](https://Shubhjn4357.github.io/unicorn-ui-ui) for:
 - Interactive component demos
 - API documentation
 - Design guidelines
@@ -294,11 +297,10 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ## 📄 License
 
-MIT © [Your Name](https://github.com/yourusername)
+MIT © [Shubhjn4357](https://github.com/Shubhjn4357)
 
 ## 🙏 Acknowledgments
 
-- Inspired by [VengenceUI](https://vengence.ui)
 - Built with [Tailwind CSS](https://tailwindcss.com)
 - Animated with [Framer Motion](https://www.framer.com/motion)
 - Powered by [Next.js](https://nextjs.org)
@@ -315,11 +317,11 @@ MIT © [Your Name](https://github.com/yourusername)
 
 ## 🔗 Links
 
-- [Documentation](https://yourusername.github.io/unicorn-ui)
-- [npm Package](https://www.npmjs.com/package/@unicorn-ui/ui)
-- [GitHub](https://github.com/yourusername/unicorn-ui)
+- [Documentation](https://Shubhjn4357.github.io/unicorn-ui-ui)
+- [npm Package](https://www.npmjs.com/package/@unicorn_ui/ui)
+- [GitHub](https://github.com/Shubhjn4357/unicorn-ui-ui)
 - [Changelog](CHANGELOG.md)
-- [Issues](https://github.com/yourusername/unicorn-ui/issues)
+- [Issues](https://github.com/Shubhjn4357/unicorn-ui-ui/issues)
 
 ---
 

@@ -20,120 +20,27 @@ import {
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-// Component Categories
-const CATEGORIES = [
-  {
-    name: "Core",
-    icon: <Box className="h-4 w-4" />,
-    items: [
-      "Accordion",
-      "Alert",
-      "Avatar",
-      "Badge",
-      "Button",
-      "Card",
-      "Checkbox",
-      "Dialog",
-      "Dropdown",
-      "Input",
-      "Label",
-      "Progress",
-      "Radio",
-      "Select",
-      "Slider",
-      "Switch",
-      "Textarea",
-    ],
-  },
-  {
-    name: "Layout",
-    icon: <LayoutGrid className="h-4 w-4" />,
-    items: [
-      "Animated Tabs",
-      "Avatar Circles",
-      "Bento Grid",
-      "Collapsible Sidebar",
-      "Dock",
-      "File Tree",
-      "Marquee",
-      "Sidebar",
-      "Split Layout",
-      "Tabs",
-      "Timeline",
-    ],
-  },
-  {
-    name: "Text",
-    icon: <Type className="h-4 w-4" />,
-    items: [
-      "Animated Gradient Text",
-      "Blur Text",
-      "Fade Text",
-      "Flip Text",
-      "Hyper Text",
-      "Morphing Text",
-      "Number Ticker",
-      "Sparkles Text",
-      "Typing Text",
-      "Word Pull Up",
-    ],
-  },
-  {
-    name: "Backgrounds",
-    icon: <Image className="h-4 w-4" />,
-    items: [
-      "Aurora Background",
-      "Dot Pattern",
-      "Grid Pattern",
-      "Meteors",
-      "Particles",
-      "Retro Grid",
-      "Shooting Stars",
-      "Stars",
-    ],
-  },
-  {
-    name: "Special",
-    icon: <Zap className="h-4 w-4" />,
-    items: [
-      "3D Card",
-      "Animated Beam",
-      "Border Beam",
-      "Confetti",
-      "Cool Mode",
-      "Magic Card",
-      "Orbiting Circles",
-      "Shimmer Button",
-      "Velocity Scroll",
-    ],
-  },
-  {
-    name: "Docs",
-    icon: <BookOpen className="h-4 w-4" />,
-    items: [
-      "Component Playground",
-    ],
-  },
-]
+import { getSidebarData } from "@/data/component-docs" 
 
 export function DocsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
-  const componentAccordionItems = CATEGORIES.map((category) => ({
+  const sidebarData = getSidebarData()
+
+  const componentAccordionItems = sidebarData.map((category) => ({
     id: category.name,
     title: category.name,
     content: (
       <div className="flex flex-col space-y-1 pl-2">
         {category.items.map((item) => {
-          const slug = item.toLowerCase().replace(/\s+/g, "-")
-          const href = `/docs/components/${slug}`
+          const href = `/docs/components/${item.slug}`
           return (
-            <Link key={slug} href={href} className="block">
+            <Link key={item.slug} href={href} className="block">
               <SidebarItem
                 active={pathname === href}
                 className="text-sm py-1.5 h-auto text-muted-foreground aria-[current=page]:text-foreground"
               >
-                {item}
+                {item.title}
               </SidebarItem>
             </Link>
           )
@@ -197,22 +104,6 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
               className="w-full space-y-1"
             />
           </div>
-
-          <SidebarSection title="Hooks">
-            <Link href="/docs/hooks/use-theme" className="block">
-              <SidebarItem active={pathname === "/docs/hooks/use-theme"}>useTheme</SidebarItem>
-            </Link>
-            <Link href="/docs/hooks/use-window-size" className="block">
-              <SidebarItem active={pathname === "/docs/hooks/use-window-size"}>
-                useWindowSize
-              </SidebarItem>
-            </Link>
-            <Link href="/docs/hooks/use-copy-to-clipboard" className="block">
-              <SidebarItem active={pathname === "/docs/hooks/use-copy-to-clipboard"}>
-                useCopyToClipboard
-              </SidebarItem>
-            </Link>
-          </SidebarSection>
         </div>
       </CollapsibleSidebar>
       <main className="flex-1 overflow-y-auto bg-background">{children}</main>

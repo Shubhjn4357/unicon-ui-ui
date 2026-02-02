@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "../../lib/utils"
-import { ChevronRight } from "lucide-react"
+// import { ChevronRight } from "lucide-react" // Not used in this version
 
 // --- Context ---
 interface DropdownContextType {
@@ -47,10 +47,20 @@ interface DropdownTriggerProps {
   className?: string
 }
 
-export function DropdownMenuTrigger({ children, className }: DropdownTriggerProps) {
+export function DropdownMenuTrigger({ children, className, asChild }: DropdownTriggerProps) {
   const context = React.useContext(DropdownContext)
   if (!context) throw new Error("DropdownMenuTrigger must be used within DropdownMenu")
   const { isOpen, setIsOpen } = context
+
+  if (asChild && React.isValidElement(children)) {
+    return React.cloneElement(children as React.ReactElement<any>, {
+      onClick: (e: any) => {
+        (children as React.ReactElement<any>).props.onClick?.(e)
+        setIsOpen(!isOpen)
+      },
+      className: cn((children as React.ReactElement<any>).props.className, className, "cursor-pointer")
+    })
+  }
 
   return (
     <div

@@ -56,7 +56,7 @@ export function ComponentPlayground({ doc }: ComponentPlaygroundProps) {
                 <p className="text-lg text-muted-foreground">{doc.description}</p>
             </div>
 
-            <Tabs defaultValue="preview" className="w-full" onValueChange={setActiveTab}>
+            <Tabs defaultValue="preview" value={activeTab} className="w-full" onValueChange={setActiveTab}>
                 <div className="flex items-center justify-between mb-4">
                     <TabsList>
                         <TabsTrigger value="preview" className="flex items-center gap-2">

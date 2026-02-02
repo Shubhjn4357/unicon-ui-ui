@@ -18,6 +18,8 @@ import {
   SparklesText,
   Stars,
   Tooltip,
+  TooltipTrigger,
+  TooltipContent,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -25,6 +27,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   Sheet,
+  SheetTrigger,
+  SheetContent,
   SheetHeader,
   SheetTitle,
   SheetDescription,
@@ -247,8 +251,13 @@ export default function LandingPage() {
 
             <div className="flex flex-wrap justify-center gap-8 items-center bg-card p-8 rounded-xl border border-border">
               {/* Tooltip Demo */}
-              <Tooltip content="This is a smooth tooltip">
-                <Button variant="outline">Hover Me (Tooltip)</Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline">Hover Me (Tooltip)</Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>This is a smooth tooltip</p>
+                </TooltipContent>
               </Tooltip>
 
               {/* Dropdown Demo */}
@@ -301,20 +310,24 @@ function SheetDemo() {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <Button variant="secondary" onClick={() => setOpen(true)}>Open Sheet</Button>
-      <Sheet isOpen={open} onClose={() => setOpen(false)}>
-        <SheetHeader>
-          <SheetTitle>Edit Profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
-          </SheetDescription>
-        </SheetHeader>
-        <div className="py-8 text-center text-muted-foreground">
-          Content goes here...
-        </div>
-        <div className="flex justify-end">
-          <Button onClick={() => setOpen(false)}>Save Changes</Button>
-        </div>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger asChild>
+          <Button variant="secondary">Open Sheet</Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Edit Profile</SheetTitle>
+            <SheetDescription>
+              Make changes to your profile here. Click save when you're done.
+            </SheetDescription>
+          </SheetHeader>
+          <div className="py-8 text-center text-muted-foreground">
+            Content goes here...
+          </div>
+          <div className="flex justify-end">
+            <Button onClick={() => setOpen(false)}>Save Changes</Button>
+          </div>
+        </SheetContent>
       </Sheet>
     </>
   )

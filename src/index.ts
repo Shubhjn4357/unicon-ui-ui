@@ -43,7 +43,7 @@ export {
   SidebarSection,
   SidebarItem,
 } from "./components/layout/collapsible-sidebar-new"
-export { Dock } from "./components/layout/dock"
+export { Dock, DockIcon } from "./components/layout/dock"
 export { DottedMap } from "./components/layout/dotted-map"
 export { ExpandableBentoCard } from "./components/layout/expandable-bento-card"
 export { GlassDock } from "./components/layout/glass-dock"

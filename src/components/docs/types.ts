@@ -23,6 +23,7 @@ export interface ComponentStory {
 export interface ComponentDoc {
   slug: string
   title: string
+  category: string
   description: string
   component: React.ComponentType<any>
   props: PropDefinition[]

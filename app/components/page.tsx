@@ -167,31 +167,6 @@ export default function ComponentsPage() {
       <div className="fixed inset-0 -z-10">
         <GridPattern className="absolute inset-0 opacity-10" />
       </div>
-
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold">Unicorn UI</span>
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="/components" className="text-sm font-medium text-primary">
-              Components
-            </Link>
-            <Link
-              href="/hooks"
-              className="text-sm font-medium transition-colors hover:text-primary"
-            >
-              Hooks
-            </Link>
-            <Link href="/docs" className="text-sm font-medium transition-colors hover:text-primary">
-              Docs
-            </Link>
-          </nav>
-        </div>
-      </header>
-
       {/* Hero */}
       <section className="container py-24 space-y-8">
         <motion.div

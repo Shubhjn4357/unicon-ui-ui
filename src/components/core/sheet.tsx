@@ -1,27 +1,73 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React, { useState, createContext, useContext, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { cn } from "../../lib/utils"
 import { X } from "lucide-react"
+import { cn } from "../../lib/utils"
+
+// --- Context ---
+
+interface SheetContextProps {
+  isOpen: boolean
+  setIsOpen: (open: boolean) => void
+}
+
+const SheetContext = createContext<SheetContextProps | undefined>(undefined)
+
+const useSheet = () => {
+  const context = useContext(SheetContext)
+  if (!context) throw new Error("useSheet must be used within Sheet")
+  return context
+}
+
+// --- Components ---
 
 interface SheetProps {
-  isOpen: boolean
-  onClose: () => void
   children: React.ReactNode
-  position?: "left" | "right" | "top" | "bottom"
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}
+
+export function Sheet({ children, open, onOpenChange }: SheetProps) {
+  const [internalOpen, setInternalOpen] = useState(false)
+  const isControlled = open !== undefined
+  const isOpen = isControlled ? open : internalOpen
+
+  const setIsOpen = (newOpen: boolean) => {
+    if (!isControlled) setInternalOpen(newOpen)
+    onOpenChange?.(newOpen)
+  }
+
+  return (
+    <SheetContext.Provider value={{ isOpen, setIsOpen }}>
+      {children}
+    </SheetContext.Provider>
+  )
+}
+
+export function SheetTrigger({ children, asChild, className }: { children: React.ReactNode, asChild?: boolean, className?: string }) {
+  const { setIsOpen } = useSheet()
+  return (
+    <div
+      role="button"
+      className={cn("inline-block", className)}
+      onClick={() => setIsOpen(true)}
+    >
+      {children}
+    </div>
+  )
+}
+
+interface SheetContentProps {
+  children: React.ReactNode
+  side?: "left" | "right" | "top" | "bottom"
   className?: string
   overlayClassName?: string
 }
 
-export function Sheet({
-  isOpen,
-  onClose,
-  children,
-  position = "right",
-  className,
-  overlayClassName,
-}: SheetProps) {
+export function SheetContent({ children, side = "right", className, overlayClassName }: SheetContentProps) {
+  const { isOpen, setIsOpen } = useSheet()
+
   // Lock body scroll
   useEffect(() => {
     if (isOpen) {
@@ -43,8 +89,6 @@ export function Sheet({
 
   const active = { x: 0, y: 0, opacity: 1 }
 
-  const sharedStyles = "fixed z-50 bg-background shadow-2xl p-6 transition-all duration-300 ease-in-out"
-
   const positionStyles = {
     left: "inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
     right: "inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
@@ -61,58 +105,45 @@ export function Sheet({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
-            className={cn(
-              "fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px]",
-              overlayClassName
-            )}
-          />
-          {/* Content */}
-          <motion.div
-            initial={variants[position]}
-            animate={active}
-            exit={variants[position]}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className={cn(sharedStyles, positionStyles[position], className)}
-          >
-            <button
-              onClick={onClose}
-              className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-secondary"
+              onClick={() => setIsOpen(false)}
+              className={cn("fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]", overlayClassName)}
+            />
+            {/* Content */}
+            <motion.div
+              initial={variants[side]}
+              animate={active}
+              exit={variants[side]}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className={cn(
+                "fixed z-50 bg-background shadow-2xl p-6 transition-all duration-300 ease-in-out",
+                positionStyles[side],
+                className
+              )}
             >
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </button>
-            {children}
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  )
+              <button
+                onClick={() => setIsOpen(false)}
+                className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close</span>
+              </button>
+              {children}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    )
 }
 
-export function SheetHeader({
-  className,
-  children,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+export function SheetHeader({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div
-      className={cn(
-        "flex flex-col space-y-2 text-center sm:text-left mb-6",
-        className
-      )}
-      {...props}
-    >
+    <div className={cn("flex flex-col space-y-2 text-center sm:text-left mb-6", className)} {...props}>
       {children}
     </div>
   )
 }
 
-export function SheetTitle({
-  className,
-  children,
-  ...props
-}: React.HTMLAttributes<HTMLHeadingElement>) {
+export function SheetTitle({ className, children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h2 className={cn("text-lg font-semibold text-foreground", className)} {...props}>
       {children}
@@ -120,11 +151,7 @@ export function SheetTitle({
   )
 }
 
-export function SheetDescription({
-  className,
-  children,
-  ...props
-}: React.HTMLAttributes<HTMLParagraphElement>) {
+export function SheetDescription({ className, children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p className={cn("text-sm text-neutral-500 dark:text-neutral-400", className)} {...props}>
       {children}
