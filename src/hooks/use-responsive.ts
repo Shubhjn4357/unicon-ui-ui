@@ -124,30 +124,15 @@ export function useScrollPosition() {
 }
 
 /**
- * Hook for detecting clicks outside an element
- * @param ref - React ref to the element
- * @param handler - Callback when click outside occurs
+ * Hook for responsive breakpoints
+ * @returns { isMobile, isTablet, isDesktop }
  */
-export function useClickOutside<T extends HTMLElement>(
-  ref: React.RefObject<T>,
-  handler: (event: MouseEvent | TouchEvent) => void
-) {
-  useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
-      if (!ref.current || ref.current.contains(event.target as Node)) {
-        return
-      }
-      handler(event)
-    }
+export function useResponsive() {
+  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isTablet = useMediaQuery("(min-width: 769px) and (max-width: 1024px)")
+  const isDesktop = useMediaQuery("(min-width: 1025px)")
 
-    document.addEventListener("mousedown", listener)
-    document.addEventListener("touchstart", listener)
-
-    return () => {
-      document.removeEventListener("mousedown", listener)
-      document.removeEventListener("touchstart", listener)
-    }
-  }, [ref, handler])
+  return { isMobile, isTablet, isDesktop }
 }
 
 /**

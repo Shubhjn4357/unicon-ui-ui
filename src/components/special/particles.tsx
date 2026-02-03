@@ -7,6 +7,7 @@ export interface ParticlesProps extends React.HTMLAttributes<HTMLDivElement> {
   quantity?: number
   staticity?: number
   ease?: number
+  color?:string
   refresh?: boolean
 }
 
@@ -15,7 +16,7 @@ export interface ParticlesProps extends React.HTMLAttributes<HTMLDivElement> {
  * Optimized with requestAnimationFrame
  */
 export const Particles = React.forwardRef<HTMLDivElement, ParticlesProps>(
-  ({ quantity = 30, staticity = 50, ease = 50, refresh = false, className, ...props }, _ref) => {
+  ({ quantity = 30, staticity = 50, ease = 50, refresh = false,color ="0 0%" ,className, ...props }, _ref) => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null)
     const canvasContainerRef = React.useRef<HTMLDivElement>(null)
     const context = React.useRef<CanvasRenderingContext2D | null>(null)
@@ -70,7 +71,7 @@ export const Particles = React.forwardRef<HTMLDivElement, ParticlesProps>(
         context.current.translate(translateX, translateY)
         context.current.beginPath()
         context.current.arc(x, y, size, 0, 2 * Math.PI)
-        context.current.fillStyle = `rgba(255, 255, 255, ${alpha})`
+        context.current.fillStyle = `hsla(${color}, ${alpha}%)`
         context.current.fill()
         context.current.setTransform(1, 0, 0, 1, 0, 0)
 

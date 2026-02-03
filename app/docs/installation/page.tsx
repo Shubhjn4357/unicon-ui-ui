@@ -2,22 +2,23 @@
 
 import { Badge, Button, Card, GridPattern } from "@unicorn-ui/ui"
 import { motion } from "framer-motion"
-import { Check, FileCode, Package, Sparkles, Terminal } from "lucide-react"
+import { Check, Package, Terminal } from "lucide-react"
 import Link from "next/link"
+import { siteConfig } from "@/config/site"
 
 const steps = [
   {
     title: "Install the package",
-    description: "Add Unicorn UI to your project using your preferred package manager",
+    description: `Add ${siteConfig.name} to your project using your preferred package manager`,
     commands: [
-      { label: "npm", code: "npm install @unicorn-ui/ui" },
-      { label: "pnpm", code: "pnpm add @unicorn-ui/ui" },
-      { label: "yarn", code: "yarn add @unicorn-ui/ui" },
+      { label: "npm", code: `npm install ${siteConfig.npmPackage}` },
+      { label: "pnpm", code: `pnpm add ${siteConfig.npmPackage}` },
+      { label: "yarn", code: `yarn add ${siteConfig.npmPackage}` },
     ],
   },
   {
     title: "Install peer dependencies",
-    description: "Unicorn UI requires these packages to work properly",
+    description: `${siteConfig.name} requires these packages to work properly`,
     commands: [
       {
         label: "npm",
@@ -35,9 +36,9 @@ const steps = [
   },
   {
     title: "Import styles",
-    description: "Add the Unicorn UI styles to your root layout or main CSS file",
+    description: `Add the ${siteConfig.name} styles to your root layout or main CSS file`,
     code: `// app/layout.tsx or pages/_app.tsx
-import '@unicorn-ui/ui/styles'
+import '${siteConfig.npmPackage}/styles'
 
 export default function RootLayout({ children }) {
   return (
@@ -61,14 +62,14 @@ export default defineConfig({
   },
   {
     title: "Start using components",
-    description: "Import and use Unicorn UI components in your application",
-    code: `import { Button, Card, Badge } from '@unicorn-ui/ui'
+    description: `Import and use ${siteConfig.name} components in your application`,
+    code: `import { Button, Card, Badge } from '${siteConfig.npmPackage}'
 
 export default function App() {
   return (
     <Card className="p-8">
       <h1 className="text-2xl font-bold mb-4">
-        Welcome to Unicorn UI
+        Welcome to ${siteConfig.name}
       </h1>
       <Badge>New</Badge>
       <Button className="mt-4">Get Started</Button>
@@ -99,7 +100,7 @@ export default function InstallationPage() {
           </Badge>
           <h1 className="text-5xl font-bold tracking-tight">Installation Guide</h1>
           <p className="text-xl text-muted-foreground">
-            Get started with Unicorn UI in your React project. Follow these simple steps to install
+            Get started with {siteConfig.name} in your React project. Follow these simple steps to install
             and configure the library.
           </p>
         </motion.div>
@@ -171,7 +172,7 @@ export default function InstallationPage() {
                 <h3 className="font-semibold">React 18+</h3>
               </div>
               <p className="text-sm text-muted-foreground">
-                Unicorn UI requires React 18 or higher for concurrent features
+                {siteConfig.name} requires React 18 or higher for concurrent features
               </p>
             </Card>
 
@@ -213,7 +214,7 @@ export default function InstallationPage() {
         <Card className="p-12 text-center space-y-6 bg-linear-to-br from-primary/5 to-primary/10">
           <h2 className="text-3xl font-bold">Next Steps</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Now that you've installed Unicorn UI, explore the components and start building!
+            Now that you've installed {siteConfig.name}, explore the components and start building!
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link href="/components">

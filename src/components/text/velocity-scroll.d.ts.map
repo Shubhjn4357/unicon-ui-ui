@@ -1,1 +1,0 @@
-{"version":3,"file":"velocity-scroll.d.ts","sourceRoot":"","sources":["velocity-scroll.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAI9B,MAAM,WAAW,mBAAoB,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IAC7E,IAAI,EAAE,MAAM,CAAA;IACZ,eAAe,CAAC,EAAE,MAAM,CAAA;IACxB,SAAS,CAAC,EAAE,MAAM,CAAA;CACrB;AAiDD;;GAEG;AACH,eAAO,MAAM,cAAc,4FAS1B,CAAA"}

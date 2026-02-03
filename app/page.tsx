@@ -1,355 +1,268 @@
 "use client"
 
-import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowRight, BookOpen, Code, Layers, Palette, Rocket, Sparkles, Zap } from "lucide-react"
+import { AnimatedBeam } from "@/components/special/animated-beam"
+import { BorderBeam } from "@/components/special/border-beam"
+import { MagicCard } from "@/components/special/magic-card"
+import { Meteors } from "@/components/special/meteors"
+import { Particles } from "@/components/special/particles"
+import { AuroraBackground } from "@/components/backgrounds/aurora-background"
+import { AnimatedGradientText } from "@/components/text/animated-gradient-text"
+import { NumberTicker } from "@/components/text/number-ticker"
+import { BentoCard, BentoGrid } from "@/components/layout/bento-grid"
+import { Button } from "@/components/core/button"
+import { ShimmerButton } from "@/components/buttons/shimmer-button"
+import { Card } from "@/components/core/card"
+import { Badge } from "@/components/core/badge"
+import { useDesignStyle } from "@unicorn-ui/ui"
+import { Calendar, Code2, Sparkles, Zap, Palette, Rocket } from "lucide-react"
 import Link from "next/link"
-import { useRef } from "react"
-import { useState } from "react"
-import {
-  AnimatedGradientText,
-  AnimatedShinyText,
-  AuroraBackground,
-  BentoGrid,
-  Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  GlowBorderCard,
-  GridPattern,
-  Marquee,
-  OrbitingCircles,
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  ShootingStars,
-  SparklesText,
-  Stars,
-  ToastProvider,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  cn,
-  useToast,
-} from "../src"
 
-const features = [
-  {
-    icon: <Palette className="h-6 w-6 text-primary" />,
-    title: "5 Design Styles",
-    description:
-      "Claymorphism, Liquid Glass, Glassmorphism, Skeuomorphism, and Minimalism - all in one library",
-  },
-  {
-    icon: <Code className="h-6 w-6 text-primary" />,
-    title: "TypeScript First",
-    description: "Fully typed components with excellent IntelliSense support and type safety",
-  },
-  {
-    icon: <Layers className="h-6 w-6 text-primary" />,
-    title: "131 Components",
-    description:
-      "Comprehensive library covering buttons, layouts, animations, backgrounds, text effects, and more",
-  },
-  {
-    icon: <Sparkles className="h-6 w-6 text-primary" />,
-    title: "Framer Motion",
-    description: "Smooth, production-ready animations powered by Framer Motion",
-  },
-  {
-    icon: <Zap className="h-6 w-6 text-primary" />,
-    title: "18 Custom Hooks",
-    description: "Powerful hooks for responsive design, async operations, and state management",
-  },
-]
+export default function HomePage() {
+  const { designStyle, setDesignStyle } = useDesignStyle()
 
-const designStyles = [
-  {
-    name: "Claymorphism",
-    description: "Soft, tactile 3D effects",
-    className:
-      "clay bg-linear-to-br from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20",
-  },
-  {
-    name: "Liquid Glass",
-    description: "Flowing, animated gradients",
-    className: "liquid-glass",
-  },
-  {
-    name: "Glassmorphism",
-    description: "Frosted glass aesthetics",
-    className: "glass bg-linear-to-br from-blue-500/20 to-purple-500/20",
-  },
-  {
-    name: "Skeuomorphism",
-    description: "Realistic 3D interfaces",
-    className: "skeu bg-linear-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800",
-  },
-  {
-    name: "Minimalism",
-    description: "Clean and simple",
-    className: "minimal minimal-hover bg-background border-2 border-border",
-  },
-]
+  const features = [
+    {
+      Icon: Code2,
+      name: "131+ Components",
+      description: "Production-ready React components with TypeScript support",
+      className: "col-span-3 lg:col-span-1",
+      background: (
+        <Particles
+          className="absolute inset-0"
+          quantity={100}
+          color="var(--background)"
+          refresh={false}
+        />
+      ),
+    },
+    {
+      Icon: Palette,
+      name: "5 Design Styles",
+      description: "Clay, Glass, Liquid, Skeuomorphic, and Minimal aesthetics",
+      className: "col-span-3 lg:col-span-2",
+      background: (
+        <div className="absolute inset-0 bg-linear-to-br from-purple-500/20 to-pink-500/20" />
+      ),
+    },
+    {
+      Icon: Sparkles,
+      name: "30+ Text Effects",
+      description: "Animated typography with gradients, morphing, and more",
+      className: "col-span-3 lg:col-span-2",
+      background: <Meteors number={20} />,
+    },
+    {
+      Icon: Zap,
+      name: "Multi-Library Animations",
+      description: "Framer Motion, GSAP, Three.js, and Lenis pre-configured",
+      className: "col-span-3 lg:col-span-1",
+      background: (
+        <div className="absolute inset-0">
+          <BorderBeam />
+        </div>
+      ),
+    },
+  ]
 
-export default function LandingPage() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  })
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0])
+  const designStyles = [
+    { id: "clay", name: "Claymorphism", emoji: "🏺" },
+    { id: "glass", name: "Glassmorphism", emoji: "🪟" },
+    { id: "liquid-glass", name: "Liquid Glass", emoji: "💧" },
+    { id: "skeu", name: "Skeuomorphism", emoji: "📦" },
+    { id: "minimal", name: "Minimal", emoji: "⬜" },
+    { id: "none", name: "None", emoji: "🚫" },
+  ]
 
   return (
-    <ToastProvider>
-      <div ref={containerRef} className="relative min-h-screen overflow-hidden bg-background">
-        {/* Animated Background */}
-        <div className="fixed inset-0 -z-10">
-          <AuroraBackground className="absolute inset-0" />
-          <GridPattern className="absolute inset-0 opacity-20" />
-          <ShootingStars />
-          <Stars />
+    <main className="relative min-h-screen overflow-hidden">
+      {/* Particles Background */}
+      <Particles
+        className="absolute inset-0 -z-10"
+        quantity={50}
+        color="#a855f7"
+        refresh={false}
+      />
+
+      {/* Hero Section */}
+      <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-4 py-20 text-center">
+        <div className="absolute inset-0 -z-10 opacity-30">
+          <AuroraBackground>
+            <div />
+          </AuroraBackground>
         </div>
 
-        {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center px-4">
-          <motion.div style={{ y, opacity }} className="max-w-6xl mx-auto text-center space-y-8">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex justify-center"
-            >
-              <AnimatedGradientText className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm">
-                <Sparkles className="h-4 w-4 text-primary" />
-                <span className="text-sm">131 Production-Ready Components</span>
-              </AnimatedGradientText>
-            </motion.div>
+        <Badge className="mb-4 gap-2">
+          <Sparkles className="h-4 w-4" />
+          131+ Components · 5 Design Styles
+        </Badge>
 
-            {/* Main Heading */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="space-y-4"
-            >
-              <h1 className="text-6xl md:text-8xl font-bold tracking-tight">
-                <SparklesText
-                  text="Unicorn UI"
-                  className="bg-linear-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
-                />
-              </h1>
-              <AnimatedShinyText className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                A modern React component library with 5 stunning design styles. Built with
-                TypeScript, Tailwind CSS v4, and Framer Motion.
-              </AnimatedShinyText>
-            </motion.div>
+        <h1 className="mb-6 max-w-4xl text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
+          <AnimatedGradientText>
+            Build Stunning UIs{" "}
+            <span className="inline-block">
+              <span className="gradient-text">Faster</span>
+            </span>
+          </AnimatedGradientText>
+        </h1>
 
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex flex-wrap items-center justify-center gap-4"
-            >
-              <Link href="/docs">
-                <Button size="lg" className="gap-2 group">
-                  <BookOpen className="h-5 w-5" />
-                  Get Started
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link href="/components">
-                <Button size="lg" variant="outline" className="gap-2">
-                  <Code className="h-4 w-4" />
-                  Browse Components
-                </Button>
-              </Link>
-            </motion.div>
+        <p className="mb-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+          A modern React component library with advanced design styles, animations, and
+          TypeScript support. Built for developers who demand excellence.
+        </p>
 
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center justify-center gap-8 pt-8"
+        <div className="flex flex-wrap gap-4">
+          <Link href="/docs">
+            <ShimmerButton className="shadow-2xl">
+              <Rocket className="mr-2 h-5 w-5" />
+              Get Started
+            </ShimmerButton>
+          </Link>
+          <Link href="/docs/components">
+            <Button variant="outline" size="lg">
+              <Code2 className="mr-2 h-5 w-5" />
+              View Components
+            </Button>
+          </Link>
+        </div>
+
+        {/* Stats */}
+        <div className="mt-16 grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">
+          {[
+            { label: "Components", value: 131 },
+            { label: "Design Styles", value: 5 },
+            { label: "Hooks", value: 10 },
+            { label: "KB (gzip)", value: 236 },
+          ].map((stat) => (
+            <Card
+              key={stat.label}
+              className="relative overflow-hidden p-6 text-center"
             >
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary">131</div>
-                <div className="text-sm text-muted-foreground">Components</div>
+              <div className="text-3xl font-bold ">
+                <NumberTicker value={stat.value} />
+                {stat.label === "KB (gzip)" && ""}
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary">18</div>
-                <div className="text-sm text-muted-foreground">Hooks</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary">5</div>
-                <div className="text-sm text-muted-foreground">Styles</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary">100%</div>
-                <div className="text-sm text-muted-foreground">TypeScript</div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </section>
+              <BorderBeam duration={5 + Math.random() * 5} />
+              <div className="mt-1 text-sm text-muted-foreground">{stat.label}</div>
+            </Card>
+          ))}
+        </div>
+      </section>
 
-        {/* Features Section */}
-        <section className="relative py-32 px-4">
-          <div className="max-w-7xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-16 space-y-4"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold">Everything You Need</h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Built with modern technologies for high-performance applications.
-              </p>
-            </motion.div>
+      {/* Features Bento Grid */}
+      <section className="relative px-4 py-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-4xl font-bold tracking-tight">
+              Everything You Need
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Production-ready components with stunning visual effects
+            </p>
+          </div>
 
-            <BentoGrid className="max-w-6xl mx-auto">
-              {features.map((feature) => (
-                <GlowBorderCard
-                  key={feature.title}
-                  className={cn(
-                    "p-8 space-y-4",
-                    feature.title === "5 Design Styles" || feature.title === "Framer Motion"
-                      ? "md:col-span-2"
-                      : ""
-                  )}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-primary/10">{feature.icon}</div>
-                    <h3 className="text-xl font-semibold">{feature.title}</h3>
+          <BentoGrid>
+            {features.map((feature, idx) => (
+              <BentoCard key={idx} {...feature} />
+            ))}
+          </BentoGrid>
+        </div>
+      </section>
+
+      {/* Design Styles Switcher */}
+      <section className="relative px-4 py-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-4xl font-bold tracking-tight">
+              5 Design Styles
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Transform your UI with a single click
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {designStyles.map((style) => (
+              <button
+                key={style.id}
+                onClick={() => setDesignStyle(style.id as any)}
+                className={`group relative overflow-hidden rounded-lg border-2 p-6 text-left transition-all ${designStyle === style.id
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:border-primary/50"
+                  }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-4xl">{style.emoji}</span>
+                  <div>
+                    <h3 className="font-semibold">{style.name}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {designStyle === style.id ? "Active" : "Click to apply"}
+                    </p>
                   </div>
-                  <p className="text-muted-foreground text-left">{feature.description}</p>
-                </GlowBorderCard>
-              ))}
-            </BentoGrid>
+                </div>
+                {designStyle === style.id && <BorderBeam />}
+              </button>
+            ))}
           </div>
-        </section>
 
-        {/* Interactive Playground */}
-        <section className="relative py-20 px-4 bg-muted/20">
-          <div className="max-w-4xl mx-auto text-center space-y-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold">Interactive Elements</h2>
-              <p className="text-muted-foreground">
-                Fully interactive core components. Try them out.
+          {/* Live Preview Card */}
+          <div className="mt-12">
+            <Card className="unicorn-card mx-auto max-w-md p-8 text-center">
+              <h3 className="mb-2 text-2xl font-bold">Preview Card</h3>
+              <p className="mb-4 text-muted-foreground">
+                This card adapts to the selected design style above
               </p>
-            </motion.div>
-
-            <div className="flex flex-wrap justify-center gap-8 items-center bg-card p-8 rounded-xl border border-border">
-              {/* Tooltip Demo */}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="outline">Hover Me (Tooltip)</Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>This is a smooth tooltip</p>
-                </TooltipContent>
-              </Tooltip>
-
-              {/* Dropdown Demo */}
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Button>Open Menu</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem destructive>Logout</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Sheet Demo */}
-              {/* Note: Sheet requires state, so we wrap it in a client component or use a simple demo if possible. 
-                Since this is a server component file (page.tsx default), but marked 'use client' at top, we can use state. 
-                But to avoid cluttering this file with state, I'll use a local component or just skip if too complex for inline.
-                Actually page.tsx is 'use client', so I can use a local wrapper component defined in this file.
-            */}
-              <SheetDemo />
-
-              {/* Toast Demo */}
-              <ToastDemo />
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="relative py-32 px-4 border-t border-border/50">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold">Ready to Build?</h2>
-            <Link href="/docs/installation">
-              <Button size="lg" className="gap-2">
-                <Rocket className="h-5 w-5" />
-                Install Now
+              <Button className="unicorn-button">
+                <Palette className="mr-2 h-4 w-4" />
+                Example Button
               </Button>
-            </Link>
+            </Card>
           </div>
-        </section>
-      </div>
-    </ToastProvider>
-  )
-}
+        </div>
+      </section>
 
-function SheetDemo() {
-  const [open, setOpen] = useState(false)
-  return (
-    <>
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger asChild>
-          <Button variant="secondary">Open Sheet</Button>
-        </SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Edit Profile</SheetTitle>
-            <SheetDescription>
-              Make changes to your profile here. Click save when you're done.
-            </SheetDescription>
-          </SheetHeader>
-          <div className="py-8 text-center text-muted-foreground">Content goes here...</div>
-          <div className="flex justify-end">
-            <Button onClick={() => setOpen(false)}>Save Changes</Button>
-          </div>
-        </SheetContent>
-      </Sheet>
-    </>
-  )
-}
+      {/* Installation */}
+      <section className="relative px-4 py-20">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="mb-4 text-4xl font-bold tracking-tight">
+            Ready to Build?
+          </h2>
+          <p className="mb-8 text-lg text-muted-foreground">
+            Install Unicorn UI and start creating beautiful interfaces
+          </p>
 
-function ToastDemo() {
-  const { addToast } = useToast()
-  return (
-    <Button
-      variant="ghost"
-      onClick={() =>
-        addToast({
-          title: "Success",
-          description: "Your changes have been saved.",
-          type: "success",
-        })
-      }
-    >
-      Trigger Toast
-    </Button>
+          <Card className="unicorn-card relative overflow-hidden p-8">
+            <BorderBeam />
+            <pre className="overflow-x-auto rounded-lg bg-muted p-4 text-left">
+              <code className="text-sm">npm install @unicorn-ui/ui</code>
+            </pre>
+
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
+              <Link href="/docs/installation">
+                <Button size="lg">
+                  <Calendar className="mr-2 h-5 w-5" />
+                  Installation Guide
+                </Button>
+              </Link>
+              <Link href="https://github.com/Shubhjn4357/unicorn-ui">
+                <Button variant="outline" size="lg">
+                  <Code2 className="mr-2 h-5 w-5" />
+                  View on GitHub
+                </Button>
+              </Link>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t px-4 py-12 text-center text-sm text-muted-foreground">
+        <p>
+          Built with ❤️ by the Unicorn UI team · MIT License ·{" "}
+          <Link href="/docs" className="underline">
+            Documentation
+          </Link>
+        </p>
+      </footer>
+    </main>
   )
 }

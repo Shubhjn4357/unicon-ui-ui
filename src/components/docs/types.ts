@@ -5,6 +5,7 @@ export interface PropDefinition {
   type: string
   defaultValue?: any
   description?: string
+  required?: boolean
   control?: {
     type: ControlType
     options?: string[]

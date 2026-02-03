@@ -1,6 +1,6 @@
 "use client"
 
-import { Badge, BlurFade, Button, UnicornProvider } from "@unicorn-ui/ui"
+import { Badge, BlurFade, Button, UnicornThemeProvider, FlipText3D } from "@unicorn-ui/ui"
 import type { UserConfig } from "@unicorn-ui/ui"
 import { Book, ChevronRight, Code, Download, Palette, Sparkles } from "lucide-react"
 import Link from "next/link"
@@ -165,12 +165,12 @@ export default function RootLayout({ children }) {
               <h3 className="text-sm font-semibold text-brand flex items-center gap-1">
                 After (Custom Theme) <Sparkles className="h-4 w-4" />
               </h3>
-              <UnicornProvider config={{ colors: { primary: { DEFAULT: "#6366f1" } } }}>
+              <UnicornThemeProvider config={{ colors: { primary: { DEFAULT: "#6366f1" } } }}>
                 <div className="rounded-lg border border-border bg-surface p-4 space-y-3">
                   <Button>Your Brand Color</Button>
                   <Badge>Indigo Blue</Badge>
                 </div>
-              </UnicornProvider>
+              </UnicornThemeProvider>
             </div>
           </div>
         </div>

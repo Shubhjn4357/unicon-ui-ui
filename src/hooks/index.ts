@@ -5,12 +5,12 @@ export {
   useCollapse,
   useWindowSize,
   useScrollPosition,
-  useClickOutside,
   useKeyPress,
   useToggle,
   usePrevious,
   useDebounce,
   useThrottle,
+  useResponsive,
 } from "./use-responsive"
 
 // Async & Storage Hooks

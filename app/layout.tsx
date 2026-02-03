@@ -2,12 +2,13 @@ import "../dist/styles.css"
 import "./globals.css"
 import { LayoutContent } from "@/app/components/layout/layout-content"
 import { DesignStyleProvider, SmoothScroll, ThemeProvider } from "@unicorn-ui/ui"
+import { siteConfig } from "@/config/site"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Unicorn UI - Modern React Component Library",
+  title: `${siteConfig.name} - Modern React Component Library`,
   description:
-    "A production-ready React component library with 131 components featuring Claymorphism, Liquid Glass, Glassmorphism, Skeuomorphism, and Minimalism",
+    siteConfig.description,
 }
 
 export default function RootLayout({

@@ -140,7 +140,7 @@ pnpm install
 ### Root Level Commands
 
 | Command | Description |
-|---------|-------------|
+| --------- | ------------- |
 | `pnpm dev` | Start all dev servers |
 | `pnpm dev:docs` | Start docs dev server only |
 | `pnpm dev:ui` | Start UI watch mode only |

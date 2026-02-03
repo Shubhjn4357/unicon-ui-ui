@@ -1,8 +1,7 @@
 "use client"
 
-import { AnimatePresence, motion } from "framer-motion"
 import { Code, Eye, Monitor, RefreshCw, Smartphone, Tablet } from "lucide-react"
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { type DesignStyle, useDesignStyle } from "../../hooks/use-design-style"
 import { cn } from "../../lib/utils"
 import { Button } from "../core/button"
@@ -19,7 +18,7 @@ interface ComponentPlaygroundProps {
 
 export function ComponentPlayground({ doc }: ComponentPlaygroundProps) {
   // Initialize args with default values
-  const defaultArgs = doc.props.reduce(
+  const defaultArgs = (doc.props || []).reduce(
     (acc, prop) => {
       if (prop.defaultValue !== undefined) {
         acc[prop.name] = prop.defaultValue
@@ -44,10 +43,47 @@ export function ComponentPlayground({ doc }: ComponentPlaygroundProps) {
     setKey((prev) => prev + 1)
   }
 
+  const handleReplay = () => {
+    setKey((prev) => prev + 1)
+  }
+
   // Load a story
   const loadStory = (story: ComponentStory) => {
     setArgs({ ...defaultArgs, ...story.args })
     setKey((prev) => prev + 1)
+  }
+
+  // Heuristic to make components interactive in preview
+  // We wrap specific event handlers to update the playground state (args)
+  const interactiveArgs = { ...args }
+
+  if (doc.props.some((p) => p.name === "checked")) {
+    interactiveArgs.onCheckedChange = (checked: boolean) => {
+      handleArgChange("checked", checked)
+    }
+  }
+
+  if (doc.props.some((p) => p.name === "value")) {
+    // For inputs, slider, etc.
+    interactiveArgs.onValueChange = (val: any) => {
+      handleArgChange("value", val)
+    }
+    interactiveArgs.onChange = (e: any) => {
+      if (e && e.target && e.target.value !== undefined) {
+        handleArgChange("value", e.target.value)
+      } else {
+        // handleArgChange("value", e) // dangerous if e is event object
+      }
+    }
+  }
+
+  // Specific for Slider which uses onValueChange with number[]
+  if (doc.slug === "slider") {
+    interactiveArgs.onValueChange = (val: number[]) => {
+      handleArgChange("defaultValue", val) // Slider uses defaultValue in args but onValueChange updates it
+      // Wait, if args has defaultValue, we should update that?
+      // The story uses defaultValue.
+    }
   }
 
   const Component = doc.component
@@ -71,7 +107,7 @@ export function ComponentPlayground({ doc }: ComponentPlaygroundProps) {
               <Eye className="w-4 h-4" /> Preview
             </TabsTrigger>
             <TabsTrigger value="code" className="flex items-center gap-2">
-              <Code className="w-4 h-4" /> Code
+              <Code className="w-4 h-4" /> code
             </TabsTrigger>
             <TabsTrigger value="api" className="flex items-center gap-2">
               <Code className="w-4 h-4" /> API
@@ -118,6 +154,9 @@ export function ComponentPlayground({ doc }: ComponentPlaygroundProps) {
               <option value="skeu">Skeuomorphic</option>
               <option value="minimal">Minimal</option>
             </select>
+            <Button variant="outline" size="sm" onClick={handleReplay}>
+              <RefreshCw className="w-4 h-4 mr-2" /> Replay
+            </Button>
             <Button variant="outline" size="sm" onClick={handleReset}>
               <RefreshCw className="w-4 h-4 mr-2" /> Reset
             </Button>
@@ -145,7 +184,7 @@ export function ComponentPlayground({ doc }: ComponentPlaygroundProps) {
                     designStyle !== "none" && designStyle
                   )}
                 >
-                  <Component key={key} {...args} />
+                  <Component key={key} {...interactiveArgs} />
                 </div>
               </div>
             </Card>
@@ -156,7 +195,7 @@ export function ComponentPlayground({ doc }: ComponentPlaygroundProps) {
                 <h3 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">
                   Controls
                 </h3>
-                <ControlPanel props={doc.props} values={args} onChange={handleArgChange} />
+                <ControlPanel props={doc.props || []} values={args} onChange={handleArgChange} />
               </Card>
 
               {doc.stories && doc.stories.length > 0 && (

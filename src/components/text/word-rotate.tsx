@@ -13,7 +13,7 @@ export interface WordRotateProps extends React.HTMLAttributes<HTMLDivElement> {
  * Native WordRotate - Rotating word animation
  */
 export const WordRotate = React.forwardRef<HTMLDivElement, WordRotateProps>(
-  ({ words, duration = 2500, className, ...props }, ref) => {
+  ({ words = ["Word 1", "Word 2"], duration = 2500, className, ...props }, ref) => {
     const [index, setIndex] = React.useState(0)
 
     React.useEffect(() => {

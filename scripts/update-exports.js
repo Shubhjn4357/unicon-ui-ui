@@ -27,15 +27,16 @@ const specialExports = {
   // InView utility
   "components/utils/in-view": "InView",
   // Core alert sub-components
-  "core/alert": ["AlertTitle", "AlertDescription"],
+  "core/alert": ["Alert", "AlertTitle", "AlertDescription"],
   // Core avatar sub-components
-  "core/avatar": ["AvatarImage", "AvatarFallback"],
+  "core/avatar": ["Avatar", "AvatarImage", "AvatarFallback"],
   // Core card sub-components
-  "core/card": ["CardHeader", "CardFooter", "CardTitle", "CardDescription", "CardContent"],
+  "core/card": ["Card", "CardHeader", "CardFooter", "CardTitle", "CardDescription", "CardContent"],
   // Core checkbox sub-components
-  "core/checkbox": ["CheckboxIndicator"],
+  "core/checkbox": ["Checkbox"],
   // Core dialog sub-components
   "core/dialog": [
+    "Dialog",
     "DialogContent",
     "DialogDescription",
     "DialogHeader",
@@ -45,6 +46,7 @@ const specialExports = {
   ],
   // Core dropdown menu sub-components
   "core/dropdown-menu": [
+    "DropdownMenu",
     "DropdownMenuTrigger",
     "DropdownMenuContent",
     "DropdownMenuItem",
@@ -52,9 +54,10 @@ const specialExports = {
     "DropdownMenuSeparator",
   ],
   // Core radio-group sub-components
-  "core/radio-group": ["RadioGroupItem"],
+  "core/radio-group": ["RadioGroup", "RadioGroupItem"],
   // Core select sub-components
   "core/select": [
+    "Select",
     "SelectGroup",
     "SelectValue",
     "SelectTrigger",
@@ -63,9 +66,10 @@ const specialExports = {
     "SelectItem",
   ],
   // Core sheet sub-components
-  "core/sheet": ["SheetContent", "SheetDescription", "SheetHeader", "SheetTitle", "SheetTrigger"],
+  "core/sheet": ["Sheet", "SheetContent", "SheetDescription", "SheetHeader", "SheetTitle", "SheetTrigger"],
   // Core table sub-components
   "core/table": [
+    "Table",
     "TableHeader",
     "TableBody",
     "TableFooter",
@@ -75,26 +79,21 @@ const specialExports = {
     "TableCaption",
   ],
   // Core tabs sub-components
-  "core/tabs": ["TabsList", "TabsTrigger", "TabsContent"],
+  "core/tabs": ["Tabs", "TabsList", "TabsTrigger", "TabsContent"],
   // Core toast sub-components
   "core/toast": [
     "ToastProvider",
-    "ToastViewport",
-    "ToastTitle",
-    "ToastDescription",
-    "ToastAction",
-    "ToastClose",
     "useToast",
   ],
   // Core tooltip sub-components
-  "core/tooltip": ["TooltipTrigger", "TooltipContent", "TooltipProvider"],
+  "core/tooltip": ["Tooltip", "TooltipTrigger", "TooltipContent", "TooltipProvider"],
   // Core unicorn-provider sub-components
   "core/unicorn-provider": ["UnicornThemeProvider"],
-  "layout/bento-grid": ["BentoCard"],
-  "layout/dock": ["DockIcon"],
-  "layout/resizable-panel": ["ResizablePanel", "ResizableHandle"],
-  "layout/sidebar": ["SidebarItem"],
-  "layout/collapsible-sidebar-new": ["SidebarHeader", "SidebarSection"],
+  "layout/bento-grid": ["BentoGrid", "BentoCard"],
+  "layout/dock": ["Dock", "DockIcon"],
+  "layout/resizable-panel": ["ResizablePanel"],
+  "layout/sidebar": ["Sidebar", "SidebarItem"],
+  "layout/collapsible-sidebar-new": ["CollapsibleSidebar", "SidebarHeader", "SidebarSection"],
   "misc/device-mockups": ["IPhoneMockup", "MacBookMockup"],
 }
 
@@ -119,23 +118,19 @@ function toPascalCase(str) {
     if (char && /[a-z]/.test(char)) {
       return char.toUpperCase()
     }
+    // Handle number followed by lowercase letter (like 3d)
+    if (char && /[0-9]/.test(char) && str[str.indexOf(match) + match.length] === 'd') {
+      return char
+    }
     return char || ""
-  })
+  }).replace(/3d/g, "3D")
 }
 
 function generateSpecialExportStatement(compPath, exports) {
   const exportList = Array.isArray(exports) ? exports.join(", ") : exports
   const [category, componentName] = compPath.split("/")
 
-  // Skip exporting the main component since it's handled by regular discovery
-  if (componentName && Array.isArray(exports)) {
-    const filteredExports = exports.filter(
-      (exp) => exp.toLowerCase() !== toPascalCase(componentName).toLowerCase()
-    )
-    if (filteredExports.length === 0) return ""
-    return `export { ${filteredExports.join(", ")} } from "./components/${compPath}"`
-  }
-
+  // Return the full export list without filtering
   return `export { ${exportList} } from "./components/${compPath}"`
 }
 
@@ -329,6 +324,7 @@ function generateExports() {
     exportContent += 'export type { Theme, ThemeContextType } from "./hooks/use-theme"\n'
     exportContent += 'export type { DesignStyle } from "./hooks/use-design-style"\n'
     exportContent += 'export type { UserConfig } from "./types/config"\n'
+    exportContent += 'export type { Toast } from "./components/core/toast"\n'
     exportContent += "\n"
 
     // Design Style Hook

@@ -2,22 +2,15 @@
 
 import type * as React from "react"
 
-export interface UserConfig {
-  colors?: Record<string, any>
-  radius?: Record<string, string>
-  shadows?: Record<string, string>
-  spacing?: Record<string, string>
-  transitions?: Record<string, any>
-  typography?: Record<string, any>
-}
+import type { UserConfig } from "../../types/config"
 
-export interface UnicornProviderProps {
+export interface UnicornThemeProviderProps {
   children?: React.ReactNode
   config?: UserConfig
 }
 
-export const UnicornProvider = ({ children, config }: UnicornProviderProps) => {
+export const UnicornThemeProvider = ({ children, config }: UnicornThemeProviderProps) => {
   return <>{children}</>
 }
 
-UnicornProvider.displayName = "UnicornProvider"
+UnicornThemeProvider.displayName = "UnicornThemeProvider"

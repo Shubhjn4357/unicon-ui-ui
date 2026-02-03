@@ -2,30 +2,31 @@
 
 A modern, production-ready React component library with **131 components** featuring advanced design styles including Claymorphism, Liquid Glass, Glassmorphism, Skeuomorphism, and Minimalism. Built with TypeScript, Tailwind CSS v4, and Framer Motion.
 
-[![npm version](https://img.shields.io/npm/v/@unicorn-ui/ui.svg)](https://www.npmjs.com/package/@unicorn_ui/ui)
-[![License](https://img.shields.io/npm/l/@unicorn-ui/ui.svg)](https://github.com/Shubhjn4357/unicorn-ui-ui/blob/main/LICENSE)
-[![CI](https://github.com/Shubhjn4357/unicorn-ui-ui/workflows/CI/badge.svg)](https://github.com/Shubhjn4357/unicorn-ui-ui/actions)
+[![npm version](https://img.shields.io/npm/v/@unicorn-ui/ui.svg)](https://www.npmjs.com/package/@unicorn-ui/ui)
+[![License](https://img.shields.io/npm/l/@unicorn-ui/ui.svg)](https://github.com/Shubhjn4357/unicorn-ui/blob/main/LICENSE)
+[![CI](https://github.com/Shubhjn4357/unicorn-ui/workflows/CI/badge.svg)](https://github.com/Shubhjn4357/unicorn-ui/actions)
 
 ## ✨ Features
 
 - 🎨 **5 Design Styles** - Claymorphism, Liquid Glass, Glassmorphism, Skeuomorphism, Minimalism
 - 📱 **Mobile-First** - Responsive utilities, touch-friendly (44px targets), safe area support
 - 🎭 **131 Components** - Buttons, layouts, animations, backgrounds, text effects, and more
-- 🌙 **Dark Mode** - Built-in theme support
+- 🌙 **Dark Mode** - Built-in theme support with next-themes
 - ⚡ **Performance** - Optimized animations, tree-shakeable, minimal bundle size
 - 🔒 **Type-Safe** - Full TypeScript support with declarations
 - 🎯 **Tailwind v4** - Latest Tailwind CSS with CSS variables
-- 🎬 **Framer Motion** - Smooth, production-ready animations
-- 📦 **ESM + CJS** - Dual format support (236KB ESM, 251KB CJS)
+- 🎬 **Multi-Library Animations** - Framer Motion, GSAP, Three.js, Lenis
+- 📦 **Dual Format** - ESM + CJS support (236KB ESM, 251KB CJS)
+- 🎨 **Variable-Based Theming** - Customize colors, radius, sizes, animations via CSS variables
 
 ## 📦 Installation
 
 ```bash
-npm install @unicorn_ui/ui
+npm install @unicorn-ui/ui
 # or
-pnpm add @unicorn_ui/ui
+pnpm add @unicorn-ui/ui
 # or
-yarn add @unicorn_ui/ui
+yarn add @unicorn-ui/ui
 ```
 
 ### Peer Dependencies
@@ -41,7 +42,7 @@ npm install react react-dom framer-motion tailwindcss
 Add to your `app/layout.tsx` or `_app.tsx`:
 
 ```tsx
-import '@unicorn_ui/ui/dist/styles.css'
+import '@unicorn-ui/ui/dist/styles.css'
 ```
 
 ### 2. Configure Tailwind
@@ -73,11 +74,11 @@ export default config
 ### 3. Use Components
 
 ```tsx
-import { Button, Card, AnimatedGradientText } from '@unicorn_ui/ui'
+import { Button, Card, AnimatedGradientText } from '@unicorn-ui/ui'
 
 export default function App() {
   return (
-    <Card className="clay">
+    <Card className="unicorn-card">
       <AnimatedGradientText>
         Welcome to Unicorn UI
       </AnimatedGradientText>
@@ -87,68 +88,182 @@ export default function App() {
 }
 ```
 
+### 4. Enable Design Styles (Optional)
+
+```tsx
+import { DesignStyleProvider } from '@unicorn-ui/ui'
+
+export default function RootLayout({ children }) {
+  return (
+    <DesignStyleProvider defaultStyle="glass">
+      {children}
+    </DesignStyleProvider>
+  )
+}
+```
+
+## 📁 What's Inside?
+
+This package includes:
+
+```
+@unicorn-ui/ui/
+├── dist/
+│   ├── index.js       # CommonJS bundle
+│   ├── index.mjs      # ES Module bundle
+│   ├── index.d.ts     # TypeScript types
+│   ├── styles.css     # All component styles
+│   └── cli/           # CLI tools
+├── README.md
+└── CHANGELOG.md
+```
+
+**Bundle Sizes:**
+- ESM: ~236 KB (gzipped)
+- CJS: ~251 KB (gzipped)
+- CSS: ~59 KB
+
+**See [docs/STRUCTURE.md](./docs/STRUCTURE.md) for complete package structure**
+
 ## 📚 Component Categories
 
-### Animation (1)
+<details>
+<summary><b>Core Components (16)</b></summary>
 
-`FadeIn`
+Essential building blocks:
+- `Accordion`, `Alert`, `Avatar`, `Badge`, `Button`, `Card`
+- `Checkbox`, `Dialog`, `Input`, `Popover`, `Progress`, `RadioGroup`
+- `Select`, `Slider`, `Switch`, `Table`, `Tabs`, `Textarea`
 
-### Backgrounds (14)
-`AnimatedGridPattern`, `AuroraBackground`, `BackgroundBeams`, `Beams`, `DotPattern`, `FlickeringGrid`, `GridPattern`, `InteractiveGridPattern`, `RetroGrid`, `Ripple`, `ShootingStars`, `Stars`, `StripedPattern`, `WarpBackground`
+</details>
 
-### Buttons (12)
-`AnimatedButton`, `CreepyButton`, `GlowButton`, `GooeyButton`, `InteractiveHoverButton`, `MagneticButton`, `PulsatingButton`, `RainbowButton`, `RippleButton`, `ShimmerButton`, `ShinyButton`, `SocialFlipButton`
+<details>
+<summary><b>Background Components (14)</b></summary>
 
-### Core (16)
-`Accordion`, `Alert`, `Avatar`, `Badge`, `Button`, `Card`, `Checkbox`, `Input`, `Modal`, `Popover`, `Progress`, `RadioGroup`, `Slider`, `StatusIcon`, `Switch`, `Tabs`
+Visual effects:
+- `AuroraBackground`, `BackgroundBeams`, `BeamSpotlight`, `DotPattern`
+- `FlickeringGrid`, `GridPattern`, `InteractiveGridPattern`, `Meteors`
+- `RetroGrid`, `Ripple`, `ShootingStars`, `Stars`, `WarpBackground`
 
-### Feedback (6)
-`AnimatedThemeToggler`, `CommandMenu`, `RevealLoader`, `Skeleton`, `SmartInput`, `ThemeToggle`
+</details>
 
-### Layout (29)
-`AnimatedList`, `BentoGrid`, `BlurFade`, `CollapsibleSidebar`, `Dock`, `ExpandableBentoCard`, `ExpandableCard`, `GlassDock`, `GlowBorderCard`, `HeroVideoDialog`, `Marquee`, `OrbitingCircles`, `Pointer`, `ResizablePanel`, `SpotlightCard`, `StickyScroll`, `Terminal`, `TweetCard`, and more
+<details>
+<summary><b>Button Variants (12)</b></summary>
 
-### Text (30+)
-`AnimatedGradientText`, `AnimatedNumber`, `AnimatedShinyText`, `AuroraText`, `BlurFadeText`, `BoxReveal`, `ComicText`, `FadeText`, `FlipText`, `FlipText3D`, `GradualSpacing`, `HyperText`, `LetterPullup`, `MorphingText`, `NumberTicker`, `RotatingText`, `SparklesText`, `TextAnimate`, `TypingAnimation`, `WavyText`, `WordRotate`, and more
+Enhanced buttons:
+- `AnimatedButton`, `CreepyButton`, `GlowButton`, `GooeyButton`
+- `InteractiveHoverButton`, `MagneticButton`, `PulsatingButton`
+- `RainbowButton`, `RippleButton`, `ShimmerButton`, `ShinyButton`
 
-### Special (16)
-`3DCard`, `AnimatedBeam`, `BorderBeam`, `CanvasSmudge`, `Confetti`, `GlitchEffect`, `Gravity`, `MagicCard`, `Magnifier`, `Meteors`, `ParticleImage`, `Particles`, `RippleEffect`, `ShineBorder`, `Spotlight`, `SpotlightCard`
+</details>
+
+<details>
+<summary><b>Text Effects (30+)</b></summary>
+
+Animated text:
+- `AnimatedGradientText`, `AnimatedNumber`, `AnimatedShinyText`
+- `AuroraText`, `BlurText`, `BoxReveal`, `FlipText`, `FlipText3D`
+- `GradualSpacing`, `HyperText`, `MorphingText`, `NumberTicker`
+- `SparklesText`, `TypewriterEffect`, `WavyText`, `WordRotate`
+- And 15+ more...
+
+</details>
+
+<details>
+<summary><b>Layout Components (29)</b></summary>
+
+Complex patterns:
+- `BentoGrid`, `Dock`, `GlassDock`, `Sheet`, `Marquee`
+- `AnimatedList`, `CollapsibleSidebar`, `ExpandableCard`
+- `HeroVideoDialog`, `Terminal`, `TweetCard`, `SpotlightCard`
+
+</details>
+
+<details>
+<summary><b>Special Components (16)</b></summary>
+
+3D, particles, effects:
+- `Scene3D`, `Confetti`, `Particles`, `ParticleImage`
+- `BorderBeam`, `MagicCard`, `Spotlight`, `GlitchEffect`
+- `RippleEffect`, `ShineBorder`, `Magnifier`
+
+</details>
 
 ## 🎨 Design Styles
 
-### Claymorphism
+Unicorn UI features **5 global design styles** that transform your entire UI:
+
 ```tsx
-<Card className="clay">Neumorphic Design</Card>
-<Button className="clay-hover">Hover Effect</Button>
+import { useDesignStyle } from '@unicorn-ui/ui'
+
+function StyleSwitcher() {
+  const { setDesignStyle } = useDesignStyle()
+  
+  return (
+    <>
+      <button onClick={() => setDesignStyle('clay')}>Clay</button>
+      <button onClick={() => setDesignStyle('glass')}>Glass</button>
+      <button onClick={() => setDesignStyle('liquid-glass')}>Liquid</button>
+      <button onClick={() => setDesignStyle('skeu')}>Skeuomorphic</button>
+      <button onClick={() => setDesignStyle('minimal')}>Minimal</button>
+    </>
+  )
+}
 ```
 
-### Liquid Glass
+**See [docs/THEMING.md](./docs/THEMING.md) for complete customization guide**
+
+## 🎬 Animation Libraries
+
+Pre-configured and ready to use:
+
+- **Framer Motion** - Declarative animations
+- **GSAP** - Professional timelines
+- **Three.js + R3F** - 3D graphics
+- **Lenis** - Smooth scroll
+
 ```tsx
-<div className="liquid-glass">
-  Animated liquid effect
-</div>
+import { motion } from 'framer-motion'
+import { Scene3D } from '@unicorn-ui/ui'
+
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+>
+  <Scene3D modelUrl="/model.glb" autoRotate />
+</motion.div>
 ```
 
-### Glassmorphism
-```tsx
-<Card className="glass">
-  Frosted glass effect
-</Card>
+**See [docs/ANIMATIONS.md](./docs/ANIMATIONS.md) for animation guide**
+
+## 🎨 Theme Customization
+
+Customize via CSS variables:
+
+```css
+/* app/globals.css */
+:root {
+  /* Colors (HSL format) */
+  --primary: 262 83% 58%;
+  --secondary: 220 14% 96%;
+  --accent: 340 82% 52%;
+  
+  /* Radius */
+  --radius: 1rem;
+  --radius-sm: 0.5rem;
+  --radius-lg: 1.5rem;
+  
+  /* Sizes */
+  --size-md: 1rem;
+  --size-lg: 1.25rem;
+  
+  /* Animations */
+  --duration-normal: 300ms;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
 ```
 
-### Skeuomorphism
-```tsx
-<Button className="skeu-button">
-  Realistic 3D button
-</Button>
-```
-
-### Minimalism
-```tsx
-<Card className="minimal minimal-hover">
-  Clean and simple
-</Card>
-```
+**See [docs/THEMING.md](./docs/THEMING.md) for full customization**
 
 ## 🛠️ Development
 
@@ -161,8 +276,8 @@ export default function App() {
 
 ```bash
 # Clone repository
-git clone https://github.com/Shubhjn4357/unicorn-ui-ui.git
-cd unicorn-ui-ui
+git clone https://github.com/Shubhjn4357/unicorn-ui.git
+cd unicorn-ui
 
 # Install dependencies
 pnpm install
@@ -189,97 +304,29 @@ pnpm lint             # Check code quality
 pnpm lint:fix         # Fix linting issues
 pnpm typecheck        # Check types
 pnpm format           # Format code
-pnpm test             # Run all checks + build
+pnpm test             # Run tests
+pnpm check            # Lint + typecheck + build
 
-# Component Management
-pnpm create-component <name> <type>
-pnpm update-exports
-pnpm verify
-pnpm generate-docs
-
-# Version Management
+# Publishing
 pnpm changeset        # Create a changeset
 pnpm version-packages # Bump versions
 pnpm release          # Publish to npm
 ```
 
-## 📝 Creating a Component
+## 📚 Documentation
 
-```bash
-pnpm create-component my-button button
-```
-
-This creates:
-- `src/components/buttons/my-button.tsx`
-- Automatically updates exports in `src/index.ts`
-
-
-## 🔄 Version Management
-
-### 1. Create a Changeset
-
-```bash
-pnpm changeset
-```
-
-Select the type of change:
-- **patch** - Bug fixes (0.0.X)
-- **minor** - New features (0.X.0)
-- **major** - Breaking changes (X.0.0)
-
-### 2. Version Packages
-
-```bash
-pnpm version-packages
-```
-
-This updates:
-- `package.json` version
-- `CHANGELOG.md` with changes
-
-### 3. Publish
-
-```bash
-pnpm release
-```
-
-Or let GitHub Actions handle it automatically when you push to `main`.
-
-## 🚀 CI/CD
-
-### GitHub Actions Workflows
-
-#### CI (`ci.yml`)
-
-Runs on every push and PR:
-- ✅ Linting
-- ✅ Type checking
-- ✅ Package build
-- ✅ Documentation build
-
-#### Release (`release.yml`)
-
-Runs on push to `main`:
-- 📦 Automatic version bumping
-- 📝 Changelog generation
-- 🚀 npm publishing
-- 🏷️ GitHub releases
-
-#### Deploy Docs (`deploy-docs.yml`)
-Deploys documentation to GitHub Pages
-
-### Setup Secrets
-
-Add to GitHub repository secrets:
-- `NPM_TOKEN` - npm authentication token
-
-## 📖 Documentation
-
-Visit our [documentation site](https://Shubhjn4357.github.io/unicorn-ui-ui) for:
+Visit our [documentation site](https://Shubhjn4357.github.io/unicorn-ui) for:
 - Interactive component demos
 - API documentation
 - Design guidelines
 - Usage examples
+
+**Additional Docs:**
+- [docs/STRUCTURE.md](./docs/STRUCTURE.md) - Package organization
+- [docs/THEMING.md](./docs/THEMING.md) - Theme customization
+- [docs/ANIMATIONS.md](./docs/ANIMATIONS.md) - Animation guide
+- [DEPLOYMENT.md](./DEPLOYMENT.md) - Publishing guide
+- [SCRIPTS.md](./SCRIPTS.md) - Development scripts
 
 ## 🤝 Contributing
 
@@ -304,6 +351,7 @@ MIT © [Shubhjn4357](https://github.com/Shubhjn4357)
 - Built with [Tailwind CSS](https://tailwindcss.com)
 - Animated with [Framer Motion](https://www.framer.com/motion)
 - Powered by [Next.js](https://nextjs.org)
+- 3D with [Three.js](https://threejs.org) & [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
 
 ## 📊 Stats
 
@@ -317,11 +365,11 @@ MIT © [Shubhjn4357](https://github.com/Shubhjn4357)
 
 ## 🔗 Links
 
-- [Documentation](https://Shubhjn4357.github.io/unicorn-ui-ui)
-- [npm Package](https://www.npmjs.com/package/@unicorn_ui/ui)
-- [GitHub](https://github.com/Shubhjn4357/unicorn-ui-ui)
+- [Documentation](https://Shubhjn4357.github.io/unicorn-ui)
+- [npm Package](https://www.npmjs.com/package/@unicorn-ui/ui)
+- [GitHub](https://github.com/Shubhjn4357/unicorn-ui)
 - [Changelog](CHANGELOG.md)
-- [Issues](https://github.com/Shubhjn4357/unicorn-ui-ui/issues)
+- [Issues](https://github.com/Shubhjn4357/unicorn-ui/issues)
 
 ---
 

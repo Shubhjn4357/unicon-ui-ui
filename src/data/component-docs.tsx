@@ -1,4 +1,5 @@
 import * as Demos from "@/components/docs/demos"
+
 import { HookPlaceholder } from "@/components/docs/hook-placeholder"
 import {
   // Special - using demos
@@ -32,6 +33,48 @@ import {
   TypingAnimation,
   VelocityScroll,
   WordRotate,
+  // NEW IMPORTS
+  RainbowButton,
+  GlowButton,
+  RippleButton,
+  MagneticButton,
+  PulsatingButton,
+  ShinyButton,
+  AnimatedButton,
+  GooeyButton,
+  InteractiveHoverButton,
+  CreepyButton,
+  WavyText,
+  GradualSpacing,
+  BoxReveal,
+  TextReveal,
+  SeparateAway,
+  RotateText,
+  SpinningText,
+  FlipText3D,
+  TextAnimate,
+  AnimatedNumber,
+  TextHighlighter,
+  ComicText,
+  AuroraText,
+  AnimatedShinyText,
+  LineShadowText,
+  VideoText,
+  ScrollBasedVelocity,
+  Particles,
+  Confetti,
+  MagicCard,
+  Meteors,
+  Spotlight,
+  ThreeDCard,
+  ShineBorder,
+  RippleEffect,
+  GlitchEffect,
+  Magnifier,
+  CanvasSmudge,
+  Scene3D,
+  ParticleImage,
+  Gravity,
 } from "@unicorn-ui/ui"
 import type { ComponentDoc } from "../components/docs/types"
 import { docs } from "./docs-components"
@@ -226,11 +269,11 @@ export const components: ComponentDoc[] = [
     description: "An input where the user selects a value from within a given range.",
     component: Slider,
     props: [
-      { name: "defaultValue", type: "number[]", defaultValue: [50], control: { type: "object" } },
+      { name: "value", type: "number[]", defaultValue: [50], control: { type: "object" } },
       { name: "max", type: "number", defaultValue: 100, control: { type: "number" } },
       { name: "step", type: "number", defaultValue: 1, control: { type: "number" } },
     ],
-    stories: [{ name: "Default", args: { defaultValue: [33], max: 100, step: 1 } }],
+    stories: [{ name: "Default", args: { value: [33], max: 100, step: 1 } }],
   },
   {
     slug: "progress",
@@ -301,7 +344,6 @@ export const components: ComponentDoc[] = [
     props: [],
     stories: [{ name: "Default", args: {} }],
   },
-
   {
     slug: "toast",
     title: "Toast",
@@ -702,15 +744,7 @@ export const components: ComponentDoc[] = [
     props: [],
     stories: [{ name: "Default", args: {} }],
   },
-  {
-    slug: "shimmer-button",
-    category: "Special",
-    title: "Shimmer Button",
-    description: "A button with a shimmering light effect.",
-    component: ShimmerButton,
-    props: [],
-    stories: [{ name: "Default", args: { children: "Shimmer" } }],
-  },
+
   {
     slug: "velocity-scroll",
     category: "Special",
@@ -719,6 +753,466 @@ export const components: ComponentDoc[] = [
     component: VelocityScroll,
     props: [],
     stories: [{ name: "Default", args: { text: "Velocity Scroll" } }],
+  },
+
+  // === NEW SUPPLEMENTARY COMPONENTS ===
+
+  // === BUTTON VARIANTS ===
+  {
+    slug: "shimmer-button",
+    title: "Shimmer Button (Variant)",
+    category: "Buttons",
+    description: "Button with animated shimmer effect that creates a shiny moving gradient",
+    component: Demos.ShimmerButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Shimmer Button", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+      { name: "shimmerColor", type: "string", defaultValue: "#ffffff", control: { type: "color" } },
+      { name: "shimmerSize", type: "string", defaultValue: "0.05em", control: { type: "text" } },
+    ],
+    stories: [
+      { name: "Default", args: { children: "Shimmer Button" } },
+      { name: "Custom Color", args: { children: "Custom Shimmer", shimmerColor: "#ff00ff" } },
+    ],
+  },
+  {
+    slug: "rainbow-button",
+    title: "Rainbow Button",
+    category: "Buttons",
+    description: "Button with animated rainbow gradient border effect",
+    component: Demos.RainbowButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Rainbow Button", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Rainbow Button" } }],
+  },
+  {
+    slug: "glow-button",
+    title: "Glow Button",
+    category: "Buttons",
+    description: "Button with glowing hover effect and neon-style appearance",
+    component: Demos.GlowButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Glow Button", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Glow Button" } }],
+  },
+  {
+    slug: "ripple-button",
+    title: "Ripple Button",
+    category: "Buttons",
+    description: "Button with Material Design-style ripple click effect",
+    component: Demos.RippleButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Ripple Button", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Ripple Button" } }],
+  },
+  {
+    slug: "magnetic-button",
+    title: "Magnetic Button",
+    category: "Buttons",
+    description: "Button that magnetically follows the cursor with smooth animation",
+    component: Demos.MagneticButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Magnetic Button", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Magnetic Button" } }],
+  },
+  {
+    slug: "pulsating-button",
+    title: "Pulsating Button",
+    category: "Buttons",
+    description: "Button with pulsating ring animation effect",
+    component: Demos.PulsatingButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Pulsating Button", control: { type: "text" } },
+      { name: "pulseColor", type: "string", defaultValue: "#3b82f6", control: { type: "color" } },
+      { name: "duration", type: "string", defaultValue: "1.5s", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [
+      { name: "Default", args: { children: "Pulsating Button" } },
+      { name: "Custom Color", args: { children: "Custom Pulse", pulseColor: "#ef4444" } },
+    ],
+  },
+  {
+    slug: "shiny-button",
+    title: "Shiny Button",
+    category: "Buttons",
+    description: "Button with shiny metallic reflection effect",
+    component: Demos.ShinyButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Shiny Button", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Shiny Button" } }],
+  },
+  {
+    slug: "animated-button",
+    title: "Animated Button",
+    category: "Buttons",
+    description: "Button with customizable entry and hover animations",
+    component: Demos.AnimatedButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Animated Button", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Animated Button" } }],
+  },
+  {
+    slug: "gooey-button",
+    title: "Gooey Button",
+    category: "Buttons",
+    description: "Button with gooey SVG filter morphing effect",
+    component: Demos.GooeyButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Gooey Button", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Gooey Button" } }],
+  },
+  {
+    slug: "interactive-hover-button",
+    title: "Interactive Hover Button",
+    category: "Buttons",
+    description: "Button with text that splits and animates on hover",
+    component: Demos.InteractiveHoverButtonDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Hover Me", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [
+      { name: "Default", args: { text: "Hover Me" } },
+      { name: "Custom Text", args: { text: "Interactive" } },
+    ],
+  },
+  {
+    slug: "creepy-button",
+    title: "Creepy Button",
+    category: "Buttons",
+    description: "Button with creepy/spookyhovering shadow effect",
+    component: Demos.CreepyButtonDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Creepy Button", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Creepy Button" } }],
+  },
+
+  // === ADVANCED TEXT EFFECTS ===
+  {
+    slug: "wavy-text",
+    title: "Wavy Text",
+    category: "Text",
+    description: "Text with wavy motion animation effect",
+    component: Demos.WavyTextDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Wavy Text", control: { type: "text" } },
+      { name: "delay", type: "number", defaultValue: 0.05, control: { type: "number" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [
+      { name: "Default", args: { text: "Wavy Text" } },
+      { name: "Slow Wave", args: { text: "Slow Wavy", delay: 0.1 } },
+    ],
+  },
+  {
+    slug: "gradual-spacing",
+    title: "Gradual Spacing",
+    category: "Text",
+    description: "Text with gradually increasing letter spacing animation",
+    component: Demos.GradualSpacingDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Gradual Spacing", control: { type: "text" } },
+      { name: "duration", type: "number", defaultValue: 0.5, control: { type: "number" } },
+      { name: "delayMultiple", type: "number", defaultValue: 0.04, control: { type: "number" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "Gradual Spacing" } }],
+  },
+  // LetterPullup already exists in core but adding duplicate for completeness/variants
+  {
+    slug: "box-reveal",
+    title: "Box Reveal",
+    category: "Text",
+    description: "Text revealed with animated box overlay",
+    component: Demos.BoxRevealDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Box Reveal", control: { type: "text" } },
+      { name: "boxColor", type: "string", defaultValue: "#5046e6", control: { type: "color" } },
+      { name: "duration", type: "number", defaultValue: 0.5, control: { type: "number" } },
+    ],
+    stories: [
+      { name: "Default", args: { children: "Box Reveal" } },
+      { name: "Custom Color", args: { children: "Custom Box", boxColor: "#ef4444" } },
+    ],
+  },
+  {
+    slug: "text-reveal",
+    title: "Text Reveal",
+    category: "Text",
+    description: "Text reveal animation triggered on scroll",
+    component: Demos.TextRevealDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Text Reveal", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "Text Reveal" } }],
+  },
+  {
+    slug: "separate-away",
+    title: "Separate Away",
+    category: "Text",
+    description: "Text characters separate on hover with spring animation",
+    component: Demos.SeparateAwayDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Separate Away", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "Separate Away" } }],
+  },
+  {
+    slug: "rotate-text",
+    title: "Rotate Text",
+    category: "Text",
+    description: "Text with 3D rotation transform effect",
+    component: Demos.RotateTextDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Rotate Text", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "Rotate Text" } }],
+  },
+  {
+    slug: "spinning-text",
+    title: "Spinning Text",
+    category: "Text",
+    description: "Circular text with continuous spinning animation",
+    component: Demos.SpinningTextDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Spinning • Text • Effect • ", control: { type: "text" } },
+      { name: "radius", type: "number", defaultValue: 80, control: { type: "number" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "Spinning • Text • Effect •" } }],
+  },
+  {
+    slug: "flip-text-3d",
+    title: "Flip Text 3D",
+    category: "Text",
+    description: "3D flip animation for text with perspective transform",
+    component: Demos.FlipText3DDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Flip Text 3D", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Flip Text 3D" } }],
+  },
+  {
+    slug: "text-animate",
+    title: "Text Animate",
+    category: "Text",
+    description: "Text with customizable animation presets",
+    component: Demos.TextAnimateDemo,
+    props: [
+      { name: "children", type: "string", defaultValue: "Text Animate", control: { type: "text" } },
+      { name: "type", type: "string", defaultValue: "fadeIn", control: { type: "select", options: ["fadeIn", "slideUp", "slideDown", "scale", "rotate"] } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [
+      { name: "Fade In", args: { children: "Fade In", type: "fadeIn" } },
+      { name: "Slide Up", args: { children: "Slide Up", type: "slideUp" } },
+    ],
+  },
+  {
+    slug: "animated-number",
+    title: "Animated Number",
+    category: "Text",
+    description: "Number counter with smooth animation",
+    component: Demos.AnimatedNumberDemo,
+    props: [
+      { name: "value", type: "number", defaultValue: 100, control: { type: "number" } },
+      { name: "duration", type: "number", defaultValue: 2, control: { type: "number" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [
+      { name: "Default", args: { value: 100 } },
+      { name: "Large Number", args: { value: 10000, duration: 3 } },
+    ],
+  },
+  {
+    slug: "text-highlighter",
+    title: "Text Highlighter",
+    category: "Text",
+    description: "Text with animated highlight effect",
+    component: Demos.TextHighlighterDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Highlight this text", control: { type: "text" } },
+      { name: "highlightColor", type: "string", defaultValue: "#ffeb3b", control: { type: "color" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "Highlight this text" } }],
+  },
+  {
+    slug: "comic-text",
+    title: "Comic Text",
+    category: "Text",
+    description: "Comic book style text with outline effect",
+    component: Demos.ComicTextDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "POW!", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "POW!" } }],
+  },
+  {
+    slug: "aurora-text",
+    title: "Aurora Text",
+    category: "Text",
+    description: "Text with aurora borealis gradient effect",
+    component: Demos.AuroraTextDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Aurora Text", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Aurora Text" } }],
+  },
+  {
+    slug: "animated-shiny-text",
+    title: "Animated Shiny Text",
+    category: "Text",
+    description: "Text with shiny gradient animation",
+    component: Demos.AnimatedShinyTextDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Shiny Text", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Shiny Text" } }],
+  },
+  // BlurFade already exists
+  {
+    slug: "line-shadow-text",
+    title: "Line Shadow Text",
+    category: "Text",
+    description: "Text with animated line shadow effect",
+    component: Demos.LineShadowTextDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Line Shadow", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "Line Shadow" } }],
+  },
+  {
+    slug: "video-text",
+    title: "Video Text",
+    category: "Text",
+    description: "Text with video background fill",
+    component: Demos.VideoTextDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "VIDEO", control: { type: "text" } },
+      { name: "videoSrc", type: "string", defaultValue: "/video.mp4", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "VIDEO" } }],
+  },
+  {
+    slug: "scroll-based-velocity",
+    title: "Scroll Based Velocity",
+    category: "Text",
+    description: "Text animation based on scroll velocity",
+    component: Demos.ScrollBasedVelocityDemo,
+    props: [
+      { name: "text", type: "string", defaultValue: "Scroll Velocity", control: { type: "text" } },
+      { name: "defaultVelocity", type: "number", defaultValue: 5, control: { type: "number" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { text: "Scroll Velocity" } }],
+  },
+
+  // === SPECIAL EFFECTS ===
+  // Particles, Confetti, BorderBeam, MagicCard, Meteors, Spotlight, AnimatedBeam, 3DCard, ShineBorder, OrbitingCircles already exist
+
+  {
+    slug: "ripple-effect",
+    title: "Ripple Effect",
+    category: "Special",
+    description: "Expanding ripple animation effect",
+    component: Demos.RippleEffectDemo,
+    props: [
+      { name: "mainCircleSize", type: "number", defaultValue: 210, control: { type: "number" } },
+      { name: "mainCircleOpacity", type: "number", defaultValue: 0.24, control: { type: "number" } },
+    ],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "glitch-effect",
+    title: "Glitch Effect",
+    category: "Special",
+    description: "Digital glitch distortion effect",
+    component: Demos.GlitchEffectDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Glitch", control: { type: "text" } },
+      { name: "className", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Glitch Effect" } }],
+  },
+  {
+    slug: "magnifier",
+    title: "Magnifier",
+    category: "Special",
+    description: "Image magnifier lens effect",
+    component: Demos.MagnifierDemo,
+    props: [
+      { name: "src", type: "string", defaultValue: "/image.jpg", control: { type: "text" } },
+      { name: "zoomFactor", type: "number", defaultValue: 2.5, control: { type: "number" } },
+    ],
+    stories: [{ name: "Default", args: { src: "/placeholder.jpg" } }],
+  },
+  {
+    slug: "canvas-smudge",
+    title: "Canvas Smudge",
+    category: "Special",
+    description: "Interactive canvas smudge effect",
+    component: Demos.CanvasSmudgeDemo,
+    props: [
+      { name: "children", type: "ReactNode", defaultValue: "Smudge Me", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { children: "Smudge Me" } }],
+  },
+  {
+    slug: "scene-3d",
+    title: "Scene 3D",
+    category: "Special",
+    description: "3D scene using React Three Fiber",
+    component: Demos.Scene3DDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "particle-image",
+    title: "Particle Image",
+    category: "Special",
+    description: "Image composed of interactive particles",
+    component: Demos.ParticleImageDemo,
+    props: [
+      { name: "src", type: "string", defaultValue: "/image.jpg", control: { type: "text" } },
+      { name: "density", type: "number", defaultValue: 4, control: { type: "number" } },
+    ],
+    stories: [{ name: "Default", args: { src: "/placeholder.jpg" } }],
+  },
+  {
+    slug: "gravity",
+    title: "Gravity",
+    category: "Special",
+    description: "Physics-based gravity animation effect",
+    component: Demos.GravityDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
   },
 ]
 
@@ -772,59 +1266,51 @@ export function getAllComponentSlugs() {
 }
 
 export function getSidebarData() {
-  const categories: Record<string, string[]> = {}
+  const categories: Record<string, { title: string; slug: string }[]> = {}
 
   // Process components
   components.forEach((c) => {
     if (!categories[c.category]) {
       categories[c.category] = []
     }
-    categories[c.category].push(c.slug)
+    categories[c.category].push({ title: c.title, slug: c.slug })
   })
 
   // Process docs
   docs.forEach((d) => {
     const cat = "Docs"
     if (!categories[cat]) categories[cat] = []
-    categories[cat].push(d.slug)
+    categories[cat].push({ title: d.title, slug: d.slug })
   })
 
   // Process hooks
   hooks.forEach((h) => {
     const cat = "Hooks"
     if (!categories[cat]) categories[cat] = []
-    categories[cat].push(h.slug)
+    categories[cat].push({ title: h.title, slug: h.slug })
   })
 
   const titleCase = (str: string) => str.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
 
-  return Object.keys(categories)
-    .map((name) => ({
-      name,
-      items: categories[name]
-        .map((slug) => {
-          const comp = components.find((c) => c.slug === slug)
-          if (comp) return { title: comp.title, slug }
-          const doc = docs.find((d) => d.slug === slug)
-          if (doc) return { title: doc.title, slug }
-          const hook = hooks.find((h) => h.slug === slug)
-          if (hook) return { title: hook.title, slug }
-          return { title: titleCase(slug), slug }
-        })
-        .sort((a, b) => a.title.localeCompare(b.title)),
-    }))
+  // Convert to array and sort keys if needed (though Object.entries order is not guaranteed stable across all environments, it's usually insertion order)
+  // We might want to enforce a specific order: Docs, Core, ...
+  const order = ["Docs", "Core", "Layout", "Text", "Backgrounds", "Buttons", "Special", "Feedback", "Interaction", "Utils", "Hooks"]
+
+  return Object.entries(categories)
     .sort((a, b) => {
-      const order = [
-        "Core",
-        "Layout",
-        "Text",
-        "Backgrounds",
-        "Special",
-        "Feedback",
-        "Utils",
-        "Docs",
-        "Hooks",
-      ]
-      return order.indexOf(a.name) - order.indexOf(b.name)
+      const indexA = order.indexOf(a[0])
+      const indexB = order.indexOf(b[0])
+      // If both are in order list, sort by index
+      if (indexA !== -1 && indexB !== -1) return indexA - indexB
+      // If only A is in list, A comes first
+      if (indexA !== -1) return -1
+      // If only B is in list, B comes first
+      if (indexB !== -1) return 1
+      // Otherwise sort alphabetically
+      return a[0].localeCompare(b[0])
     })
+    .map(([name, items]) => ({
+      name,
+      items: items.sort((a, b) => a.title.localeCompare(b.title)),
+    }))
 }

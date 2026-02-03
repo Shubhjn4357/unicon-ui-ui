@@ -43,3 +43,5 @@ export const Iphone15Pro = React.forwardRef<HTMLDivElement, IphoneProps>(
 )
 
 Iphone15Pro.displayName = "Iphone15Pro"
+
+export const Iphone = Iphone15Pro

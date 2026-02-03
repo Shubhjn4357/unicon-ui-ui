@@ -8,7 +8,7 @@ interface MorphingTextProps {
   className?: string
 }
 
-export function MorphingText({ texts, className }: MorphingTextProps) {
+export function MorphingText({ texts = [], className }: MorphingTextProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {

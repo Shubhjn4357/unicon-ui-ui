@@ -1,1 +1,0 @@
-{"version":3,"file":"gradual-spacing.d.ts","sourceRoot":"","sources":["gradual-spacing.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAI9B,MAAM,WAAW,mBAAoB,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IAC7E,IAAI,EAAE,MAAM,CAAA;IACZ,QAAQ,CAAC,EAAE,MAAM,CAAA;IACjB,aAAa,CAAC,EAAE,MAAM,CAAA;CACzB;AAED;;GAEG;AACH,eAAO,MAAM,cAAc,4FAqB1B,CAAA"}

@@ -33,7 +33,7 @@ export const AnimatedBeam = ({
   reverse = false,
   duration = Math.random() * 3 + 4,
   delay = 0,
-  pathColor = "gray",
+  pathColor = "var(--border)",
   pathWidth = 2,
   pathOpacity = 0.2,
   gradientStartColor = "#ffaa40",
@@ -50,7 +50,14 @@ export const AnimatedBeam = ({
   // Calculate the bezier path
   useEffect(() => {
     const updatePath = () => {
-      if (containerRef.current && fromRef.current && toRef.current) {
+      if (
+        containerRef &&
+        containerRef.current &&
+        fromRef &&
+        fromRef.current &&
+        toRef &&
+        toRef.current
+      ) {
         const containerRect = containerRef.current.getBoundingClientRect()
         const rectA = fromRef.current.getBoundingClientRect()
         const rectB = toRef.current.getBoundingClientRect()

@@ -1,6 +1,6 @@
 "use client"
 
-import { Badge, BlurFade, Button, Input, NeonGradientCard, UnicornProvider } from "@unicorn-ui/ui"
+import { Badge, BlurFade, Button, Input, NeonGradientCard, UnicornThemeProvider } from "@unicorn-ui/ui"
 import type { UserConfig } from "@unicorn-ui/ui"
 import { Building2, Eye, Moon, Palette, ShoppingBag, Sun, Zap } from "lucide-react"
 
@@ -81,7 +81,7 @@ function ThemePreview({
           </div>
 
           {/* Theme Preview */}
-          <UnicornProvider config={theme}>
+          <UnicornThemeProvider config={theme}>
             <div className="space-y-3 rounded-lg border border-border bg-surface p-4">
               <div className="flex flex-wrap gap-2">
                 <Button size="sm">Primary</Button>
@@ -98,7 +98,7 @@ function ThemePreview({
               </div>
               <Input placeholder="Example input field" className="text-sm" />
             </div>
-          </UnicornProvider>
+          </UnicornThemeProvider>
 
           {/* Config Code */}
           <details className="rounded-lg bg-surface-elevated">
@@ -215,13 +215,13 @@ export default function ThemeExamplesPage() {
           </h3>
           <ol className="space-y-3 text-sm text-foreground-secondary">
             <li className="flex gap-3">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white text-xs font-bold flex-shrink-0">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white text-xs font-bold shrink-0">
                 1
               </span>
               <span>Click "View Config" on any template to see its configuration</span>
             </li>
             <li className="flex gap-3">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white text-xs font-bold flex-shrink-0">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white text-xs font-bold shrink-0">
                 2
               </span>
               <span>
@@ -231,17 +231,17 @@ export default function ThemeExamplesPage() {
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white text-xs font-bold flex-shrink-0">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white text-xs font-bold shrink-0">
                 3
               </span>
               <span>
                 Wrap your app with{" "}
-                <code className="px-1.5 py-0.5 rounded bg-surface-elevated">UnicornProvider</code>{" "}
+                <code className="px-1.5 py-0.5 rounded bg-surface-elevated">UnicornThemeProvider</code>{" "}
                 and pass the config
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white text-xs font-bold flex-shrink-0">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white text-xs font-bold shrink-0">
                 4
               </span>
               <span>Customize the values to match your exact brand colors and preferences</span>

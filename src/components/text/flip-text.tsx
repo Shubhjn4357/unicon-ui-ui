@@ -14,7 +14,7 @@ export interface FlipTextProps extends React.HTMLAttributes<HTMLDivElement> {
  * Native FlipText - Flip text animation
  */
 export const FlipText = React.forwardRef<HTMLDivElement, FlipTextProps>(
-  ({ word, duration = 0.5, delayMultiple = 0.08, className, ...props }, ref) => {
+  ({ word = "Flip Text", duration = 0.5, delayMultiple = 0.08, className, ...props }, ref) => {
     return (
       <div ref={ref} className={cn("flex justify-center space-x-2", className)} {...props}>
         <AnimatePresence mode="wait">

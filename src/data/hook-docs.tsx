@@ -1,3 +1,5 @@
+import * as HookDemos from "@/components/docs/hook-demos"
+
 export const hooks = [
   {
     slug: "use-theme",
@@ -9,8 +11,7 @@ export const hooks = [
       examples: [
         {
           title: "Theme Switcher",
-          // Preview handled by mapping in page.tsx via slug
-          preview: null,
+          preview: HookDemos.UseThemeDemo,
           code: `import { useTheme, Button } from "@unicorn-ui/ui"\n\nexport default function ThemeToggle() {\n  const { theme, setTheme } = useTheme()\n\n  return (\n    <div className="flex gap-2">\n        <Button onClick={() => setTheme("light")}>Light</Button>\n        <Button onClick={() => setTheme("dark")}>Dark</Button>\n    </div>\n  )\n}`,
         },
       ],
@@ -40,7 +41,7 @@ export const hooks = [
       examples: [
         {
           title: "Responsive Debugger",
-          preview: null,
+          preview: HookDemos.UseWindowSizeDemo,
           code: `import { useWindowSize } from "@unicorn-ui/ui"\n\nexport default function WindowSizeDemo() {\n  const { width, height } = useWindowSize()\n  return <div>{width} x {height}</div>\n}`,
         },
       ],
@@ -60,7 +61,7 @@ export const hooks = [
       examples: [
         {
           title: "Copy Button",
-          preview: null,
+          preview: HookDemos.UseCopyToClipboardDemo,
           code: `import { useCopyToClipboard, Input, Button } from "@unicorn-ui/ui"\nimport { useState } from "react"\n\nexport default function CopyDemo() {\n  const [text, setText] = useState("Copy me")\n  const [copied, copy] = useCopyToClipboard()\n\n  return (\n    <div className="flex gap-2">\n      <Input value={text} onChange={(e) => setText(e.target.value)} />\n      <Button onClick={() => copy(text)}>{copied ? "Copied" : "Copy"}</Button>\n    </div>\n  )\n}`,
         },
       ],
@@ -90,7 +91,7 @@ export const hooks = [
       examples: [
         {
           title: "Async Data Fetching",
-          preview: null,
+          preview: HookDemos.UseAsyncDemo,
           code: `import { useAsync, Button } from "@unicorn-ui/ui"\n\nconst fetchData = async () => {\n  await new Promise(resolve => setTimeout(resolve, 1000))\n  return "Data loaded!"\n}\n\nexport default function AsyncDemo() {\n  const { execute, status, value, error } = useAsync(fetchData, false)\n\n  return (\n    <div>\n      <Button onClick={execute} disabled={status === "pending"}>\n        {status === "pending" ? "Loading..." : "Fetch Data"}\n      </Button>\n      {status === "success" && <div>{value}</div>}\n      {status === "error" && <div>Error: {error?.message}</div>}\n    </div>\n  )\n}`,
         },
       ],
@@ -128,7 +129,7 @@ export const hooks = [
       examples: [
         {
           title: "Close on Outside Click",
-          preview: null,
+          preview: HookDemos.UseClickOutsideDemo,
           code: `import { useClickOutside, Button } from "@unicorn-ui/ui"\nimport { useRef, useState } from "react"\n\nexport default function ClickOutsideDemo() {\n  const [isOpen, setIsOpen] = useState(false)\n  const ref = useRef(null)\n  \n  useClickOutside(ref, () => setIsOpen(false))\n\n  return (\n    <div>\n      <Button onClick={() => setIsOpen(true)}>Open Modal</Button>\n      {isOpen && (\n        <div ref={ref} className="bg-card p-4 border rounded shadow-lg">\n          Click outside me to close\n        </div>\n      )}\n    </div>\n  )\n}`,
         },
       ],
@@ -158,7 +159,7 @@ export const hooks = [
       examples: [
         {
           title: "Mouse Tracker",
-          preview: null,
+          preview: HookDemos.UseMouseDemo,
           code: `import { useMouse } from "@unicorn-ui/ui"\n\nexport default function MouseDemo() {\n  const { x, y } = useMouse()\n  return <div>Mouse position: {x}, {y}</div>\n}`,
         },
       ],
@@ -179,7 +180,7 @@ export const hooks = [
       examples: [
         {
           title: "Responsive Text",
-          preview: null,
+          preview: HookDemos.UseResponsiveDemo,
           code: `import { useResponsive } from "@unicorn-ui/ui"\n\nexport default function ResponsiveDemo() {\n  const { isMobile, isDesktop } = useResponsive()\n  return <div>{isMobile ? "Mobile View" : isDesktop ? "Desktop View" : "Tablet View"}</div>\n}`,
         },
       ],
@@ -205,7 +206,7 @@ export const hooks = [
       examples: [
         {
           title: "Reading Progress Bar",
-          preview: null,
+          preview: HookDemos.UseScrollProgressDemo,
           code: `import { useScrollProgress } from "@unicorn-ui/ui"\nimport { motion } from "framer-motion"\n\nexport default function ProgressBar() {\n  const { scrollXProgress } = useScrollProgress()\n  return <motion.div style={{ scaleX: scrollXProgress }} className="fixed top-0 left-0 h-1 bg-primary origin-left w-full" />\n}`,
         },
       ],

@@ -30,6 +30,7 @@ export function TopNav({
     { label: "Docs", href: "/docs" },
     { label: "Components", href: "/components" },
     { label: "Hooks", href: "/hooks" },
+    { label: "CLI", href: "/docs/cli" },
   ],
   rightContent,
   showThemeToggle = true,

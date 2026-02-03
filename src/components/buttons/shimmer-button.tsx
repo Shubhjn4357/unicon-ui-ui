@@ -18,7 +18,7 @@ export const ShimmerButton = React.forwardRef<HTMLButtonElement, ShimmerButtonPr
     {
       children,
       className,
-      shimmerColor = "rgba(255, 255, 255, 0.3)",
+      shimmerColor = "hsla(var(--primary-foreground), 0.3)",
       shimmerSize = "200%",
       ...props
     },
@@ -28,14 +28,14 @@ export const ShimmerButton = React.forwardRef<HTMLButtonElement, ShimmerButtonPr
       <motion.button
         ref={ref}
         className={cn(
-          "group relative inline-flex h-11 items-center justify-center overflow-hidden rounded-lg bg-[hsl(var(--primary))] px-8 font-medium text-white transition-all duration-200",
+          "group relative inline-flex h-11 items-center justify-center overflow-hidden rounded-lg bg-[hsl(var(--primary))] px-8 font-medium text-primary-foreground transition-all duration-200",
           className
         )}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         {...props}
       >
-        <span className="relative z-10">{children}</span>
+        <span className="relative z-10 inline-flex">{children}</span>
         <motion.div
           className="absolute inset-0 -translate-x-full"
           style={{

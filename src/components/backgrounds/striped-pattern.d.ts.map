@@ -1,1 +1,0 @@
-{"version":3,"file":"striped-pattern.d.ts","sourceRoot":"","sources":["striped-pattern.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAG9B,MAAM,WAAW,mBAAoB,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IAC/E,WAAW,CAAC,EAAE,MAAM,CAAA;IACpB,WAAW,CAAC,EAAE,MAAM,CAAA;IACpB,KAAK,CAAC,EAAE,MAAM,CAAA;CACf;AAED,eAAO,MAAM,cAAc,4FAmB1B,CAAA"}

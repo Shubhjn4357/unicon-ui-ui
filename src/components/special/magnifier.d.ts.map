@@ -1,1 +1,0 @@
-{"version":3,"file":"magnifier.d.ts","sourceRoot":"","sources":["magnifier.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAI9B,MAAM,WAAW,cAAe,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IACxE,MAAM,EAAE,MAAM,CAAA;IACd,aAAa,CAAC,EAAE,MAAM,CAAA;IACtB,SAAS,CAAC,EAAE,MAAM,CAAA;CACrB;AAED;;GAEG;AACH,eAAO,MAAM,SAAS,uFA4CrB,CAAA"}

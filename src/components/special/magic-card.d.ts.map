@@ -1,1 +1,0 @@
-{"version":3,"file":"magic-card.d.ts","sourceRoot":"","sources":["magic-card.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAI9B,MAAM,WAAW,cAAe,SAAQ,KAAK,CAAC,cAAc,CAAC,cAAc,CAAC;IAC1E,YAAY,CAAC,EAAE,MAAM,CAAA;IACrB,aAAa,CAAC,EAAE,MAAM,CAAA;IACtB,eAAe,CAAC,EAAE,MAAM,CAAA;CACzB;AAED;;GAEG;AACH,eAAO,MAAM,SAAS,uFAwCrB,CAAA"}

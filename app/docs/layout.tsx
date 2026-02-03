@@ -1,4 +1,4 @@
-import { DocsLayout as DocsSidebarLayout } from "@/components/layout/docs-layout"
+import { DocsLayout as DocsSidebarLayout } from "@/components/docs/docs-layout"
 
 export default function Layout({
   children,

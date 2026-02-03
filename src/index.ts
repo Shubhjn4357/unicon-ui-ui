@@ -34,13 +34,11 @@ export { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableC
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/core/tabs"
 export { ToastProvider, useToast } from "./components/core/toast"
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./components/core/tooltip"
-export { UnicornProvider } from "./components/core/unicorn-provider"
+export { UnicornThemeProvider } from "./components/core/unicorn-provider"
 
 // Layout Components
 export { AnimatedList } from "./components/layout/animated-list"
 export { AvatarCircles } from "./components/layout/avatar-circles"
-export { CollapsibleSidebar } from "./components/layout/collapsible-sidebar"
-export { DocsLayout } from "./components/layout/docs-layout"
 export { DottedMap } from "./components/layout/dotted-map"
 export { ExpandableBentoCard } from "./components/layout/expandable-bento-card"
 export { GlassDock } from "./components/layout/glass-dock"
@@ -66,11 +64,11 @@ export { Timeline } from "./components/layout/timeline"
 export { TopNav } from "./components/layout/top-nav"
 export { TracingBeam } from "./components/layout/tracing-beam"
 export { TweetCard } from "./components/layout/tweet-card"
-export { BentoCard, BentoGrid } from "./components/layout/bento-grid"
+export { BentoGrid, BentoCard } from "./components/layout/bento-grid"
 export { Dock, DockIcon } from "./components/layout/dock"
 export { ResizablePanel } from "./components/layout/resizable-panel"
 export { Sidebar, SidebarItem } from "./components/layout/sidebar"
-export { SidebarHeader, SidebarSection } from "./components/layout/collapsible-sidebar-new"
+export { CollapsibleSidebar, SidebarHeader, SidebarSection } from "./components/layout/collapsible-sidebar-new"
 
 // Feedback Components
 export { AnimatedThemeToggler } from "./components/feedback/animated-theme-toggler"
@@ -190,7 +188,7 @@ export { IPhoneMockup, MacBookMockup } from "./components/misc/device-mockups"
 
 // Mock Components
 export { Android } from "./components/mocks/android"
-export { Iphone15Pro as Iphone } from "./components/mocks/iphone"
+export { Iphone } from "./components/mocks/iphone"
 export { Safari } from "./components/mocks/safari"
 
 // Skeleton Components
@@ -200,7 +198,8 @@ export { ComponentPageSkeleton } from "./components/skeletons/component-page-ske
 export type { AsyncState } from "./hooks/use-async"
 export type { Theme, ThemeContextType } from "./hooks/use-theme"
 export type { DesignStyle } from "./hooks/use-design-style"
-export type { UserConfig } from "./components/core/unicorn-provider"
+export type { UserConfig } from "./types/config"
+export type { Toast } from "./components/core/toast"
 
 // Design Style Hook
 export { useDesignStyle, DesignStyleProvider } from "./hooks/use-design-style"
@@ -210,5 +209,7 @@ export { useClipboard } from "./hooks/use-clipboard"
 export { useClickOutside } from "./hooks/use-click-outside"
 export { useMouse } from "./hooks/use-mouse"
 export { useScrollProgress } from "./hooks/use-scroll-progress"
+// Registry System
+// export { ComponentRegistry } from "./registry/component-registry"
 // Theme Generator
 export { useThemeGenerator } from "./hooks/use-theme-generator"

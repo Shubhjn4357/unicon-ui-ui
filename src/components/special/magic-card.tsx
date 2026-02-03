@@ -11,8 +11,8 @@ export interface MagicCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function MagicCard({
   children,
-  spotlightColor = "rgba(var(--primary-rgb), 0.15)",
-  borderColor = "rgba(var(--primary-rgb), 0.3)",
+  spotlightColor = "color-mix(in srgb, var(--primary) 15%, transparent)",
+  borderColor = "color-mix(in srgb, var(--primary) 30%, transparent)",
   className,
   ...props
 }: MagicCardProps) {

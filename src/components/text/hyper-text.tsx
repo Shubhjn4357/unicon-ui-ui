@@ -17,7 +17,7 @@ const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()"
  * Pure Framer Motion, no dependencies
  */
 export const HyperText = React.forwardRef<HTMLSpanElement, HyperTextProps>(
-  ({ text, duration = 800, delay = 0, className, ...props }, ref) => {
+  ({ text = "Hyper Text", duration = 800, delay = 0, className, ...props }, ref) => {
     const [displayText, setDisplayText] = React.useState(text.split(""))
     // const [isAnimating, setIsAnimating] = React.useState(false)
     const iterations = React.useRef(0)
