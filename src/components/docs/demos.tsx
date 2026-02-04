@@ -1,120 +1,71 @@
 "use client"
 import * as React from "react"
-import { Accordion, AuroraBackground, GridPattern, MorphingText, NumberTicker, ShootingStars, SocialFlipButton, SparklesText, Stars, StatusIcon, TypingAnimation, VelocityScroll, WordRotate, cn } from "@unicorn-ui/ui"
-import { Alert, AlertDescription, AlertTitle } from "@unicorn-ui/ui"
-import { Avatar, AvatarFallback, AvatarImage } from "@unicorn-ui/ui"
-import { Badge } from "@unicorn-ui/ui"
-import { Button } from "@unicorn-ui/ui"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@unicorn-ui/ui"
-import { Checkbox } from "@unicorn-ui/ui"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@unicorn-ui/ui"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@unicorn-ui/ui"
-import { Input } from "@unicorn-ui/ui"
-import { Label } from "@unicorn-ui/ui"
-import { Progress } from "@unicorn-ui/ui"
-import { RadioGroup, RadioGroupItem } from "@unicorn-ui/ui"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@unicorn-ui/ui"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@unicorn-ui/ui"
-import { Slider } from "@unicorn-ui/ui"
-import { Switch } from "@unicorn-ui/ui"
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@unicorn-ui/ui"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@unicorn-ui/ui"
-import { Textarea } from "@unicorn-ui/ui"
-import { ToastProvider, useToast } from "@unicorn-ui/ui"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@unicorn-ui/ui"
-import { BentoCard, BentoGrid } from "@unicorn-ui/ui"
-import { Dock, DockIcon } from "@unicorn-ui/ui"
-import { ResizablePanel } from "@unicorn-ui/ui"
-import { ThreeDCard } from "@unicorn-ui/ui"
-import { AnimatedList } from "@unicorn-ui/ui"
-import { AvatarCircles } from "@unicorn-ui/ui"
-import { FileTree } from "@unicorn-ui/ui"
-import { Timeline } from "@unicorn-ui/ui"
-import { Sidebar, SidebarItem } from "@unicorn-ui/ui"
-import {
-  AnimatedGridPattern,
-  CollapsibleSidebar,
-  SidebarHeader,
-  SidebarSection,
-  CoolMode,
-  DotPattern,
-  MagicCard,
-  Marquee,
-  Meteors,
-  OrbitingCircles,
-  Particles,
-  RetroGrid,
-  Ripple,
-  // New Components
-  ShimmerButton, RainbowButton, GlowButton, RippleButton, MagneticButton, PulsatingButton, ShinyButton, AnimatedButton, GooeyButton, InteractiveHoverButton, CreepyButton,
-  WavyText, GradualSpacing, LetterPullup, BoxReveal, TextReveal, SeparateAway, RotateText, SpinningText, FlipText3D, TextAnimate, AnimatedNumber, TextHighlighter, ComicText, AuroraText, AnimatedShinyText, BlurFade, LineShadowText, VideoText, ScrollBasedVelocity, HyperText, FadeText, FlipText, AnimatedGradientText,
-  Confetti, BorderBeam, Spotlight, SpotlightNew, AnimatedBeam, ShineBorder, RippleEffect, GlitchEffect, Magnifier, CanvasSmudge, Scene3D, ParticleImage, Gravity,
-  BackgroundBeams, FlickeringGrid, InteractiveGridPattern, StripedPattern, WarpBackground,
-  OrbitingDots, Snow, HoverRevealCard, MagneticWrapper, NeonGradientCard, ConfettiSideCannons,
-  // Detailed Feedback & Interaction Imports
-  Skeleton, ThemeToggle, CommandMenu, PercentLoader, RevealLoader, SmartInput,
-  NoiseOverlay, ParallaxImage, AnimatedCircularProgressBar, CardStack, CustomPointer, FollowerPointer, PixelTrail, ScrollProgress, ScrollProgressiveBlur, CustomCursor, DeviceMockups,
+  // Core
+  Accordion, Alert, AlertDescription, AlertTitle, Avatar, AvatarFallback, AvatarImage, Badge, Button,
+  Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Checkbox,
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, InView,
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
+  Input, Label, Progress, RadioGroup, RadioGroupItem,
+  Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue,
+  Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger,
+  Slider, Switch, Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow,
+  Tabs, TabsContent, TabsList, TabsTrigger, Textarea, ToastProvider, useToast,
+  Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, cn,
+
+  // Hooks
+  useTheme, useWindowSize, useCopyToClipboard, useAsync, useClickOutside, useMouse, useScrollProgress,
+
+  // Layout
+  AnimatedList, AvatarCircles, BentoCard, BentoGrid, CollapsibleSidebar, Dock, DockIcon, DottedMap,
+  ExpandableBentoCard, GlassDock, Globe, GlowBorderCard, HeroVideoDialog, HorizontalScroll,
+  IconCloud, IonCloud, Lens, Marquee, OrbitingCircles, PerspectiveMenu, PixelImage, Pointer,
+  ProgressiveBlur, ReorderableList, ResizablePanel, Sidebar, SidebarItem, SmoothCursor,
+  SpotlightCard, StaggeredGrid, Terminal, Timeline, TopNav, TracingBeam, TweetCard,
+  SidebarHeader, SidebarSection, FileTree,
+
+  // Text
+  AnimatedGradientText, AnimatedNumber, AnimatedShinyText, AuroraText, BlurFade, BoxReveal,
+  ComicText, FadeText, FlipText, FlipText3D, GradualSpacing, HyperText, LetterPullup,
+  LineShadowText, MorphingText, NumberTicker, RotateText, ScrollBasedVelocity, SeparateAway,
+  SparklesText, SpinningText, TextAnimate, TextHighlighter, TextReveal, TypingAnimation,
+  VelocityScroll, VideoText, WavyText, WordRotate,
+
+  // Backgrounds
+  AnimatedGridPattern, AuroraBackground, BackgroundBeams, DotPattern, FlickeringGrid,
+  GridPattern, InteractiveGridPattern, RetroGrid, Ripple, ShootingStars, Stars,
+  StripedPattern, WarpBackground,
+
+  // Buttons
+  AnimatedButton, CreepyButton, GlowButton, GooeyButton, InteractiveHoverButton,
+  MagneticButton, PulsatingButton, RainbowButton, RippleButton, ShimmerButton,
+  ShinyButton, SocialFlipButton,
+
+  // Interaction
+  AnimatedCircularProgressBar, CardStack, CustomCursor, CustomPointer, Safari,
+  FollowerPointer, HoverRevealCard, MagneticWrapper, NeonGradientCard, NoiseOverlay,
+  ParallaxImage, PixelTrail, ScrollProgress, ScrollProgressiveBlur,
+
+  // Special/Misc
+  AnimatedBeam, BorderBeam, CanvasSmudge, Confetti, ConfettiSideCannons, CoolMode,
+  GlitchEffect, Gravity, MagicCard, Magnifier, Meteors, OrbitingDots, ParticleImage,
+  Particles, RippleEffect, Scene3D, ShineBorder, Snow, Spotlight, SpotlightNew,
+  ThreeDCard,
+
+  // Feedback
+  CommandMenu, PercentLoader, RevealLoader, Skeleton, SmartInput, StatusIcon, ThemeToggle,
+
+  // Skeletons
+  ComponentPageSkeleton,
+  FadeIn, CodeComparison, AnimatedThemeToggler,
 } from "@unicorn-ui/ui"
 import { motion } from "framer-motion"
 import { useState } from "react"
 
-// Hooks
-import { useTheme } from "@unicorn-ui/ui"
-import { useWindowSize } from "@unicorn-ui/ui"
-import { useCopyToClipboard } from "@unicorn-ui/ui"
-import { useAsync } from "@unicorn-ui/ui"
-import { useClickOutside } from "@unicorn-ui/ui"
-import { useMouse } from "@unicorn-ui/ui"
 
-import { useScrollProgress } from "@unicorn-ui/ui"
 // Utils
-import { InView } from "@unicorn-ui/ui"
-import { Home, Settings, User, Globe } from "lucide-react"
+import { Home, Settings, User, Globe as LucideGlobe } from "lucide-react"
+
 
 
 export function AccordionDemo(props: any) {
@@ -572,22 +523,7 @@ export function FileTreeDemo() {
   )
 }
 
-export function AnimatedListDemo() {
-  return (
-    <div className="relative flex h-[300px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
-      <AnimatedList>
-        {[1, 2, 3].map((item) => (
-          <div
-            key={item}
-            className="bg-card p-4 rounded-lg shadow-sm mb-2 w-64"
-          >
-            Item {item}
-          </div>
-        ))}
-      </AnimatedList>
-    </div>
-  )
-}
+
 
 export function TimelineDemo() {
   const data = [
@@ -885,24 +821,8 @@ export function RippleDemo() {
   )
 }
 
-export function DotPatternDemo(props: React.ComponentProps<typeof DotPattern>) {
-  return (
-    <div className="relative flex h-[300px] w-full items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
-      <DotPattern
-        width={20}
-        height={20}
-        cx={1}
-        cy={1}
-        cr={1}
-        className="mask-gradient(to_bottom_right,white,transparent,transparent) "
-        {...props}
-      />
-      <span className="pointer-events-none whitespace-pre-wrap bg-linear-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
-        Dot Pattern
-      </span>
-    </div>
-  )
-}
+
+
 
 export const SplitLayoutDemo = ResizablePanelDemo
 
@@ -1389,6 +1309,36 @@ export function GravityDemo() {
 
 // --- Background Demos ---
 
+// StarsDemo dupe removed
+
+
+
+
+
+export function DotPatternDemo() {
+  return (
+    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+      <p className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white">
+        Dot Pattern
+      </p>
+      <DotPattern width={20} height={20} cx={1} cy={1} cr={1} className={cn("mask-[radial-gradient(300px_circle_at_center,white,transparent)]")} />
+    </div>
+  )
+}
+
+
+
+// StripedPatternDemo dupe removed
+
+// WarpBackgroundDemo dupe removed
+
+
+
+// FlickeringGridDemo dupe removed
+
+
+
+
 export function BackgroundBeamsDemo(props: React.ComponentProps<typeof BackgroundBeams>) {
   return (
     <div className="h-80 w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
@@ -1761,16 +1711,411 @@ export function AnimatedCircularProgressBarDemo(props: any) {
   )
 }
 
+// --- Layout Demos ---
+
+export function AnimatedListDemo() {
+  return (
+    <div className="relative flex max-h-[400px] min-h-[400px] w-full max-w-lg flex-col overflow-hidden rounded-lg border bg-background p-6 shadow-lg">
+      <AnimatedList>
+        {Array.from({ length: 5 }).map((_, idx) => (
+          <div key={idx} className="mb-4 flex items-center space-x-4 rounded-md border p-4 shadow-sm">
+            <div className="h-10 w-10 rounded-full bg-primary/20" />
+            <div className="space-y-1">
+              <p className="text-sm font-medium leading-none">Notification {idx + 1}</p>
+              <p className="text-sm text-muted-foreground">Something happened in the system.</p>
+            </div>
+          </div>
+        ))}
+      </AnimatedList>
+    </div>
+  )
+}
+
+export function ExpandableBentoCardDemo() {
+  return (
+    <div className="h-[500px] w-full max-w-3xl">
+      <ExpandableBentoCard title="Expandable Card" description="Click to expand" />
+    </div>
+  )
+}
+
+export function GlassDockDemo() {
+  return (
+    <div className="relative h-[300px] w-full flex items-end justify-center pb-12 bg-black/5 dark:bg-white/5 rounded-xl overflow-hidden">
+      <GlassDock items={[
+        { label: "Home", icon: (<div>🏠</div>), href: "#" },
+        { label: "Products", icon: (<div>🛍️</div>), href: "#" },
+        { label: "Settings", icon: (<div>⚙️</div>), href: "#" },
+      ]} />
+    </div>
+  )
+}
+
+export function GlobeDemo() {
+  return (
+    <div className="relative flex h-full w-full max-w-lg items-center justify-center overflow-hidden rounded-lg border bg-background px-40 pb-40 pt-8 md:pb-60 md:shadow-xl">
+      <span className="pointer-events-none whitespace-pre-wrap bg-linear-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
+        Globe
+      </span>
+      <Globe className="top-28" />
+      <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+    </div>
+  )
+}
+
+export function GlowBorderCardDemo() {
+  return (
+    <div className="relative flex h-48 w-full items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+      <GlowBorderCard className="flex flex-col items-center justify-center p-4">
+        <span className="text-xl font-bold">Glow Border</span>
+        <span className="text-xs text-muted-foreground">Hover to see magic</span>
+      </GlowBorderCard>
+    </div>
+  )
+}
+
+export function HorizontalScrollDemo() {
+  return (
+    <HorizontalScroll>
+      {Array.from({ length: 10 }).map((_, i) => (
+        <div key={i} className="flex h-40 w-60 shrink-0 items-center justify-center rounded-lg border bg-card shadow-sm mx-2">
+          <span className="font-semibold">Item {i + 1}</span>
+        </div>
+      ))}
+    </HorizontalScroll>
+  )
+}
+
+export function IconCloudDemo() {
+  const icons = [
+    <span key="1" className="text-4xl">⚛️</span>,
+    <span key="2" className="text-4xl">💻</span>,
+    <span key="3" className="text-4xl">🚀</span>,
+    <span key="4" className="text-4xl">🎨</span>,
+    <span key="5" className="text-4xl">🔧</span>,
+    <span key="6" className="text-4xl">📱</span>,
+    <span key="7" className="text-4xl">🌐</span>,
+    <span key="8" className="text-4xl">🔥</span>,
+    <span key="9" className="text-4xl">⚡</span>,
+    <span key="10" className="text-4xl">🌈</span>,
+  ]
+  return (
+    <div className="relative flex h-full w-full max-w-lg items-center justify-center overflow-hidden rounded-lg border bg-background px-20 pb-20 pt-8 ">
+      <IconCloud icons={icons} />
+    </div>
+  )
+}
+
+export function LensDemo() {
+  return (
+    <div className="flex items-center justify-center p-20 bg-slate-50 dark:bg-slate-900 rounded-lg">
+      <Lens>
+        <img
+          src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=3556&auto=format&fit=crop"
+          alt="Lens Demo"
+          className="rounded-2xl w-64 h-64 object-cover"
+        />
+      </Lens>
+    </div>
+  )
+}
+
+export function PerspectiveMenuDemo() {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <div className="relative flex items-center justify-center p-20 bg-slate-950 rounded-lg h-[400px]">
+      <button onClick={() => setIsOpen(true)} className="px-4 py-2 bg-primary text-primary-foreground rounded-md z-10">
+        Open Menu
+      </button>
+      <PerspectiveMenu
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        items={[
+          { label: "Home", href: "#" },
+          { label: "About", href: "#" },
+          { label: "Work", href: "#" },
+          { label: "Contact", href: "#" },
+        ]}
+      />
+    </div>
+  )
+}
+
+export function ImagePixelDemo() {
+  return (
+    <div className="flex items-center justify-center p-8 bg-black">
+      <PixelImage src="/placeholder.png" />
+    </div>
+  )
+}
+
 export function CardStackDemo() {
   return (
     <div className="flex h-60 items-center justify-center w-full">
       <CardStack
         items={[
-          { id: 1, name: "Card 1", designation: "Designer", content: <p>Review the design mocks</p> },
-          { id: 2, name: "Card 2", designation: "Developer", content: <p>Implement the feature</p> },
-          { id: 3, name: "Card 3", designation: "Manager", content: <p>Plan the next sprint</p> },
+          { id: 1, name: "Card 1", content: <p>Review the design mocks</p> },
+          { id: 2, name: "Card 2", content: <p>Implement the feature</p> },
+          { id: 3, name: "Card 3", content: <p>Plan the next sprint</p> },
         ]}
       />
+    </div>
+  )
+}
+
+
+export function ComponentPageSkeletonDemo() {
+  return (
+    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+      <ComponentPageSkeleton />
+    </div>
+  )
+}
+
+export function TweetCardDemo() {
+  return (
+    <div className="flex items-center justify-center p-8 bg-background">
+      <TweetCard id="1668466632709664771" />
+    </div>
+  )
+}
+
+export function DottedMapDemo() {
+  return (
+    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+      <DottedMap />
+    </div>
+  )
+}
+
+export function AnimatedThemeTogglerDemo() {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <AnimatedThemeToggler />
+    </div>
+  )
+}
+
+export function FadeInDemo() {
+  return (
+    <div className="flex items-center justify-center p-8 bg-background">
+      <FadeIn>
+        <div className="text-4xl font-bold">Fade In Animation</div>
+      </FadeIn>
+    </div>
+  )
+}
+
+export function CodeComparisonDemo() {
+  return (
+    <div className="flex items-center justify-center p-8 bg-background w-full">
+      <CodeComparison
+        beforeCode="console.log('Hello World')"
+        afterCode="console.log('Hello Unicorn UI')"
+        language="typescript"
+        filename="example.ts"
+      />
+    </div>
+  )
+}
+
+export function ScrollProgressDemo() {
+  return (
+    <div className="relative w-full h-96 overflow-y-scroll bg-background border rounded-lg">
+      <ScrollProgress className="top-0" />
+      <div className="h-[1000px] p-8">
+        <p>Scroll down to see progress...</p>
+      </div>
+    </div>
+  )
+}
+
+export function DeviceMockupsDemo() {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <Safari src="https://ui.shadcn.com" className="size-full" />
+    </div>
+  )
+}
+
+
+
+export function CustomCursorDemo() {
+  return (
+    <div className="relative h-[300px] w-full bg-background border rounded-lg flex items-center justify-center overflow-hidden">
+      <CustomCursor />
+      <p>Hover here to see custom cursor</p>
+    </div>
+  )
+}
+
+export function StaggeredGridDemo() {
+  return (
+    <div className="relative flex h-[500px] w-full items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+      <StaggeredGrid
+        columns={4}
+        gap="1rem"
+        className="p-4"
+      >
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="h-40 w-full rounded-lg bg-primary/10 border flex items-center justify-center">
+            Item {i + 1}
+          </div>
+        ))}
+      </StaggeredGrid>
+    </div>
+  )
+}
+
+// --- New Demos ---
+
+export function PointerDemo({ name = "Pointer", color = "#FF3366", ...props }: any) {
+  return (
+    <div className="relative h-[300px] w-full flex items-center justify-center bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden">
+      <Pointer name={name} color={color} {...props} />
+      <div className="absolute bottom-4 text-sm text-gray-500">Move your cursor to see the effect</div>
+    </div>
+  )
+}
+
+export function ProgressiveBlurDemo({ direction = "bottom", blurIntensity = 10, ...props }: any) {
+  return (
+    <div className="relative h-[300px] w-full flex items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1605106702734-205df224ecce?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center" />
+      <ProgressiveBlur direction={direction} blurIntensity={blurIntensity} className="absolute inset-0" {...props} />
+      <span className="z-10 text-4xl font-bold text-white drop-shadow-md">Progressive Blur</span>
+    </div>
+  )
+}
+
+export function ReorderableListDemo({ items = ["Item 1", "Item 2", "Item 3"], ...props }: any) {
+  const [listItems, setListItems] = useState(items)
+  return (
+    <div className="flex items-center justify-center p-8 bg-background">
+      <ReorderableList items={listItems} setItems={setListItems} {...props} />
+    </div>
+  )
+}
+
+export function SmoothCursorDemo({ texture, ...props }: any) {
+  return (
+    <div className="relative h-[300px] w-full bg-background border rounded-lg flex items-center justify-center overflow-hidden cursor-none">
+      <SmoothCursor texture={texture} {...props} />
+      <p>Move your mouse (Smooth Cursor)</p>
+    </div>
+  )
+}
+
+export function SpotlightCardDemo({ spotlightColor = "rgba(var(--primary-rgb), 0.15)", ...props }: any) {
+  return (
+    <div className="flex h-60 w-full items-center justify-center">
+      <SpotlightCard spotlightColor={spotlightColor} className="max-w-sm" {...props}>
+        <div className="p-6">
+          <h3 className="text-xl font-bold">Spotlight Card</h3>
+          <p className="mt-2 text-muted-foreground">Hover over this card to see the spotlight effect.</p>
+        </div>
+      </SpotlightCard>
+    </div>
+  )
+}
+
+export function TopNavDemo({ brandName = "Unicorn UI", showThemeToggle = true, ...props }: any) {
+  return (
+    <div className="h-[300px] w-full bg-background border rounded-lg relative overflow-hidden flex flex-col">
+      <TopNav
+        brandName={brandName}
+        showThemeToggle={showThemeToggle}
+        links={[
+          { label: "Home", href: "#" },
+          { label: "Docs", href: "#" },
+          { label: "Components", href: "#" },
+        ]}
+        {...props}
+      />
+      <div className="flex-1 flex items-center justify-center">
+        <p>Content</p>
+      </div>
+    </div>
+  )
+}
+
+export function TracingBeamDemo() {
+  return (
+    <div className="h-[400px] w-full overflow-y-auto bg-background border rounded-lg p-4 relative">
+      <TracingBeam className="pl-6">
+        <div className="space-y-8 pt-4">
+          <div>
+            <h3 className="text-xl font-bold">Chapter 1</h3>
+            <p className="mt-2 text-muted-foreground">Lorem ipsum dolor sit amet...</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold">Chapter 2</h3>
+            <p className="mt-2 text-muted-foreground">Consectetur adipiscing elit...</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold">Chapter 3</h3>
+            <p className="mt-2 text-muted-foreground">Sed do eiusmod tempor incididunt...</p>
+          </div>
+        </div>
+      </TracingBeam>
+    </div>
+  )
+}
+
+export function CustomPointerDemo({ cursorSize = 20, cursorColor = "#6366f1", trailLength = 5, ...props }: any) {
+  return (
+    <div className="relative h-[300px] w-full bg-background border rounded-lg flex items-center justify-center overflow-hidden">
+      <CustomPointer cursorSize={cursorSize} cursorColor={cursorColor} trailLength={trailLength} {...props} />
+      <p>Hover here (Custom Pointer)</p>
+    </div>
+  )
+}
+
+export function FollowerPointerDemo() {
+  return (
+    <div className="relative h-[300px] w-full bg-background border rounded-lg flex items-center justify-center overflow-hidden">
+      <FollowerPointer
+        cardContent={
+          <div className="flex gap-2 items-center">
+            <Avatar className="h-6 w-6">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <span className="text-xs font-bold text-primary-foreground">Following</span>
+          </div>
+        }
+      >
+        <div className="h-40 w-60 rounded-xl bg-linear-to-tr from-pink-300 to-blue-300 flex items-center justify-center">
+          <p className="font-bold text-white">Hover Me</p>
+        </div>
+      </FollowerPointer>
+    </div>
+  )
+}
+
+export function PixelTrailDemo({ pixelSize = 20, fadeDuration = 500, color = "rgba(99, 102, 241, 0.5)", ...props }: any) {
+  return (
+    <div className="relative h-[300px] w-full bg-background border rounded-lg flex items-center justify-center overflow-hidden">
+      <PixelTrail pixelSize={pixelSize} fadeDuration={fadeDuration} color={color} className="block" {...props} />
+      <p>Hover here to see pixel trail</p>
+    </div>
+  )
+}
+
+export function ScrollProgressiveBlurDemo({ blurAmount = 10, fadeDistance = 200, ...props }: any) {
+  return (
+    <div className="relative h-[300px] w-full overflow-hidden rounded-lg border bg-background md:shadow-xl">
+      <div className="absolute inset-0 overflow-y-auto">
+        <ScrollProgressiveBlur blurAmount={blurAmount} fadeDistance={fadeDistance} {...props}>
+          <div className="flex flex-col items-center gap-4 p-8 min-h-[600px] bg-[url('https://images.unsplash.com/photo-1605106702734-205df224ecce?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center text-white text-shadow-sm">
+            <h1 className="text-4xl font-bold">Scroll Down</h1>
+            <p>The content will blur as you scroll.</p>
+            {Array.from({ length: 10 }).map((_, i) => (
+              <p key={i} className="text-lg">Content block {i + 1}</p>
+            ))}
+          </div>
+        </ScrollProgressiveBlur>
+      </div>
     </div>
   )
 }

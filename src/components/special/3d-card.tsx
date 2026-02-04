@@ -39,6 +39,10 @@ export function ThreeDCard({ children, className, ...props }: ThreeDCardProps) {
     y.set(yPct)
   }
 
+  const handleMouseEnter = () => {
+    // optional: trigger entry animation
+  }
+
   const handleMouseLeave = () => {
     x.set(0)
     y.set(0)
@@ -47,19 +51,24 @@ export function ThreeDCard({ children, className, ...props }: ThreeDCardProps) {
   return (
     <div
       ref={containerRef}
-      className={cn("perspective-1000", className)}
+      className={cn("flex flex-col items-center justify-center py-20", className)}
+      style={{
+        perspective: "1000px",
+      }}
       onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       {...props}
     >
       <motion.div
-        style={{ rotateX, rotateY }}
-        className={cn(
-          "relative rounded-(--radius) border border-border bg-card p-6 transition-shadow hover:shadow-2xl",
-          "transform-style-3d shadow-xl"
-        )}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        className="group relative flex h-96 w-80 flex-col rounded-xl bg-card border border-border shadow-xl transition-all duration-200 ease-linear"
       >
-        <div className="translate-z-20 transform-style-3d">{children}</div>
+        <div style={{ transform: "translateZ(75px)", transformStyle: "preserve-3d" }}>{children}</div>
       </motion.div>
     </div>
   )

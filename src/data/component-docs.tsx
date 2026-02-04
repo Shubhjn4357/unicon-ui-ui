@@ -415,6 +415,15 @@ export const components: ComponentDoc[] = [
 
   // --- Layout ---
   {
+    slug: "dotted-map",
+    title: "Dotted Map",
+    category: "Layout",
+    description: "A dotted map visualization.",
+    component: Demos.DottedMapDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
     slug: "bento-grid",
     title: "Bento Grid",
     category: "Layout",
@@ -517,6 +526,187 @@ export const components: ComponentDoc[] = [
       { name: "max", type: "number", defaultValue: 5, control: { type: "number" } },
     ],
     stories: [{ name: "Default", args: {} }],
+  },
+
+
+  {
+    slug: "expandable-bento-card",
+    title: "Expandable Bento Card",
+    category: "Layout",
+    description: "Bento card that expands on click.",
+    component: Demos.ExpandableBentoCardDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "glass-dock",
+    title: "Glass Dock",
+    category: "Layout",
+    description: "MacOS style glass dock.",
+    component: Demos.GlassDockDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "globe",
+    title: "Globe",
+    category: "Layout",
+    description: "Interactive 3D globe.",
+    component: Demos.GlobeDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "glow-border-card",
+    title: "Glow Border Card",
+    category: "Layout",
+    description: "Card with glowing border animation.",
+    component: Demos.GlowBorderCardDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "horizontal-scroll",
+    title: "Horizontal Scroll",
+    category: "Layout",
+    description: "Horizontal scroll container.",
+    component: Demos.HorizontalScrollDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "icon-cloud",
+    title: "Icon Cloud",
+    category: "Layout",
+    description: "Interactive 3D cloud of icons.",
+    component: Demos.IconCloudDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "lens",
+    title: "Lens",
+    category: "Layout",
+    description: "Magnifying lens effect.",
+    component: Demos.LensDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "perspective-menu",
+    title: "Perspective Menu",
+    category: "Layout",
+    description: "3D perspective menu.",
+    component: Demos.PerspectiveMenuDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "pixel-image",
+    title: "Pixel Image",
+    category: "Layout",
+    description: "Pixelated image reveal.",
+    component: Demos.ImagePixelDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "pointer",
+    title: "Pointer",
+    category: "Layout",
+    description: "Custom pointer interactions.",
+    component: Demos.PointerDemo,
+    props: [
+      { name: "name", type: "string", defaultValue: "Pointer", control: { type: "text" } },
+      { name: "color", type: "color", defaultValue: "#FF3366", control: { type: "color" } },
+    ],
+    stories: [{ name: "Default", args: { name: "Pointer", color: "#FF3366" } }],
+  },
+  {
+    slug: "progressive-blur",
+    title: "Progressive Blur",
+    category: "Layout",
+    description: "Progressive blur effect.",
+    component: Demos.ProgressiveBlurDemo,
+    props: [
+      { name: "direction", type: "enum", defaultValue: "bottom", control: { type: "select", options: ["top", "bottom", "left", "right"] } },
+      { name: "blurIntensity", type: "number", defaultValue: 10, control: { type: "number" } },
+    ],
+    stories: [{ name: "Default", args: { direction: "bottom", blurIntensity: 10 } }],
+  },
+  {
+    slug: "reorderable-list",
+    title: "Reorderable List",
+    category: "Layout",
+    description: "Drag and drop reorderable list.",
+    component: Demos.ReorderableListDemo,
+    props: [
+      { name: "items", type: "array", defaultValue: ["Item 1", "Item 2", "Item 3"], control: { type: "object" } },
+    ],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "smooth-cursor",
+    title: "Smooth Cursor",
+    category: "Layout",
+    description: "Smoothly animated cursor.",
+    component: Demos.SmoothCursorDemo,
+    props: [
+      { name: "texture", type: "string", defaultValue: "", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "spotlight-card",
+    title: "Spotlight Card",
+    category: "Layout",
+    description: "Card with spotlight hover effect.",
+    component: Demos.SpotlightCardDemo,
+    props: [
+      { name: "spotlightColor", type: "color", defaultValue: "rgba(var(--primary-rgb), 0.15)", control: { type: "color" } },
+    ],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "staggered-grid",
+    title: "Staggered Grid",
+    category: "Layout",
+    description: "Masonry-style staggered grid.",
+    component: Demos.StaggeredGridDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "top-nav",
+    title: "Top Nav",
+    category: "Layout",
+    description: "Responsive top navigation.",
+    component: Demos.TopNavDemo,
+    props: [
+      { name: "brandName", type: "string", defaultValue: "Unicorn UI", control: { type: "text" } },
+      { name: "showThemeToggle", type: "boolean", defaultValue: true, control: { type: "boolean" } },
+    ],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "tracing-beam",
+    title: "Tracing Beam",
+    category: "Layout",
+    description: "Beam that traces scroll content.",
+    component: Demos.TracingBeamDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "tweet-card",
+    title: "Tweet Card",
+    category: "Layout",
+    description: "Embeddable tweet card.",
+    component: Demos.TweetCardDemo,
+    props: [
+      { name: "id", type: "string", defaultValue: "1629888764030619648", control: { type: "text" } },
+    ],
+    stories: [{ name: "Default", args: { id: "1629888764030619648" } }],
   },
 
   // --- Text ---
@@ -838,6 +1028,17 @@ export const components: ComponentDoc[] = [
     stories: [{ name: "Default", args: { value: 100 } }],
   },
 
+
+  {
+    slug: "component-page-skeleton",
+    title: "Page Skeleton",
+    category: "Feedback",
+    description: "Skeleton loader for component pages.",
+    component: Demos.ComponentPageSkeletonDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+
   // --- Backgrounds ---
   {
     slug: "animated-grid-pattern",
@@ -996,6 +1197,42 @@ export const components: ComponentDoc[] = [
   },
 
   // --- Special ---
+  {
+    slug: "fade-in",
+    title: "Fade In",
+    category: "Special",
+    description: "Smooth fade in animation.",
+    component: Demos.FadeInDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "canvas-smudge",
+    title: "Canvas Smudge",
+    category: "Special",
+    description: "Interactive canvas smudge effect.",
+    component: Demos.CanvasSmudgeDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "neon-gradient-card",
+    title: "Neon Gradient Card",
+    category: "Special",
+    description: "Card with neon gradient border.",
+    component: Demos.NeonGradientCardDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
+    slug: "code-comparison",
+    title: "Code Comparison",
+    category: "Special",
+    description: "Component to compare two blocks of code.",
+    component: Demos.CodeComparisonDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
   {
     slug: "meteors",
     title: "Meteors",
@@ -1218,6 +1455,15 @@ export const components: ComponentDoc[] = [
 
   // --- Feedback ---
   {
+    slug: "animated-theme-toggler",
+    title: "Animated Theme Toggler",
+    category: "Feedback",
+    description: "Animated theme toggle switch.",
+    component: Demos.AnimatedThemeTogglerDemo,
+    props: [],
+    stories: [{ name: "Default", args: {} }],
+  },
+  {
     slug: "skeleton",
     title: "Skeleton",
     category: "Feedback",
@@ -1325,7 +1571,11 @@ export const components: ComponentDoc[] = [
     category: "Interaction",
     description: "Custom mouse cursor pointer.",
     component: Demos.CustomPointerDemo,
-    props: [],
+    props: [
+      { name: "cursorSize", type: "number", defaultValue: 20, control: { type: "number" } },
+      { name: "cursorColor", type: "color", defaultValue: "#6366f1", control: { type: "color" } },
+      { name: "trailLength", type: "number", defaultValue: 5, control: { type: "number" } },
+    ],
     stories: [{ name: "Default", args: {} }],
   },
   {
@@ -1343,7 +1593,11 @@ export const components: ComponentDoc[] = [
     category: "Interaction",
     description: "Trail of pixels following cursor.",
     component: Demos.PixelTrailDemo,
-    props: [],
+    props: [
+      { name: "pixelSize", type: "number", defaultValue: 20, control: { type: "number" } },
+      { name: "fadeDuration", type: "number", defaultValue: 500, control: { type: "number" } },
+      { name: "color", type: "color", defaultValue: "rgba(99, 102, 241, 0.5)", control: { type: "color" } },
+    ],
     stories: [{ name: "Default", args: {} }],
   },
   {
@@ -1361,7 +1615,10 @@ export const components: ComponentDoc[] = [
     category: "Interaction",
     description: "Blur effect based on scroll position.",
     component: Demos.ScrollProgressiveBlurDemo,
-    props: [],
+    props: [
+      { name: "blurAmount", type: "number", defaultValue: 10, control: { type: "number" } },
+      { name: "fadeDistance", type: "number", defaultValue: 200, control: { type: "number" } },
+    ],
     stories: [{ name: "Default", args: {} }],
   },
   {
@@ -1370,8 +1627,10 @@ export const components: ComponentDoc[] = [
     category: "Interaction",
     description: "Fully custom SVG cursor.",
     component: Demos.CustomCursorDemo,
-    props: [],
-    stories: [{ name: "Default", args: {} }],
+    props: [
+      { name: "color", type: "color", defaultValue: "black", control: { type: "color" } },
+    ],
+    stories: [{ name: "Default", args: { color: "black" } }],
   },
 
   // --- Mocks ---
