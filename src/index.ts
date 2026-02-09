@@ -41,7 +41,7 @@ export {
   List,
 } from "./components/core/typography"
 export { Modal } from "./components/core/modal"
-export { Popover } from "./components/core/popover"
+export { Popover, PopoverContent, PopoverTrigger } from "./components/core/popover"
 export { Progress } from "./components/core/progress"
 export { Slider } from "./components/core/slider"
 export { StatusIcon } from "./components/core/status-icon"

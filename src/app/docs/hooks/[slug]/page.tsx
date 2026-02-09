@@ -1,6 +1,7 @@
 import * as Demos from "@/components/docs/demos"
 import { DocumentationPage } from "@/components/docs/documentation-page"
-import { getHookBySlug } from "@/data/hook-docs"
+import { getHookBySlug } from "@/lib/docs-utils"
+
 import { notFound } from "next/navigation"
 
 interface HookPageProps {
@@ -30,7 +31,7 @@ export default async function HookPage(props: HookPageProps) {
   const { data } = hook
 
   // Inject the real demo component
-  const examples = data.examples.map((example) => ({
+  const examples = data.examples.map((example: { title: string; preview?: any; code: string }) => ({
     ...example,
     preview: DEMO_MAP[params.slug] || (
       <div className="p-4 text-muted-foreground">Demo not available</div>

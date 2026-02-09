@@ -8,6 +8,8 @@ import { useLocalStorage } from "../../hooks/use-async"
 
 export interface CollapsibleSidebarProps {
   children: React.ReactNode
+  topNavbar?: React.ReactNode
+  content?: React.ReactNode
   defaultCollapsed?: boolean
   collapsedWidth?: number
   expandedWidth?: number
@@ -16,12 +18,16 @@ export interface CollapsibleSidebarProps {
   showToggle?: boolean
   className?: string
   contentClassName?: string
+  navbarClassName?: string
+  mainContentClassName?: string
   onCollapsedChange?: (collapsed: boolean) => void
   storageKey?: string
 }
 
 export function CollapsibleSidebar({
   children,
+  topNavbar,
+  content,
   defaultCollapsed = false,
   collapsedWidth = 80,
   expandedWidth = 280,
@@ -30,6 +36,8 @@ export function CollapsibleSidebar({
   showToggle = true,
   className,
   contentClassName,
+  navbarClassName,
+  mainContentClassName,
   onCollapsedChange,
   storageKey,
 }: CollapsibleSidebarProps) {
@@ -38,9 +46,6 @@ export function CollapsibleSidebar({
     storageKey || "temp-sidebar-state",
     defaultCollapsed
   )
-
-  // If no storage key, we just use the state as is (useLocalStorage handles non-persistence if window is undefined, but for logic separation:)
-  // Actually easiest is to trust useLocalStorage or alias it.
 
   const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed)
 
@@ -98,6 +103,189 @@ export function CollapsibleSidebar({
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [isMobile, isMobileOpen])
 
+  // Prevent body scroll when mobile sidebar is open
+  useEffect(() => {
+    if (isMobile && isMobileOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isMobile, isMobileOpen])
+
+  // If topNavbar and content are provided, render full layout
+  if (topNavbar && content) {
+    return (
+      <div className="relative h-screen w-screen overflow-hidden">
+        {/* Top Navbar - Fixed */}
+        <div className={cn("fixed top-0 left-0 right-0 z-40", navbarClassName)}>
+          {topNavbar}
+        </div>
+
+        {/* Main Layout Container */}
+        <div className="flex h-full pt-14">
+          {/* Mobile Mode */}
+          {isMobile ? (
+            <>
+              {/* Mobile Toggle Button */}
+              <button
+                onClick={toggleMobile}
+                className={cn(
+                  "fixed top-20 z-50 rounded-lg bg-background p-2 shadow-lg border border-border transition-all duration-300",
+                  position === "left" ? "left-4" : "right-4"
+                )}
+                aria-label="Toggle sidebar"
+              >
+                {isMobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+
+              {/* Mobile Overlay */}
+              <AnimatePresence>
+                {isMobileOpen && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm"
+                    onClick={() => setIsMobileOpen(false)}
+                  />
+                )}
+              </AnimatePresence>
+
+              {/* Content Wrapper with Slide Effect */}
+              <motion.div
+                animate={{
+                  x: isMobileOpen
+                    ? position === "left"
+                      ? expandedWidth * 0.85
+                      : -expandedWidth * 0.85
+                    : 0,
+                  scale: isMobileOpen ? 0.95 : 1,
+                }}
+                transition={{
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 200,
+                  mass: 0.8,
+                }}
+                className="relative w-full h-full overflow-hidden"
+              >
+                <div
+                  className={cn(
+                    "h-full overflow-y-auto",
+                    isMobileOpen && "pointer-events-none",
+                    mainContentClassName
+                  )}
+                >
+                  {content}
+                </div>
+              </motion.div>
+
+              {/* Mobile Sidebar */}
+              <AnimatePresence>
+                {isMobileOpen && (
+                  <motion.div
+                    ref={sidebarRef}
+                    initial={{
+                      x: position === "left" ? "-100%" : "100%",
+                      opacity: 0,
+                    }}
+                    animate={{
+                      x: 0,
+                      opacity: 1,
+                    }}
+                    exit={{
+                      x: position === "left" ? "-100%" : "100%",
+                      opacity: 0,
+                    }}
+                    transition={{
+                      type: "spring",
+                      damping: 25,
+                      stiffness: 200,
+                      mass: 0.8,
+                    }}
+                    className={cn(
+                      "fixed top-14 z-50 h-[calc(100vh-3.5rem)] bg-background shadow-2xl border-r border-border",
+                      position === "left" ? "left-0" : "right-0",
+                      className
+                    )}
+                    style={{ width: expandedWidth }}
+                  >
+                    <div className={cn("h-full overflow-y-auto p-4", contentClassName)}>
+                      {children}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </>
+          ) : (
+            <>
+              {/* Desktop Sidebar */}
+              <motion.div
+                ref={sidebarRef}
+                animate={{
+                  width: isCollapsed ? collapsedWidth : expandedWidth,
+                }}
+                transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                className={cn(
+                  "relative h-full bg-background border-r border-border shrink-0",
+                  className
+                )}
+              >
+                {/* Toggle Button */}
+                {showToggle && (
+                  <button
+                    onClick={toggleCollapse}
+                    className={cn(
+                      "absolute top-4 z-10 rounded-full bg-primary p-1.5 shadow-md border border-border hover:bg-accent transition-colors",
+                      position === "left" ? "-right-3" : "-left-3"
+                    )}
+                    aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+                  >
+                    {position === "left" ? (
+                      isCollapsed ? (
+                        <ChevronRight className="h-4 w-4" />
+                      ) : (
+                        <ChevronLeft className="h-4 w-4" />
+                      )
+                    ) : isCollapsed ? (
+                      <ChevronLeft className="h-4 w-4" />
+                    ) : (
+                      <ChevronRight className="h-4 w-4" />
+                    )}
+                  </button>
+                )}
+
+                {/* Sidebar Content */}
+                <div className={cn("h-full overflow-hidden", contentClassName)}>
+                  <motion.div
+                    animate={{
+                      opacity: isCollapsed ? 0 : 1,
+                      x: isCollapsed ? (position === "left" ? -20 : 20) : 0,
+                    }}
+                    transition={{ duration: 0.2 }}
+                    className="h-full overflow-y-auto p-4"
+                  >
+                    {children}
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Desktop Content */}
+              <div className={cn("flex-1 h-full overflow-y-auto", mainContentClassName)}>
+                {content}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  // Legacy mode: Just sidebar (backward compatibility)
   // Mobile menu button
   if (isMobile) {
     return (

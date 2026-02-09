@@ -1,37 +1,60 @@
 "use client"
 
-import { Check, Eye, Lock } from "lucide-react"
+import { Check, Eye, Lock, Moon, Sun } from "lucide-react"
 import * as React from "react"
 import { useTheme } from "../../hooks/use-theme"
 import { BackgroundBeams } from "../backgrounds/background-beams"
 import { SpotlightCard } from "../layout/spotlight-card"
 import { ThemeEditor } from "./theme-editor"
+import { Button } from "../core/button"
 
 export default function ThemeGeneratorPage() {
   const { theme, setTheme } = useTheme()
-  const [isDark, setIsDark] = React.useState(theme === "dark")
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const toggleTheme = () => {
-    const newTheme = isDark ? "light" : "dark"
-    setTheme(newTheme)
-    setIsDark(!isDark)
+    setTheme(theme === "dark" ? "light" : "dark")
   }
 
+  if (!mounted) return null
+
+  const isDark = theme === "dark"
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
-        <BackgroundBeams />
+      <div className="relative overflow-hidden border-b bg-background/50 backdrop-blur-xl">
+        <BackgroundBeams className="opacity-20" />
         <div className="container mx-auto py-12 px-4 relative z-10">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-4 text-foreground tracking-tight">
+        <SpotlightCard className="">
+      {/* Theme Toggle */}
+      
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="rounded-full w-10 h-10 bg-background/50 backdrop-blur-md border border-border/50 hover:bg-accent"
+          >
+            {isDark ? (
+              <Moon className="w-5 h-5 text-primary" />
+            ) : (
+                <Sun className="w-5 h-5 text-orange-500" />
+            )}
+          </Button>
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
               Theme Generator
             </h1>
-            <p className="text-lg text-muted-foreground mb-4 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Create beautiful, accessible themes for your Unicorn UI components. Choose from our
               curated presets or build your own custom palette.
             </p>
           </div>
+        </SpotlightCard>
         </div>
       </div>
 
@@ -40,27 +63,7 @@ export default function ThemeGeneratorPage() {
         <ThemeEditor />
       </div>
 
-      {/* Theme Toggle */}
-      <div className="fixed top-4 right-4 z-50">
-        <SpotlightCard className="p-2">
-          <button
-            onClick={toggleTheme}
-            className="flex items-center space-x-2 px-3 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            {isDark ? (
-              <>
-                <Lock className="w-4 h-4" />
-                <span>Light Mode</span>
-              </>
-            ) : (
-              <>
-                <Eye className="w-4 h-4" />
-                <span>Dark Mode</span>
-              </>
-            )}
-          </button>
-        </SpotlightCard>
-      </div>
+     
 
       {/* Footer */}
       <div className="container mx-auto py-12 px-4 text-center border-t mt-12">
@@ -71,3 +74,4 @@ export default function ThemeGeneratorPage() {
     </div>
   )
 }
+

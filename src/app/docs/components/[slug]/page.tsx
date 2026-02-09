@@ -1,7 +1,8 @@
 import { ComponentPlayground } from "@/components/docs/component-playground"
 import { DocumentationPage } from "@/components/docs/documentation-page"
 import { ComponentPageSkeleton } from "@/components/skeletons/component-page-skeleton"
-import { getComponentBySlug } from "@/data/component-docs" // Using the new data file
+import { getComponentBySlug } from "@/lib/docs-utils"
+ // Using the new data file
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
@@ -31,6 +32,11 @@ async function ComponentContent(props: ComponentPageProps) {
   const component = getComponentBySlug(params.slug)
 
   if (!component) {
+    notFound()
+  }
+
+  // Type guard: ensure component has the required 'component' property
+  if (!('component' in component) || !component.component) {
     notFound()
   }
 

@@ -85,8 +85,21 @@ export function Dialog({ open = false, onOpenChange, children }: DialogProps) {
 export const DialogTrigger = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }
->(({ className, onClick, children, ...props }, ref) => {
+  >(({ className, onClick, children, asChild, ...props }, ref) => {
   const { onOpenChange } = useDialog()
+
+  if (asChild && React.isValidElement(children)) {
+    const childElement = children as React.ReactElement<React.HTMLAttributes<HTMLElement>>
+    return React.cloneElement(childElement, {
+      ...props,
+      className: cn(childElement.props.className, className),
+      onClick: (e: React.MouseEvent<HTMLElement>) => {
+        childElement.props.onClick?.(e)
+        onClick?.(e as unknown as React.MouseEvent<HTMLButtonElement>)
+        onOpenChange(true)
+      },
+    })
+  }
 
   return (
     <button

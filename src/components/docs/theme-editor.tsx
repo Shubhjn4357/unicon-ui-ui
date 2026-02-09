@@ -1,12 +1,24 @@
-"use client"
 
-import { Check, Copy, Moon, RotateCcw, Sun } from "lucide-react"
+import { Check, Copy, Moon, RotateCcw, Sun, Palette, Type, RefreshCw, LayoutTemplate } from "lucide-react"
 import * as React from "react"
-import { type ThemePreset, useThemeGenerator } from "../../hooks/use-theme-generator"
+import { type ThemePreset, useThemeGenerator, type ColorFormat } from "../../hooks/use-theme-generator"
+import { Safari } from "../mocks/safari"
+import { Progress } from "../core/progress"
 import { Button } from "../core/button"
 import { Card } from "../core/card"
 import { Input } from "../core/input"
 import { Label } from "../core/label"
+import { Slider } from "../core/slider"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "../core/select"
+import { useTheme } from "../../hooks/use-theme"
 
 interface RadiusTokens {
   radius: string
@@ -18,39 +30,20 @@ interface RadiusTokens {
   "radius-full": string
 }
 
-interface SizeTokens {
-  "size-xs": string
-  "size-sm": string
-  "size-md": string
-  "size-lg": string
-  "size-xl": string
-  "size-2xl": string
-}
-
-const DEFAULT_RADIUS: RadiusTokens = {
-  radius: "0.5rem",
-  "radius-sm": "0.25rem",
-  "radius-md": "0.5rem",
-  "radius-lg": "0.75rem",
-  "radius-xl": "1rem",
-  "radius-2xl": "1.5rem",
-  "radius-full": "9999px",
-}
-
-const DEFAULT_SIZES: SizeTokens = {
-  "size-xs": "0.5rem",
-  "size-sm": "0.75rem",
-  "size-md": "1rem",
-  "size-lg": "1.25rem",
-  "size-xl": "1.5rem",
-  "size-2xl": "2rem",
+const DEFAULT_RADIUS_VALUES = {
+  radius: 0.5,
+  "radius-sm": 0.25,
+  "radius-md": 0.5,
+  "radius-lg": 0.75,
+  "radius-xl": 1,
+  "radius-2xl": 1.5,
 }
 
 // Helper: Parse HSL string to components
 function parseHSL(hsl: string): { h: number; s: number; l: number } | null {
-  const match = hsl.match(/(\d+)\s+(\d+)%?\s+(\d+)%?/)
+  const match = hsl.match(/(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)%?\s+(\d+(?:\.\d+)?)%?/)
   if (match) {
-    return { h: Number.parseInt(match[1]), s: Number.parseInt(match[2]), l: Number.parseInt(match[3]) }
+    return { h: Number.parseFloat(match[1]), s: Number.parseFloat(match[2]), l: Number.parseFloat(match[3]) }
   }
   return null
 }
@@ -123,30 +116,41 @@ function invertForeground(color: string, isDarkToLight: boolean): string {
 }
 
 export function ThemeEditor() {
+  const { theme } = useTheme()
   const {
     activePreset,
     customColors,
     isCustomTheme,
-    isDarkMode,
+    // isDarkMode, // Use global theme instead
     DEFAULT_PRESETS,
     DEFAULT_DESIGN_STYLES,
     applyTheme,
     resetToPreset,
-    toggleDarkMode,
+    // toggleDarkMode, // Use global toggle
     setCustomColors,
     setIsCustomTheme,
     designStyle,
     setDesignStyle,
+    colorFormat,
+    setColorFormat,
+    font,
+    setFont,
+    FONTS,
+    generateCSS: generateExportCSS
   } = useThemeGenerator()
 
+  const isDarkMode = theme === "dark"
+
   const [activePalette, setActivePalette] = React.useState<ThemePreset["palette"] | null>(null)
-  const [radiusTokens, setRadiusTokens] = React.useState<RadiusTokens>(DEFAULT_RADIUS)
-  const [sizeTokens, setSizeTokens] = React.useState<SizeTokens>(DEFAULT_SIZES)
+  // Store radius as number for slider (rem)
+  const [baseRadius, setBaseRadius] = React.useState(0.5)
+
   const [lightColors, setLightColors] = React.useState<Record<string, string>>({})
   const [darkColors, setDarkColors] = React.useState<Record<string, string>>({})
   const [mobileMenu, setMobileMenu] = React.useState(false)
   const [copiedCSS, setCopiedCSS] = React.useState(false)
 
+  // Sync state with active preset
   React.useEffect(() => {
     const preset = DEFAULT_PRESETS.find((p) => p.id === activePreset)
     if (preset) {
@@ -156,7 +160,7 @@ export function ThemeEditor() {
         colors: { ...preset.palette.colors, ...customColors },
       })
 
-      // Only extract color tokens (exclude chart and radius) for state
+      // Extract colors
       const colorTokens: Record<string, string> = {}
       Object.entries(preset.palette.colors).forEach(([key, value]) => {
         if (key !== 'chart' && key !== 'radius' && typeof value === 'string') {
@@ -164,7 +168,6 @@ export function ThemeEditor() {
         }
       })
 
-      // Also filter customColors to only include strings
       const filteredCustomColors: Record<string, string> = {}
       Object.entries(customColors).forEach(([key, value]) => {
         if (key !== 'chart' && key !== 'radius' && typeof value === 'string') {
@@ -172,35 +175,95 @@ export function ThemeEditor() {
         }
       })
 
-      setLightColors({ ...colorTokens, ...filteredCustomColors })
+      // Initial load: set both light and dark to the preset defaults (or inverted)
+      // Since presets are "base" colors (usually defined for light mode in standard palettes, 
+      // but our presets have specific HSL values).
+      // If the preset is dark-themed by nature (like "Dracula"), its values are dark.
+
+      // For simplicity in this editor, we treat the preset values as the "current mode" values
+      // and let the editor auto-generate the other mode.
+
+      if (isDarkMode) {
+        setDarkColors({ ...colorTokens, ...filteredCustomColors })
+        // Auto-gen light
+        const lightGen: Record<string, string> = {}
+        Object.entries({ ...colorTokens, ...filteredCustomColors }).forEach(([k, v]) => {
+          lightGen[k] = k.includes("foreground") ? invertForeground(v, true) : invertColorForMode(v, true)
+        })
+        setLightColors(lightGen)
+
+        // Apply immediately
+        const radiusMatch = preset.palette.colors.radius.match(/(\d+(?:\.\d+)?)rem/)
+        const r = radiusMatch ? radiusMatch[0] : preset.palette.colors.radius
+
+        applyTheme({
+          name: preset.name,
+          colors: {
+            ...colorTokens,
+            ...filteredCustomColors,
+            radius: r,
+            chart: []
+          } as any
+        })
+
+      } else {
+        setLightColors({ ...colorTokens, ...filteredCustomColors })
+        // Auto-gen dark
+        const darkGen: Record<string, string> = {}
+        Object.entries({ ...colorTokens, ...filteredCustomColors }).forEach(([k, v]) => {
+          darkGen[k] = k.includes("foreground") ? invertForeground(v, false) : invertColorForMode(v, false)
+        })
+        setDarkColors(darkGen)
+
+        // Apply immediately
+        const radiusMatch = preset.palette.colors.radius.match(/(\d+(?:\.\d+)?)rem/)
+        const r = radiusMatch ? radiusMatch[0] : preset.palette.colors.radius
+
+        applyTheme({
+          name: preset.name,
+          colors: {
+            ...colorTokens,
+            ...filteredCustomColors,
+            radius: r,
+            chart: []
+          } as any
+        })
+      }
+
+      // Parse radius for slider state
+      const radiusStr = preset.palette.colors.radius
+      const radiusMatch = radiusStr.match(/(\d+(?:\.\d+)?)rem/)
+      if (radiusMatch) {
+        setBaseRadius(parseFloat(radiusMatch[1]))
+      } else if (radiusStr === "0") {
+        setBaseRadius(0)
+      }
     }
-  }, [activePreset, customColors, DEFAULT_PRESETS])
+  }, [activePreset, customColors, DEFAULT_PRESETS, isDarkMode, applyTheme])
+
+  // Re-apply theme when font changes
+  React.useEffect(() => {
+    if (activePalette) {
+      applyTheme(activePalette)
+    }
+  }, [font, applyTheme, activePalette])
 
   const handleColorChange = (key: string, value: string) => {
     setIsCustomTheme(true)
     setCustomColors((prev) => ({ ...prev, [key]: value }))
 
-    // Auto-generate opposite mode
+    // Update local state and auto-inv
     if (isDarkMode) {
-      // Editing dark mode → auto-generate light mode
       setDarkColors((prev) => ({ ...prev, [key]: value }))
-
-      const inverted = key.includes("foreground")
-        ? invertForeground(value, true)
-        : invertColorForMode(value, true)
-
+      const inverted = key.includes("foreground") ? invertForeground(value, true) : invertColorForMode(value, true)
       setLightColors((prev) => ({ ...prev, [key]: inverted }))
     } else {
-      // Editing light mode → auto-generate dark mode
       setLightColors((prev) => ({ ...prev, [key]: value }))
-
-      const inverted = key.includes("foreground")
-        ? invertForeground(value, false)
-        : invertColorForMode(value, false)
-
+      const inverted = key.includes("foreground") ? invertForeground(value, false) : invertColorForMode(value, false)
       setDarkColors((prev) => ({ ...prev, [key]: inverted }))
     }
 
+    // Apply immediately to preview
     if (activePalette) {
       const newPalette = {
         ...activePalette,
@@ -210,66 +273,60 @@ export function ThemeEditor() {
     }
   }
 
-  const handlePresetSelect = (presetId: string) => {
-    resetToPreset(presetId)
-    setRadiusTokens(DEFAULT_RADIUS)
-    setSizeTokens(DEFAULT_SIZES)
-    const preset = DEFAULT_PRESETS.find((p) => p.id === presetId)
-    if (preset) {
-      // Filter out chart and radius from preset colors
-      const colorTokens: Record<string, string> = {}
-      Object.entries(preset.palette.colors).forEach(([key, value]) => {
-        if (key !== 'chart' && key !== 'radius' && typeof value === 'string') {
-          colorTokens[key] = value
-        }
-      })
-      setLightColors(colorTokens)
-      setDarkColors({})
+  const handleRadiusChange = (val: number[]) => {
+    const newRadius = val[0]
+    setBaseRadius(newRadius)
+    const radiusStr = `${newRadius}rem`
+
+    if (activePalette) {
+      const newPalette = {
+        ...activePalette,
+        colors: { ...activePalette.colors, radius: radiusStr }
+      }
+      applyTheme(newPalette)
     }
   }
 
-  const generateCSS = () => {
-    const activeColors = isDarkMode ? darkColors : lightColors
-    const oppositeColors = isDarkMode ? lightColors : darkColors
-
-    const lightVars = Object.entries(Object.keys(oppositeColors).length > 0 ? oppositeColors : lightColors)
-      .map(([key, value]) => `    --${key}: ${value};`)
-      .join("\n")
-
-    const darkVars = Object.entries(Object.keys(activeColors).length > 0 ? activeColors : darkColors)
-      .map(([key, value]) => `    --${key}: ${value};`)
-      .join("\n")
-
-    const radiusVars = Object.entries(radiusTokens)
-      .map(([key, value]) => `    --${key}: ${value};`)
-      .join("\n")
-
-    const sizeVars = Object.entries(sizeTokens)
-      .map(([key, value]) => `    --${key}: ${value};`)
-      .join("\n")
-
-    return `/* Generated Unicorn UI Theme */
-@layer base {
-  :root {
-    /* Light Mode Colors */
-${lightVars}
-
-    /* Radius Tokens */
-${radiusVars}
-
-    /* Size Tokens */
-${sizeVars}
-  }
-
-  .dark {
-    /* Dark Mode Colors (Auto-Generated) */
-${darkVars || "    /* No dark mode colors customized yet */"}
-  }
-}`
+  const handlePresetSelect = (presetId: string) => {
+    resetToPreset(presetId)
+    setBaseRadius(0.5)
+    // The useEffect will handle updating colors
   }
 
   const copyCSS = async () => {
-    const css = generateCSS()
+  // Use the hook's generator which respects ColorFormat
+    const activeColors = isDarkMode ? darkColors : lightColors
+    const oppositeColors = isDarkMode ? lightColors : darkColors
+
+    // Construct palettes for the generator
+    const lightPalette: ThemePreset['palette'] = {
+      name: "Generated",
+      colors: {
+        ...lightColors as any,
+        radius: `${baseRadius}rem`,
+        chart: []
+      }
+    }
+
+    const darkPalette: ThemePreset['palette'] = {
+      name: "Generated",
+      colors: {
+        ...darkColors as any,
+        radius: `${baseRadius}rem`,
+        chart: []
+      }
+    }
+
+    const lightCSS = generateExportCSS(lightPalette, false)
+    const darkCSS = generateExportCSS(darkPalette, true)
+
+    const css = `/* Generated Unicorn UI Theme */
+@layer base {
+${lightCSS}
+
+${darkCSS}
+}`
+
     try {
       await navigator.clipboard.writeText(css)
       setCopiedCSS(true)
@@ -302,7 +359,7 @@ ${darkVars || "    /* No dark mode colors customized yet */"}
   const currentColors = isDarkMode ? darkColors : lightColors
 
   return (
-    <div className="min-h-screen w-full bg-background">
+    <div className="min-h-screen w-full bg-background/50">
       {/* Mobile Header */}
       <div className="lg:hidden sticky top-0 z-40 bg-card border-b p-4">
         <div className="flex items-center justify-between">
@@ -314,41 +371,17 @@ ${darkVars || "    /* No dark mode colors customized yet */"}
       </div>
 
       {/* Main Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-4 lg:gap-6 p-4 lg:p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 lg:gap-8">
         {/* Sidebar Controls */}
         <Card
-          className={`p-4 space-y-4 ${mobileMenu ? "block" : "hidden"
-            } lg:block lg:sticky lg:top-4 lg:h-fit lg:max-h-[calc(100vh-2rem)] overflow-y-auto`}
+          className={`p-6 space-y-6 ${mobileMenu ? "block" : "hidden"
+            } lg:block lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)] overflow-y-auto border-border/50 bg-card/50 backdrop-blur-sm`}
         >
-          {/* Dark Mode Toggle */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">Editing Mode</Label>
-            <div className="grid grid-cols-2 gap-2">
-              <Button
-                variant={!isDarkMode ? "default" : "outline"}
-                size="sm"
-                onClick={() => toggleDarkMode(false)}
-                className="text-sm"
-              >
-                <Sun className="w-4 h-4 mr-2" /> Light
-              </Button>
-              <Button
-                variant={isDarkMode ? "default" : "outline"}
-                size="sm"
-                onClick={() => toggleDarkMode(true)}
-                className="text-sm"
-              >
-                <Moon className="w-4 h-4 mr-2" /> Dark
-              </Button>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              {isDarkMode ? "Editing dark mode (light auto-generates)" : "Editing light mode (dark auto-generates)"}
-            </p>
-          </div>
-
           {/* Presets */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">Presets</Label>
+          <div className="space-y-3">
+            <Label className="text-sm font-semibold flex items-center gap-2">
+              <Palette className="w-4 h-4" /> Presets
+            </Label>
             <div className="grid grid-cols-2 gap-2">
               {DEFAULT_PRESETS.map((preset) => (
                 <button
@@ -357,78 +390,146 @@ ${darkVars || "    /* No dark mode colors customized yet */"}
                     handlePresetSelect(preset.id)
                     setMobileMenu(false)
                   }}
-                  className={`p-2 rounded-lg border text-xs transition-all ${activePreset === preset.id && !isCustomTheme
-                    ? "ring-2 ring-primary border-primary bg-primary/5"
-                    : "hover:bg-muted border-border"
+                  className={`p-2 rounded-lg border text-xs transition-all flex items-center gap-2 text-left group hover:border-primary/50 relative overflow-hidden ${activePreset === preset.id && !isCustomTheme
+                    ? "ring-1 ring-primary border-primary bg-primary/5"
+                    : "border-border bg-card/50 hover:bg-accent"
                     }`}
                 >
                   <div
-                    className="w-full h-8 rounded-md mb-2"
+                    className="w-6 h-6 rounded-full shadow-sm shrink-0 border"
                     style={{ background: preset.preview }}
                   />
-                  <span className="font-medium text-xs">{preset.name}</span>
+                  <span className="font-medium truncate">{preset.name}</span>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Design Style */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">Design Style</Label>
-            <select
-              value={designStyle ?? ""}
-              onChange={(e) => setDesignStyle(e.target.value || null)}
-              className="w-full h-9 rounded-md border border-input px-3 bg-background text-sm"
-            >
-              <option value="">Default</option>
-              {DEFAULT_DESIGN_STYLES.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
+          <div className="h-px bg-border/50" />
+
+          {/* Configuration */}
+          <div className="space-y-4">
+            <Label className="text-sm font-semibold flex items-center gap-2">
+              Configuration
+            </Label>
+
+            <div className="grid gap-4">
+              {/* Font Selector */}
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Font Family</Label>
+                <Select value={font} onValueChange={setFont}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Select Font" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {FONTS.map((f) => (
+                      <SelectItem key={f.name} value={f.value}>
+                        <span style={{ fontFamily: f.value.includes("var") ? "inherit" : f.value }}>
+                          {f.name}
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Radius Slider */}
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <Label className="text-xs text-muted-foreground">Radius</Label>
+                  <span className="text-xs font-mono">{baseRadius}rem</span>
+                </div>
+                <Slider
+                  value={[baseRadius]}
+                  max={2}
+                  step={0.10}
+                  onValueChange={handleRadiusChange}
+                  className="py-2"
+                />
+              </div>
+
+
+              {/* Design Style Selector */}
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Design Style</Label>
+                <Select value={designStyle || "default"} onValueChange={(v) => {
+                  setDesignStyle(v === "default" ? null : v)
+                }}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Select Style" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="default">Default</SelectItem>
+                    {DEFAULT_DESIGN_STYLES.map((style) => (
+                      <SelectItem key={style} value={style}>
+                        <span className="capitalize">{style.replace("-", " ")}</span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Format Selector */}
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Color Format (Export)</Label>
+                <Select value={colorFormat} onValueChange={(v) => setColorFormat(v as ColorFormat)}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="hsl">HSL (Recommended)</SelectItem>
+                    <SelectItem value="hex">Hex</SelectItem>
+                    <SelectItem value="rgb">RGB</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </div>
 
+          <div className="h-px bg-border/50" />
+
           {/* Colors */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-semibold">Colors</Label>
+              <Label className="text-sm font-semibold flex items-center gap-2">
+                <RefreshCw className="w-4 h-4" /> Colors
+              </Label>
               {isCustomTheme && (
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => resetToPreset(activePreset)}
-                  className="h-7 text-xs"
+                  className="h-7 text-xs px-2"
                 >
                   <RotateCcw className="w-3 h-3 mr-1" /> Reset
                 </Button>
               )}
             </div>
 
-            <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+            <div className="space-y-3">
               {colorKeys.map((key) => {
-                // Cast customColors to allow accessing -foreground keys
                 const customColorsMap = customColors as Record<string, string>
                 const value = currentColors[key] || customColorsMap[key] || ""
                 return (
-                  <div key={key} className="space-y-1">
-                    <Label className="text-xs capitalize">{key.replace("-", " ")}</Label>
+                  <div key={key} className="space-y-1.5">
+                    <Label className="text-xs capitalize text-muted-foreground">{key.replace("-", " ")}</Label>
                     <div className="flex gap-2 items-center">
-                      <input
-                        type="color"
-                        value={
-                          value && typeof value === "string" && !value.startsWith("hsl")
-                            ? (value as string)
-                            : "#3B82F6"
-                        }
-                        onChange={(e) => handleColorChange(key, e.target.value)}
-                        className="h-9 w-12 p-1 rounded-md border cursor-pointer"
-                      />
+                      <div className="relative group">
+                        <input
+                          type="color"
+                          value={
+                            value && typeof value === "string" && !value.startsWith("hsl")
+                              ? (value as string)
+                              : "#3B82F6"
+                          }
+                          onChange={(e) => handleColorChange(key, e.target.value)}
+                          className="h-9 w-9 p-0.5 rounded-md border cursor-pointer bg-transparent"
+                        />
+                      </div>
                       <Input
                         type="text"
                         value={value as string}
                         onChange={(e) => handleColorChange(key, e.target.value)}
-                        placeholder="hsl(...) or #HEX"
                         className="flex-1 h-9 text-xs font-mono"
                       />
                     </div>
@@ -438,50 +539,8 @@ ${darkVars || "    /* No dark mode colors customized yet */"}
             </div>
           </div>
 
-          {/* Radius Tokens */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">Border Radius</Label>
-            <div className="space-y-2 max-h-[180px] overflow-y-auto pr-2">
-              {Object.entries(radiusTokens).map(([key, value]) => (
-                <div key={key} className="flex gap-2 items-center">
-                  <Label className="text-xs min-w-[80px]">{key}</Label>
-                  <Input
-                    type="text"
-                    value={value}
-                    onChange={(e) =>
-                      setRadiusTokens((prev) => ({ ...prev, [key]: e.target.value }))
-                    }
-                    placeholder="e.g., 0.5rem"
-                    className="h-8 text-xs font-mono"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Size Tokens */}
-          <div className="space-y-2">
-            <Label className="text-sm font-semibold">Size Scale</Label>
-            <div className="space-y-2 max-h-[180px] overflow-y-auto pr-2">
-              {Object.entries(sizeTokens).map(([key, value]) => (
-                <div key={key} className="flex gap-2 items-center">
-                  <Label className="text-xs min-w-[80px]">{key}</Label>
-                  <Input
-                    type="text"
-                    value={value}
-                    onChange={(e) =>
-                      setSizeTokens((prev) => ({ ...prev, [key]: e.target.value }))
-                    }
-                    placeholder="e.g., 1rem"
-                    className="h-8 text-xs font-mono"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Copy CSS Button */}
-          <div className="pt-4 border-t">
+          <div className="pt-2 sticky bottom-0 bg-background/80 backdrop-blur-sm pb-2">
             <Button
               className="w-full"
               onClick={copyCSS}
@@ -502,75 +561,108 @@ ${darkVars || "    /* No dark mode colors customized yet */"}
 
         {/* Preview Area */}
         <div className="space-y-6">
-          <Card className="p-6 space-y-4">
-            <div>
-              <h2 className="text-2xl font-bold">Live Preview</h2>
-              <p className="text-sm text-muted-foreground">
-                Customize in {isDarkMode ? "dark" : "light"} mode • Opposite mode auto-generates ✨
-              </p>
-            </div>
+          <Safari
+            url="theme.unicorn.ui"
+            className="size-full bg-background/50 backdrop-blur-xl border-border/50 p-6"
+          >
+            <div className="space-y-8">
+              <div className="flex items-center justify-between border-b pb-6">
+                <div>
+                  <h2 className="text-2xl font-bold">Preview</h2>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    See how your theme looks on real components
+                  </p>
+                </div>
+              </div>
 
             {/* Components Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Buttons */}
-              <Card className="p-4 space-y-3">
-                <h3 className="font-semibold text-sm">Buttons</h3>
-                <div className="space-y-2">
-                  <Button className="w-full" size="sm">
-                    Primary
-                  </Button>
-                  <Button variant="secondary" className="w-full" size="sm">
-                    Secondary
-                  </Button>
-                  <Button variant="outline" className="w-full" size="sm">
-                    Outline
-                  </Button>
-                  <Button variant="destructive" className="w-full" size="sm">
-                    Destructive
-                  </Button>
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">Buttons</h3>
+                  <div className="flex flex-wrap gap-3">
+                    <Button>Primary</Button>
+                    <Button variant="secondary">Secondary</Button>
+                    <Button variant="outline">Outline</Button>
+                    <Button variant="destructive">Destructive</Button>
+                    <Button variant="ghost">Ghost</Button>
+                  </div>
                 </div>
-              </Card>
 
-              {/* Inputs */}
-              <Card className="p-4 space-y-3">
-                <h3 className="font-semibold text-sm">Inputs</h3>
-                <div className="space-y-2">
-                  <Input placeholder="Default Input" />
-                  <Input disabled placeholder="Disabled" />
-                  <Input type="email" placeholder="Email" />
+                {/* Inputs */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">Form Elements</h3>
+                  <div className="space-y-3">
+                    <Input placeholder="Default Input" />
+                    <div className="flex gap-3">
+                      <Input placeholder="Disabled" disabled className="w-1/2" />
+                      <Input placeholder="Invalid" className="w-1/2 border-destructive text-destructive" />
+                    </div>
+                  </div>
                 </div>
-              </Card>
+
+                {/* Cards */}
+                <div className="space-y-4 md:col-span-2">
+                  <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">Surface & Typography</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <Card className="p-6 space-y-4">
+                      <div className="space-y-2">
+                        <h4 className="text-xl font-semibold tracking-tight">Card Heading</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          This is a card component demonstrating the surface background color, border radius, and typography hierarchy.
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-4 pt-4 border-t">
+                        <Button size="sm">Action</Button>
+                        <Button size="sm" variant="ghost">Cancel</Button>
+                      </div>
+                    </Card>
+
+                    <Card className="p-6 flex flex-col justify-center space-y-6 bg-secondary/20 border-none">
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold">
+                          U
+                        </div>
+                        <div>
+                          <p className="font-semibold">Unicorn UI</p>
+                          <p className="text-xs text-muted-foreground">Theming Engine</p>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Progress value={66} className="h-2" />
+                        <div className="flex justify-between text-xs text-muted-foreground">
+                          <span>Progress</span>
+                          <span>66%</span>
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+                </div>
 
               {/* Color Swatches */}
-              <Card className="p-4 space-y-3 md:col-span-2">
-                <h3 className="font-semibold text-sm">Color Palette</h3>
-                <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
-                  {["background", "primary", "secondary", "accent", "muted"].map((color) => (
-                    <div key={color} className="space-y-2">
+                <div className="space-y-4 md:col-span-2 pt-6 border-t">
+                  <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">Palette Overview</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+                    {["background", "primary", "secondary", "accent", "muted", "destructive"].map((color) => (
+                      <div key={color} className="space-y-2 group">
                       <div
-                        className="h-16 w-full rounded-lg border shadow-sm"
+                        className="h-20 w-full rounded-xl border shadow-sm transition-transform group-hover:scale-105"
                         style={{ background: `hsl(var(--${color}))` }}
                       />
-                      <p className="text-xs font-medium text-center capitalize">{color}</p>
+                      <div className="space-y-0.5">
+                        <p className="text-xs font-semibold capitalize">{color}</p>
+                        <p className="text-[10px] text-muted-foreground font-mono opacity-50">var(--{color})</p>
+                      </div>
                     </div>
                   ))}
+                  </div>
                 </div>
-              </Card>
-
-              {/* Typography */}
-              <Card className="p-4 space-y-3 md:col-span-2">
-                <h3 className="font-semibold text-sm">Typography</h3>
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold">Heading 1</h1>
-                  <h2 className="text-2xl font-semibold">Heading 2</h2>
-                  <p className="text-base">Body text paragraph</p>
-                  <p className="text-sm text-muted-foreground">Muted small text</p>
-                </div>
-              </Card>
             </div>
-          </Card>
+            </div>
+          </Safari>
         </div>
       </div>
     </div>
   )
 }
+

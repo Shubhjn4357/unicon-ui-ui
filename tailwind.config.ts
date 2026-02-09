@@ -17,13 +17,18 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+        serif: ["var(--font-serif)", ...defaultTheme.fontFamily.serif],
         mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
+
       },
       borderRadius: {
-        DEFAULT: "var(--radius)",
-        lg: "calc(var(--radius) + 2px)",
-        md: "calc(var(--radius) -  2px)",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        DEFAULT: "calc(var(--radius) - 2px)",
+        xl: "calc(var(--radius) + 4px)",
+        "2xl": "calc(var(--radius) + 8px)",
+        "3xl": "calc(var(--radius) + 12px)",
       },
       colors: {
         background: "hsl(var(--background) / <alpha-value>)",
@@ -128,15 +133,11 @@ const config: Config = {
             "background-position": "calc(100% + var(--shimmer-width)) 0",
           },
         },
-        "border-beam":{
-          "0%": {
-            "offset-distance": "0%",
-          },
+        "border-beam": {
           "100%": {
             "offset-distance": "100%",
-          }
+          },
         },
-
       },
     },
   },

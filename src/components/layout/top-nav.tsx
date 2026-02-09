@@ -28,8 +28,8 @@ export function TopNav({
   brandHref = "/",
   links = [
     { label: "Docs", href: "/docs" },
-    { label: "Components", href: "/docs/components" },
-    { label: "Hooks", href: "/docs/hooks" },
+    { label: "Components", href: "/components" },
+    { label: "Hooks", href: "hooks" },
     { label: "Showcase", href: "/showcase" },
     { label: "Theme Generator", href: "/theme-generator" },
     { label: "CLI", href: "/docs/cli" },
@@ -47,12 +47,12 @@ export function TopNav({
       )}
     >
       <div className="container flex h-14 items-center">
-        <div className="mr-4 hidden md:flex">
+        <div className="mr-4 flex">
           <Link href={brandHref} className="mr-6 flex items-center space-x-2">
             {brandLogo}
             {brandName && <span className="hidden font-bold sm:inline-block">{brandName}</span>}
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
+          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
             {links.map((link) => (
               <Link
                 key={link.href}

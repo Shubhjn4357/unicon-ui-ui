@@ -22,7 +22,7 @@ export const AnimatedGradientText = React.forwardRef<HTMLSpanElement, AnimatedGr
       <motion.span
         ref={ref}
         className={cn(
-          "inline-block bg-linear-to-r from-primary via-accent to-primary bg-size-[200%_auto] bg-clip-text text-transparent",
+          "inline-block bg-linear-to-r/longer from-primary via-accent to-primary bg-size-[200%_auto] bg-clip-text text-transparent",
           className
         )}
         animate={{
@@ -34,6 +34,7 @@ export const AnimatedGradientText = React.forwardRef<HTMLSpanElement, AnimatedGr
           ease: "linear",
         }}
         style={{
+          backgroundImage: "linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)))",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
         }}

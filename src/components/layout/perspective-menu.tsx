@@ -12,11 +12,11 @@ interface MenuItem {
 interface PerspectiveMenuProps {
   items: MenuItem[]
   isOpen: boolean
-  onClose: () => void
+  onMenuToggle: () => void
   className?: string
 }
 
-export function PerspectiveMenu({ items, isOpen, onClose, className }: PerspectiveMenuProps) {
+export function PerspectiveMenu({ items, isOpen, onMenuToggle, className }: PerspectiveMenuProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -25,10 +25,10 @@ export function PerspectiveMenu({ items, isOpen, onClose, className }: Perspecti
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className={cn(
-            "fixed inset-0 z-[50] flex items-center justify-center bg-background/90 backdrop-blur-sm",
+            "fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm",
             className
           )}
-          onClick={onClose}
+          onClick={onMenuToggle}
         >
           <nav className="flex flex-col gap-6 perspective-[1000px]">
             {items.map((item, i) => (

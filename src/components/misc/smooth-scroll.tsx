@@ -1,18 +1,26 @@
 "use client"
 
+import { cn } from "@/index"
+import {LenisOptions} from "lenis"
 import { ReactLenis } from "lenis/react"
 import type React from "react"
 
 export const SmoothScroll = ({
   children,
-  ...props
+  root=true,
+  options={
+    allowNestedScroll:true
+  },
+  className
 }: {
   children: React.ReactNode
+  className?:string
   root?: boolean
-  options?: any
+    options?:LenisOptions
 }) => {
+  const {content,...props}=options
   return (
-    <ReactLenis root {...props}>
+    <ReactLenis root={root} {...props} className={cn("h-full",className)}>
       {children}
     </ReactLenis>
   )

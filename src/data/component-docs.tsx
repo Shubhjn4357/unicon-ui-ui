@@ -1,8177 +1,1577 @@
+
 import * as Demos from "@/components/docs/demos"
 import { ComponentPlaceholder } from "@/components/docs/placeholder"
-import { hooks } from "@/data/hook-docs"
-import type { ComponentDoc } from "../components/docs/types"
-
-// Some doc sources are maintained elsewhere; provide a safe fallback here
-const docs: any[] = []
-
-
+import type { ComponentDoc } from "@/components/docs/types"
 
 export const components: ComponentDoc[] = [
+  // Core
   {
     slug: "accordion",
     title: "Accordion",
     category: "Core",
-    description: "",
+    description: "A vertically stacked set of interactive headings that each reveal a section of content.",
     component: Demos.AccordionDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "items",
-        type: "AccordionItem[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
         name: "type",
-        type: "single | multiple",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["single", "multiple"],
-        },
-      },
-      {
-        name: "defaultValue",
-        type: "string | any",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["string", "any"],
-        },
-      },
-      {
-        name: "value",
-        type: "string | any",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["string", "any"],
-        },
-      },
-      {
-        name: "onValueChange",
-        type: "any",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
+        type: '"single" | "multiple"',
+        defaultValue: "single",
+        description: "Determines whether one or multiple items can be opened at the same time.",
+        control: { type: "select", options: ["single", "multiple"] },
       },
       {
         name: "collapsible",
         type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
+        defaultValue: false,
+        description: "Allows closing content when clicking trigger for an open item.",
+        control: { type: "boolean" },
       },
     ],
-    stories: [{ name: "Default", args: { defaultValue: "", value: "", collapsible: false } }],
   },
-
   {
     slug: "alert",
     title: "Alert",
     category: "Core",
-    description: "",
+    description: "Displays a callout for user attention.",
     component: Demos.AlertDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "variant",
-        type: "default | destructive | success | warning | glass",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["default", "destructive", "success", "warning", "glass"],
-        },
-      },
-      {
-        name: "dismissible",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "onDismiss",
-        type: "() => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "icon",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "icon",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
+        type: '"default" | "destructive"',
+        defaultValue: "default",
+        description: "The visual style of the alert.",
+        control: { type: "select", options: ["default", "destructive"] },
       },
     ],
-    stories: [{ name: "Default", args: { dismissible: false, children: "Example" } }],
   },
-
   {
     slug: "avatar",
     title: "Avatar",
     category: "Core",
-    description: "",
+    description: "An image element with a fallback for representing the user.",
     component: Demos.AvatarDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "src",
         type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
+        description: "The source URL of the avatar image.",
+        control: { type: "src" },
       },
       {
         name: "alt",
         type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
+        description: "Alternative text for the avatar image.",
+        control: { type: "text" },
       },
       {
         name: "fallback",
         type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "size",
-        type: "sm | md | lg | xl",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["sm", "md", "lg", "xl"],
-        },
-      },
-      {
-        name: "status",
-        type: "online | offline | away | busy",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["online", "offline", "away", "busy"],
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
+        description: "Text to display when the image fails to load.",
+        control: { type: "text" },
       },
     ],
-    stories: [{ name: "Default", args: { src: "", alt: "", fallback: "", children: "Example" } }],
   },
-
   {
     slug: "badge",
     title: "Badge",
     category: "Core",
-    description: "",
+    description: "Displays a badge or a component that looks like a badge.",
     component: Demos.BadgeDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "variant",
-        type: "default | secondary | outline | destructive | success",
-        description: "",
-        required: false,
+        type: '"default" | "secondary" | "destructive" | "outline"',
+        defaultValue: "default",
+        description: "The visual style of the badge.",
         control: {
           type: "select",
-          options: ["default", "secondary", "outline", "destructive", "success"],
-        },
-      },
-      {
-        name: "size",
-        type: "sm | md | lg",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["sm", "md", "lg"],
-        },
-      },
-      {
-        name: "dot",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
+          options: ["default", "secondary", "destructive", "outline"],
         },
       },
     ],
-    stories: [{ name: "Default", args: { dot: false, children: "Example" } }],
   },
-
   {
     slug: "button",
     title: "Button",
     category: "Core",
-    description: "",
+    description: "Displays a button or a component that looks like a button.",
     component: Demos.ButtonDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
         name: "variant",
-        type: "default | secondary | outline | ghost | destructive | link",
-        description: "",
-        required: false,
+        type:
+          '"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"',
+        defaultValue: "default",
+        description: "The visual style of the button.",
         control: {
           type: "select",
-          options: ["default", "secondary", "outline", "ghost", "destructive", "link"],
+          options: [
+            "default",
+            "destructive",
+            "outline",
+            "secondary",
+            "ghost",
+            "link",
+          ],
         },
       },
       {
         name: "size",
-        type: "sm | md | lg | icon",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["sm", "md", "lg", "icon"],
-        },
-      },
-      {
-        name: "isLoading",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "leftIcon",
-        type: "icon",
-        description: "",
-        required: false,
-        control: {
-          type: "icon",
-        },
-      },
-      {
-        name: "rightIcon",
-        type: "icon",
-        description: "",
-        required: false,
-        control: {
-          type: "icon",
-        },
+        type: '"default" | "sm" | "lg" | "icon"',
+        defaultValue: "default",
+        description: "The size of the button.",
+        control: { type: "select", options: ["default", "sm", "lg", "icon"] },
       },
     ],
-    stories: [{ name: "Default", args: { children: "Example", isLoading: false } }],
   },
-
   {
     slug: "card",
     title: "Card",
     category: "Core",
-    description: "",
+    description: "Displays a card with header, content, and footer.",
     component: Demos.CardDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "hover",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "glass",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { hover: false, glass: false } }],
+    props: [],
   },
-
   {
     slug: "checkbox",
     title: "Checkbox",
     category: "Core",
-    description: "",
+    description: "A control that allows the user to toggle between checked and not checked.",
     component: Demos.CheckboxDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "checked",
         type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
+        description: "The controlled checked state of the checkbox.",
+        control: { type: "boolean" },
       },
       {
-        name: "onCheckedChange",
-        type: "(checked: boolean) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "label",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "size",
-        type: "sm | md | lg",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["sm", "md", "lg"],
-        },
-      },
+        name: "disabled",
+        type: "boolean",
+        description: "When true, prevents the user from interacting with the checkbox.",
+        control: { type: "boolean" },
+      }
     ],
-    stories: [{ name: "Default", args: { checked: false, label: "" } }],
   },
-
   {
     slug: "dialog",
     title: "Dialog",
     category: "Core",
-    description: "",
+    description: "A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.",
     component: Demos.DialogDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "isOpen",
-        type: "boolean",
-        description: "",
-        required: true,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "setIsOpen",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "open",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "onOpenChange",
-        type: "(open: boolean) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "asChild",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { isOpen: false, children: "Example", open: false, asChild: false, className: "" },
-      },
-    ],
+    props: [],
   },
-
   {
     slug: "dropdown-menu",
-    title: "DropdownMenu",
+    title: "Dropdown Menu",
     category: "Core",
-    description: "",
+    description: "Displays a menu to the user—such as a set of actions or functions—triggered by a button.",
     component: Demos.DropdownMenuDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "asChild",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "width",
-        type: "string | number",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["string", "number"],
-        },
-      },
-      {
-        name: "align",
-        type: "start | end | center",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["start", "end", "center"],
-        },
-      },
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "onClick",
-        type: "any",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "icon",
-        type: "any",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "destructive",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { children: "Example", asChild: false, className: "", width: "", destructive: false },
-      },
-    ],
+    props: [],
   },
-
   {
     slug: "input",
     title: "Input",
     category: "Core",
-    description: "",
+    description: "Displays a form input field or a component that looks like an input field.",
     component: Demos.InputDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "size",
-        type: "sm | md | lg",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["sm", "md", "lg"],
-        },
-      },
-      {
-        name: "error",
+        name: "type",
         type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
+        defaultValue: "text",
+        description: "The HTML input type.",
+        control: { type: "text" },
       },
       {
-        name: "leftIcon",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "icon",
-        },
-      },
-      {
-        name: "rightIcon",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "icon",
-        },
-      },
-      {
-        name: "label",
+        name: "placeholder",
         type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
+        description: "The placeholder text for the input.",
+        control: { type: "text" },
       },
     ],
-    stories: [{ name: "Default", args: { error: "", label: "" } }],
   },
-
   {
     slug: "label",
     title: "Label",
     category: "Core",
-    description: "",
+    description: "Renders an accessible label associated with controls.",
     component: Demos.LabelDemo ?? ComponentPlaceholder,
-    props: [],
+    props: [
+      {
+        name: "text",
+        type: "string",
+        description: "The Label text for the input.",
+        control: { type: "text" },
+      },
+    ],
   },
-
   {
     slug: "modal",
     title: "Modal",
     category: "Core",
-    description: "",
-    component: ComponentPlaceholder,
+    description: "A modal dialog that interrupts the user with important content.",
+    component: Demos.ModalDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "open",
+        name: "Title",
+        type: "string",
+        description: "The Title text for the Model.",
+        control: { type: "text" },
+      },
+      {
+        name: "Description",
+        type: "string",
+        description: "The Description of Model.",
+        control: { type: "text" },
+      },
+      {
+        name: "Show Close Icon",
         type: "boolean",
-        description: "",
-        required: true,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "onOpenChange",
-        type: "() => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "title",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "description",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "showClose",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          open: false,
-          children: "Example",
-          title: "",
-          description: "",
-          showClose: false,
-          className: "",
-        },
+        description: "Show Close Icon",
+        control: { type: "boolean" },
       },
     ],
   },
-
   {
     slug: "popover",
     title: "Popover",
     category: "Core",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "open",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "onOpenChange",
-        type: "(open: boolean) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "defaultOpen",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "align",
-        type: "start | center | end",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["start", "center", "end"],
-        },
-      },
-      {
-        name: "side",
-        type: "top | bottom | left | right",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["top", "bottom", "left", "right"],
-        },
-      },
-      {
-        name: "sideOffset",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { children: "Example", open: false, defaultOpen: false, sideOffset: 0 },
-      },
-    ],
+    description: "Displays rich content in a portal, triggered by a button.",
+    component: Demos.PopoverDemo ?? ComponentPlaceholder,
+    props: [],
   },
-
   {
     slug: "progress",
     title: "Progress",
     category: "Core",
-    description: "",
+    description: "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
     component: Demos.ProgressDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "value",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "max",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "variant",
-        type: "default | success | warning | error",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["default", "success", "warning", "error"],
-        },
-      },
-      {
-        name: "showLabel",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "animated",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "onValueChange",
-        type: "(value: number) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
+        description: "The current progress value.",
+        control: { type: "number", min: 0, max: 100 },
       },
     ],
-    stories: [{ name: "Default", args: { value: 0, max: 0, showLabel: false, animated: false } }],
   },
-
   {
     slug: "radio-group",
-    title: "RadioGroup",
+    title: "Radio Group",
     category: "Core",
-    description: "",
+    description: "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.",
     component: Demos.RadioGroupDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "value",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "onValueChange",
-        type: "(value: string) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "defaultValue",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "name",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "value",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "label",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { value: "", defaultValue: "", name: "", label: "" } }],
+    props: [],
   },
-
+  {
+    slug: "resizable-panel",
+    title: "Resizable Panel",
+    category: "Core",
+    description: "A layout panel that can be resized.",
+    component: Demos.ResizablePanelDemo ?? ComponentPlaceholder,
+    props: [],
+  },
   {
     slug: "select",
     title: "Select",
     category: "Core",
-    description: "",
+    description: "Displays a list of options for the user to pick from—triggered by a button.",
     component: Demos.SelectDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "isOpen",
-        type: "boolean",
-        description: "",
-        required: true,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "setIsOpen",
-        type: "(open: boolean) => void",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "value",
-        type: "string | any",
-        description: "",
-        required: true,
-        control: {
-          type: "select",
-          options: ["string", "any"],
-        },
-      },
-      {
-        name: "setValue",
-        type: "(value: string) => void",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "placeholder",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "optionsMap",
-        type: "Map<string, string>",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "value",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "defaultValue",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "placeholder",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "onValueChange",
-        type: "(value: string) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "disabled",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "value",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          isOpen: false,
-          value: "",
-          placeholder: "",
-          children: "Example",
-          defaultValue: "",
-          disabled: false,
-          className: "",
-        },
-      },
-    ],
+    props: [],
   },
-
   {
     slug: "sheet",
     title: "Sheet",
     category: "Core",
-    description: "",
+    description: "Extends the Dialog component to display content that complements the main content of the screen.",
     component: Demos.SheetDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "isOpen",
-        type: "boolean",
-        description: "",
-        required: true,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "setIsOpen",
-        type: "(open: boolean) => void",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "open",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "onOpenChange",
-        type: "(open: boolean) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
         name: "side",
-        type: "left | right | top | bottom",
-        description: "",
-        required: false,
+        type: '"top" | "bottom" | "left" | "right"',
+        defaultValue: "right",
+        description: "The side of the screen where the sheet appears.",
         control: {
           type: "select",
-          options: ["left", "right", "top", "bottom"],
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "overlayClassName",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          isOpen: false,
-          children: "Example",
-          open: false,
-          className: "",
-          overlayClassName: "",
-        },
-      },
+          options: ["top", "bottom", "left", "right"]
+        }
+      }
     ],
   },
-
   {
     slug: "slider",
     title: "Slider",
     category: "Core",
-    description: "",
+    description: "An input where the user selects a value from within a given range.",
     component: Demos.SliderDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "value",
-        type: "number[]",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "onValueChange",
-        type: "(value: number[]) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
         name: "defaultValue",
         type: "number[]",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "min",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        description: "The value of the slider.",
       },
       {
         name: "max",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        defaultValue: 100,
+        description: "The maximum value for the slider.",
+        control: { type: "number" }
       },
       {
         name: "step",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "disabled",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "showValue",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { min: 0, max: 0, step: 0, disabled: false, showValue: false } },
+        defaultValue: 1,
+        description: "The stepping interval.",
+        control: { type: "number" }
+      }
     ],
   },
-
-  {
-    slug: "status-icon",
-    title: "StatusIcon",
-    category: "Core",
-    description: "",
-    component: Demos.StatusIconDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "status",
-        type: "success | warning | error | info",
-        description: "",
-        required: true,
-        control: {
-          type: "select",
-          options: ["success", "warning", "error", "info"],
-        },
-      },
-      {
-        name: "icon",
-        type: "any",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "size",
-        type: "sm | md | lg",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["sm", "md", "lg"],
-        },
-      },
-    ],
-  },
-
   {
     slug: "switch",
     title: "Switch",
     category: "Core",
-    description: "",
+    description: "A control that allows the user to toggle between checked and not checked.",
     component: Demos.SwitchDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "checked",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "onCheckedChange",
-        type: "(checked: boolean) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "size",
-        type: "sm | md | lg",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["sm", "md", "lg"],
-        },
-      },
-      {
-        name: "label",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { checked: false, label: "" } }],
+    props: [],
   },
-
   {
     slug: "table",
     title: "Table",
     category: "Core",
-    description: "",
+    description: "A responsive table component.",
     component: Demos.TableDemo ?? ComponentPlaceholder,
     props: [],
   },
-
   {
     slug: "tabs",
     title: "Tabs",
     category: "Core",
-    description: "",
+    description: "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
     component: Demos.TabsDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "value",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
         name: "defaultValue",
         type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "onValueChange",
-        type: "(value: string) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "value",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "value",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
+        description: "The value of the tab to select by default.",
+        control: { type: "text" }
+      }
     ],
-    stories: [{ name: "Default", args: { value: "", defaultValue: "" } }],
   },
-
   {
     slug: "textarea",
     title: "Textarea",
     category: "Core",
-    description: "",
+    description: "Displays a form textarea or a component that looks like a textarea.",
     component: Demos.TextareaDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "label",
+        name: "placeholder",
         type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "error",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
+        description: "The placeholder text.",
+        control: { type: "text" }
+      }
     ],
-    stories: [{ name: "Default", args: { label: "", error: "" } }],
   },
-
   {
     slug: "toast",
     title: "Toast",
     category: "Core",
-    description: "",
-    component: Demos.ToastDemo ?? ComponentPlaceholder,
+    description: "A succinct message that is displayed temporarily.",
+    component: Demos.ToastDemoWrapper ?? ComponentPlaceholder,
     props: [],
   },
-
   {
     slug: "tooltip",
     title: "Tooltip",
     category: "Core",
-    description: "",
+    description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
     component: Demos.TooltipDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "open",
-        type: "boolean",
-        description: "",
-        required: true,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "setOpen",
-        type: "(open: boolean) => void",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: true,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { open: false, delay: 0 } }],
+    props: [],
   },
-
+  // Special/Misc
   {
-    slug: "unicorn-provider",
-    title: "UnicornProvider",
-    category: "Core",
-    description: "",
-    component: ComponentPlaceholder,
+    slug: "animated-beam",
+    title: "Animated Beam",
+    category: "Special",
+    description: "A beam of light that travels along a path.",
+    component: Demos.AnimatedBeamDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "config",
-        type: "UserConfig",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
+        name: "duration",
+        type: "number",
+        defaultValue: 3,
+        description: "Duration of the animation path.",
+        control: { type: "number", min: 1, max: 20 },
       },
     ],
-    stories: [{ name: "Default", args: { children: "Example" } }],
   },
-
   {
-    slug: "animated-list",
-    title: "AnimatedList",
-    category: "Layout",
-    description: "",
-    component: Demos.AnimatedListDemo ?? ComponentPlaceholder,
+    slug: "border-beam",
+    title: "Border Beam",
+    category: "Special",
+    description: "An animated beam effect that travels along the border of a container.",
+    component: Demos.BorderBeamDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "delay",
+        name: "duration",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        defaultValue: 10,
+        description: "Duration of the full loop.",
+        control: { type: "number", min: 1, max: 20 },
+      },
+      {
+        name: "size",
+        type: "number",
+        defaultValue: 300,
+        description: "Length of the beam.",
+        control: { type: "number", min: 10, max: 500 },
+      },
+      {
+        name: "colorFrom",
+        type: "string",
+        defaultValue: "#ffaa40",
+        description: "Start color of the gradient.",
+        control: { type: "color" },
+      },
+      {
+        name: "colorTo",
+        type: "string",
+        defaultValue: "#9c40ff",
+        description: "End color of the gradient.",
+        control: { type: "color" },
       },
     ],
-    stories: [{ name: "Default", args: { delay: 0 } }],
   },
-
   {
-    slug: "avatar-circles",
-    title: "AvatarCircles",
-    category: "Layout",
-    description: "",
-    component: Demos.AvatarCirclesDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "avatars",
-        type: "Array<string | { src: string }>",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "max",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { max: 0 } }],
+    slug: "confetti",
+    title: "Confetti",
+    category: "Special",
+    description: "Celebratory confetti animation.",
+    component: Demos.ConfettiDemo ?? ComponentPlaceholder,
+    props: [],
   },
-
   {
-    slug: "bento-grid",
-    title: "BentoGrid",
-    category: "Layout",
-    description: "",
-    component: Demos.BentoGridDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "variant",
-        type: "default | featured",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["default", "featured"],
-        },
-      },
-      {
-        name: "Icon",
-        type: "LucideIcon | ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "name",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "title",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "description",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "href",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "cta",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "background",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "featured",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          name: "",
-          title: "",
-          description: "",
-          href: "",
-          cta: "",
-          featured: false,
-          className: "",
-          children: "Example",
-        },
-      },
-    ],
+    slug: "confetti-side-cannons",
+    title: "Confetti Side Cannons",
+    category: "Special",
+    description: "Confetti cannons shooting from the sides.",
+    component: Demos.ConfettiSideCannonsDemo ?? ComponentPlaceholder,
+    props: [],
   },
-
   {
-    slug: "collapsible-sidebar-new",
-    title: "CollapsibleSidebarNew",
-    category: "Layout",
-    description: "",
-    component: Demos.CollapsibleSidebarDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "defaultCollapsed",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "collapsedWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "expandedWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "position",
-        type: "left | right",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["left", "right"],
-        },
-      },
-      {
-        name: "mobileBreakpoint",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "showToggle",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "contentClassName",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "onCollapsedChange",
-        type: "(collapsed: boolean) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "storageKey",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          children: "Example",
-          defaultCollapsed: false,
-          collapsedWidth: 0,
-          expandedWidth: 0,
-          mobileBreakpoint: 0,
-          showToggle: false,
-          className: "",
-          contentClassName: "",
-          storageKey: "",
-        },
-      },
-    ],
+    slug: "cool-mode",
+    title: "Cool Mode",
+    category: "Special",
+    description: "Click effect that generates particles.",
+    component: Demos.CoolModeDemo ?? ComponentPlaceholder,
+    props: [],
   },
-
+  {
+    slug: "custom-cursor",
+    title: "Custom Cursor",
+    category: "Special",
+    description: "A highly customizable cursor replacement.",
+    component: Demos.CustomCursorDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "custom-pointer",
+    title: "Custom Pointer",
+    category: "Special",
+    description: "A custom pointer component.",
+    component: Demos.CustomPointerDemo ?? ComponentPlaceholder,
+    props: [],
+  },
   {
     slug: "dock",
     title: "Dock",
     category: "Layout",
-    description: "",
+    description: "A macOS-style dock menu with magnification effect.",
     component: Demos.DockDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
         name: "magnification",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        defaultValue: 60,
+        description: "The scale of the magnification.",
+        control: { type: "number", min: 40, max: 100 },
       },
       {
         name: "distance",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { children: "Example", className: "", magnification: 0, distance: 0 },
+        defaultValue: 140,
+        description: "The distance of influence for magnification.",
+        control: { type: "number", min: 50, max: 200 },
       },
     ],
   },
-
-  {
-    slug: "dotted-map",
-    title: "DottedMap",
-    category: "Layout",
-    description: "",
-    component: Demos.DottedMapDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "dots",
-        type: "Array<{ x: number; y: number }>",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "dotColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "dotSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "gridSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { dotColor: "", dotSize: 0, gridSize: 0 } }],
-  },
-
-  {
-    slug: "expandable-bento-card",
-    title: "ExpandableBentoCard",
-    category: "Layout",
-    description: "",
-    component: Demos.ExpandableBentoCardDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "title",
-        type: "string",
-        description: "Card title",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "description",
-        type: "string",
-        description: "Card description",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "icon",
-        type: "ReactNode",
-        description: "Icon or image to display",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "expandedContent",
-        type: "ReactNode",
-        description: "Expanded content",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "gradient",
-        type: "string",
-        description: "Card background gradient",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { title: "", description: "", className: "", gradient: "" } },
-    ],
-  },
-
-  {
-    slug: "expandable-bento-grid",
-    title: "ExpandableBentoGrid",
-    category: "Layout",
-    description: "",
-    component: Demos.ExpandableBentoCardDemo ?? ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "glass-dock",
-    title: "GlassDock",
-    category: "Layout",
-    description: "",
-    component: Demos.GlassDockDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "items",
-        type: "ReactNode[]",
-        description: "Items to display in the dock",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "magnification",
-        type: "number",
-        description: "Magnification scale on hover",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "distance",
-        type: "number",
-        description: "Distance from hovered item to apply magnification",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "item",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "index",
-        type: "number",
-        description: "",
-        required: true,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "hoveredIndex",
-        type: "number | any",
-        description: "",
-        required: true,
-        control: {
-          type: "select",
-          options: ["number", "any"],
-        },
-      },
-      {
-        name: "setHoveredIndex",
-        type: "(index: number | null) => void",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "magnification",
-        type: "number",
-        description: "",
-        required: true,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "distance",
-        type: "number",
-        description: "",
-        required: true,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { className: "", magnification: 0, distance: 0, index: 0, hoveredIndex: 0 },
-      },
-    ],
-  },
-
   {
     slug: "globe",
     title: "Globe",
-    category: "Layout",
-    description: "",
+    category: "Special",
+    description: "An interactive 3D globe visualization.",
     component: Demos.GlobeDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "size",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "phi",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "theta",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "dark",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "diffuse",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "mapSamples",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "mapBrightness",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "baseColor",
-        type: "[number, number, number]",
-        description: "",
-        required: false,
-        control: {
-          type: "color",
-        },
-      },
-      {
-        name: "markerColor",
-        type: "[number, number, number]",
-        description: "",
-        required: false,
-        control: {
-          type: "color",
-        },
-      },
-      {
-        name: "glowColor",
-        type: "[number, number, number]",
-        description: "",
-        required: false,
-        control: {
-          type: "color",
-        },
-      },
-      {
-        name: "markers",
-        type: "Array<{ location: [number, number]; size: number }>",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { size: 0, phi: 0, theta: 0, dark: 0, diffuse: 0, mapSamples: 0, mapBrightness: 0 },
-      },
-    ],
+    props: [],
   },
-
-  {
-    slug: "glow-border-card",
-    title: "GlowBorderCard",
-    category: "Layout",
-    description: "",
-    component: Demos.GlowBorderCardDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "glowColors",
-        type: "string[]",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "borderWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { borderWidth: 0 } }],
-  },
-
   {
     slug: "hero-video-dialog",
-    title: "HeroVideoDialog",
-    category: "Layout",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [
-      {
-        name: "videoSrc",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "thumbnailSrc",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "thumbnailAlt",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { videoSrc: "", thumbnailSrc: "", thumbnailAlt: "", className: "" },
-      },
-    ],
+    title: "Hero Video Dialog",
+    category: "Special",
+    description: "A hero section with a video dialog trigger.",
+    component: Demos.HeroVideoDialogDemo ?? ComponentPlaceholder,
+    props: [],
   },
-
-  {
-    slug: "horizontal-scroll",
-    title: "HorizontalScroll",
-    category: "Layout",
-    description: "",
-    component: Demos.HorizontalScrollDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", className: "" } }],
-  },
-
   {
     slug: "icon-cloud",
-    title: "IconCloud",
-    category: "Layout",
-    description: "",
+    title: "Icon Cloud",
+    category: "Special",
+    description: "An interactive 3D cloud of icons.",
     component: Demos.IconCloudDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "icons",
-        type: "string[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "radius",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { radius: 0 } }],
+    props: [],
   },
-
-  {
-    slug: "ion-cloud",
-    title: "IonCloud",
-    category: "Layout",
-    description: "",
-    component: Demos.IconCloudDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "icons",
-        type: "string[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "radius",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "speed",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { radius: 0, speed: 0 } }],
-  },
-
   {
     slug: "lens",
     title: "Lens",
-    category: "Layout",
-    description: "",
+    category: "Special",
+    description: "A magnification lens effect for images.",
     component: Demos.LensDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "lensSize",
+        name: "zoomFactor",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        defaultValue: 2,
+        description: "The magnification level.",
+        control: { type: "number", min: 1, max: 5 }
+
       },
       {
-        name: "magnification",
+        name: "lensSize",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
+        defaultValue: 150,
+        description: "The size of the lens in pixels.",
+        control: { type: "number", min: 50, max: 300 }
+      }
     ],
-    stories: [{ name: "Default", args: { lensSize: 0, magnification: 0 } }],
   },
-
+  {
+    slug: "magic-card",
+    title: "Magic Card",
+    category: "Special",
+    description: "A card with a magical spotlight effect.",
+    component: Demos.MagicCardDemo ?? ComponentPlaceholder,
+    props: [],
+  },
   {
     slug: "marquee",
     title: "Marquee",
     category: "Layout",
-    description: "",
+    description: "An infinite scrolling marquee component.",
     component: Demos.MarqueeDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "pauseOnHover",
         type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
+        defaultValue: false,
+        description: "Pauses the animation when hovering.",
+        control: { type: "boolean" },
       },
       {
         name: "reverse",
         type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "fade",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "speed",
-        type: "slow | normal | fast",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["slow", "normal", "fast"],
-        },
-      },
-      {
-        name: "repeat",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { pauseOnHover: false, reverse: false, fade: false, repeat: 0 } },
-    ],
-  },
-
-  {
-    slug: "orbiting-circles",
-    title: "OrbitingCircles",
-    category: "Layout",
-    description: "",
-    component: Demos.OrbitingCirclesDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "radius",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "reverse",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "icons",
-        type: "ReactNode[]",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "iconSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { radius: 0, duration: 0, delay: 0, reverse: false, iconSize: 0 } },
-    ],
-  },
-
-  {
-    slug: "perspective-menu",
-    title: "PerspectiveMenu",
-    category: "Layout",
-    description: "",
-    component: Demos.PerspectiveMenuDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "items",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "isOpen",
-        type: "boolean",
-        description: "",
-        required: true,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "onClose",
-        type: "() => void",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { isOpen: false, className: "" } }],
-  },
-
-  {
-    slug: "pixel-image",
-    title: "PixelImage",
-    category: "Layout",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [
-      {
-        name: "src",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "pixelSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "onLoad",
-        type: "() => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { src: "", pixelSize: 0 } }],
-  },
-
-  {
-    slug: "pointer",
-    title: "Pointer",
-    category: "Layout",
-    description: "",
-    component: Demos.PointerDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "name",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "color",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { name: "", color: "", children: "Example" } }],
-  },
-
-  {
-    slug: "progressive-blur",
-    title: "ProgressiveBlur",
-    category: "Layout",
-    description: "",
-    component: Demos.ProgressiveBlurDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "direction",
-        type: "top | bottom | left | right",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["top", "bottom", "left", "right"],
-        },
-      },
-      {
-        name: "blurIntensity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { blurIntensity: 0 } }],
-  },
-
-  {
-    slug: "reorderable-list",
-    title: "ReorderableList",
-    category: "Layout",
-    description: "",
-    component: Demos.ReorderableListDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "items",
-        type: "string[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "setItems",
-        type: "(items: string[]) => void",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { className: "" } }],
-  },
-
-  {
-    slug: "resizable-panel",
-    title: "ResizablePanel",
-    category: "Layout",
-    description: "",
-    component: Demos.ResizablePanelDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "minWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "maxWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", minWidth: 0, maxWidth: 0 } }],
-  },
-
-  {
-    slug: "sidebar",
-    title: "Sidebar",
-    category: "Layout",
-    description: "",
-    component: Demos.SidebarDemo ?? ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "smooth-cursor",
-    title: "SmoothCursor",
-    category: "Layout",
-    description: "",
-    component: Demos.SmoothCursorDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "texture",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { texture: "" } }],
-  },
-
-  {
-    slug: "spotlight-card",
-    title: "SpotlightCard",
-    category: "Layout",
-    description: "",
-    component: Demos.SpotlightCardDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "spotlightColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", spotlightColor: "" } }],
-  },
-
-  {
-    slug: "spotlight-navbar",
-    title: "SpotlightNavbar",
-    category: "Layout",
-    description: "",
-    component: Demos.SpotlightDemo ?? ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "staggered-grid",
-    title: "StaggeredGrid",
-    category: "Layout",
-    description: "",
-    component: Demos.StaggeredGridDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "columns",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "gap",
-        type: "string | number",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["string", "number"],
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "items",
-        type: "any[]",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { children: "Example", columns: 0, gap: "", className: "" } },
-    ],
-  },
-
-  {
-    slug: "terminal",
-    title: "Terminal",
-    category: "Layout",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [
-      {
-        name: "title",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { title: "", children: "Example" } }],
-  },
-
-  {
-    slug: "testimonials-card",
-    title: "TestimonialsCard",
-    category: "Layout",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "timeline",
-    title: "Timeline",
-    category: "Layout",
-    description: "",
-    component: Demos.TimelineDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "data",
-        type: "Array<{ title: string; content: ReactNode }>",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
+        defaultValue: false,
+        description: "Reverses the direction of the marquee.",
+        control: { type: "boolean" },
       },
     ],
   },
-
-  {
-    slug: "top-nav",
-    title: "TopNav",
-    category: "Layout",
-    description: "",
-    component: Demos.TopNavDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "brandName",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "brandLogo",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "brandHref",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "links",
-        type: "Array<{ label: string; href: string }>",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "rightContent",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "showThemeToggle",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "githubHref",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          brandName: "",
-          brandHref: "",
-          showThemeToggle: false,
-          githubHref: "",
-          className: "",
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "tracing-beam",
-    title: "TracingBeam",
-    category: "Layout",
-    description: "",
-    component: Demos.TracingBeamDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example" } }],
-  },
-
-  {
-    slug: "tweet-card",
-    title: "TweetCard",
-    category: "Layout",
-    description: "",
-    component: Demos.TweetCardDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "author",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "username",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "avatar",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "timestamp",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "verified",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { author: "", username: "", avatar: "", text: "", timestamp: "", verified: false },
-      },
-    ],
-  },
-
-  {
-    slug: "3d-card",
-    title: "3dCard",
-    category: "Special",
-    description: "",
-    component: Demos.ThreeDCardDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example" } }],
-  },
-
-  {
-    slug: "animated-beam",
-    title: "AnimatedBeam",
-    category: "Special",
-    description: "",
-    component: Demos.AnimatedBeamDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "containerRef",
-        type: "RefObject<HTMLDivElement>",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "fromRef",
-        type: "RefObject<HTMLDivElement>",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "toRef",
-        type: "RefObject<HTMLDivElement>",
-        description: "",
-        required: true,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "curvature",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "reverse",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "pathColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "pathWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "pathOpacity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "gradientStartColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "gradientStopColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "startXOffset",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "startYOffset",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "endXOffset",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "endYOffset",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          className: "",
-          curvature: 0,
-          reverse: false,
-          pathColor: "",
-          pathWidth: 0,
-          pathOpacity: 0,
-          gradientStartColor: "",
-          gradientStopColor: "",
-          delay: 0,
-          duration: 0,
-          startXOffset: 0,
-          startYOffset: 0,
-          endXOffset: 0,
-          endYOffset: 0,
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "border-beam",
-    title: "BorderBeam",
-    category: "Special",
-    description: "",
-    component: Demos.BorderBeamDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "size",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "borderWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "anchor",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "colorFrom",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "colorTo",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          size: 0,
-          duration: 0,
-          borderWidth: 0,
-          anchor: 0,
-          colorFrom: "",
-          colorTo: "",
-          delay: 0,
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "canvas-smudge",
-    title: "CanvasSmudge",
-    category: "Special",
-    description: "",
-    component: Demos.CanvasSmudgeDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "color",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { color: "" } }],
-  },
-
-  {
-    slug: "confetti",
-    title: "Confetti",
-    category: "Special",
-    description: "",
-    component: Demos.ConfettiDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "particleCount",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "spread",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "origin",
-        type: "{ x: number; y: number }",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "confettiOptions",
-        type: "ConfettiProps",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { particleCount: 0, spread: 0 } }],
-  },
-
-  {
-    slug: "glitch-effect",
-    title: "GlitchEffect",
-    category: "Special",
-    description: "",
-    component: Demos.GlitchEffectDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "" } }],
-  },
-
-  {
-    slug: "gravity",
-    title: "Gravity",
-    category: "Special",
-    description: "",
-    component: Demos.GravityDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "items",
-        type: "ReactNode[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "interactive-book",
-    title: "InteractiveBook",
-    category: "Special",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "magic-card",
-    title: "MagicCard",
-    category: "Special",
-    description: "",
-    component: Demos.MagicCardDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "spotlightColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "borderColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { children: "Example", spotlightColor: "", borderColor: "" } },
-    ],
-  },
-
-  {
-    slug: "magnifier",
-    title: "Magnifier",
-    category: "Special",
-    description: "",
-    component: Demos.MagnifierDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "imgSrc",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "magnifierSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "zoomLevel",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { imgSrc: "", magnifierSize: 0, zoomLevel: 0 } }],
-  },
-
   {
     slug: "meteors",
     title: "Meteors",
     category: "Special",
-    description: "",
+    description: "A background effect with falling meteors.",
     component: Demos.MeteorsDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "number",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        defaultValue: 20,
+        description: "Number of meteors.",
+        control: { type: "number", min: 1, max: 100 },
       },
     ],
-    stories: [{ name: "Default", args: { number: 0 } }],
   },
-
   {
-    slug: "noise-overlay",
-    title: "NoiseOverlay",
+    slug: "neon-gradient-card",
+    title: "Neon Gradient Card",
     category: "Special",
-    description: "",
-    component: Demos.NoiseOverlayDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "opacity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { className: "", opacity: 0 } }],
+    description: "A card with a neon gradient border effect.",
+    component: Demos.NeonGradientCardDemo ?? ComponentPlaceholder,
+    props: [],
   },
-
-  {
-    slug: "parallax-image",
-    title: "ParallaxImage",
-    category: "Special",
-    description: "",
-    component: Demos.ParallaxImageDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "src",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "alt",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "containerClassName",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "speed",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { src: "", alt: "", className: "", containerClassName: "", speed: 0 },
-      },
-    ],
-  },
-
-  {
-    slug: "particle-image",
-    title: "ParticleImage",
-    category: "Special",
-    description: "",
-    component: Demos.ParticleImageDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "src",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "particleCount",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { src: "", particleCount: 0 } }],
-  },
-
   {
     slug: "particles",
     title: "Particles",
     category: "Special",
-    description: "",
+    description: "Interactive particle background effect.",
     component: Demos.ParticlesDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "quantity",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        defaultValue: 100,
+        description: "Number of particles.",
+        control: { type: "number", min: 10, max: 500 },
       },
       {
         name: "staticity",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        defaultValue: 50,
+        description: "Reduces particle movement.",
+        control: { type: "number", min: 0, max: 100 },
       },
       {
         name: "ease",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        defaultValue: 50,
+        description: "Easing of particle movement towards mouse.",
+        control: { type: "number", min: 0, max: 100 },
       },
-      {
-        name: "color",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "refresh",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { quantity: 0, staticity: 0, ease: 0, color: "", refresh: false } },
     ],
   },
-
   {
-    slug: "ripple-effect",
-    title: "RippleEffect",
+    slug: "ripple",
+    title: "Ripple",
     category: "Special",
-    description: "",
-    component: Demos.RippleEffectDemo ?? ComponentPlaceholder,
+    description: "A ripple effect background.",
+    component: Demos.RippleDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "safari",
+    title: "Safari",
+    category: "Special",
+    description: "A Safari browser window mockup.",
+    component: Demos.SafariDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "rippleColor",
+        name: "url",
         type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
+        defaultValue: "https://unicorn.io",
+        description: "The URL displayed in the address bar.",
+        control: { type: "text" }
+      }
     ],
-    stories: [{ name: "Default", args: { rippleColor: "" } }],
   },
-
-  {
-    slug: "scene-3d",
-    title: "Scene3d",
-    category: "Special",
-    description: "",
-    component: Demos.Scene3DDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "intensity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", className: "", intensity: 0 } }],
-  },
-
   {
     slug: "shine-border",
-    title: "ShineBorder",
+    title: "Shine Border",
     category: "Special",
-    description: "",
+    description: "A container with a rotating shine border effect.",
     component: Demos.ShineBorderDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "color",
-        type: "string | string[]",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
+        name: "duration",
+        type: "number",
+        defaultValue: 14,
+        description: "Duration of the rotation animation in seconds.",
+        control: { type: "number", min: 1, max: 60 }
       },
       {
         name: "borderWidth",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { children: "Example", className: "", color: "", borderWidth: 0, duration: 0 },
-      },
-    ],
-  },
-
-  {
-    slug: "spotlight-new",
-    title: "SpotlightNew",
-    category: "Special",
-    description: "",
-    component: Demos.SpotlightNewDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "gradientFirst",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "gradientSecond",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "gradientThird",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "translateY",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "width",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "height",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "smallWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "xOffset",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          gradientFirst: "",
-          gradientSecond: "",
-          gradientThird: "",
-          translateY: 0,
-          width: 0,
-          height: 0,
-          smallWidth: 0,
-          duration: 0,
-          xOffset: 0,
-          className: "",
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "spotlight",
-    title: "Spotlight",
-    category: "Special",
-    description: "",
-    component: Demos.SpotlightDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "size",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
+        defaultValue: 1,
+        description: "Width of the border in pixels.",
+        control: { type: "number", min: 1, max: 10 }
       },
       {
         name: "color",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { size: 0, color: "" } }],
-  },
-
-  {
-    slug: "animated-grid-pattern",
-    title: "AnimatedGridPattern",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.AnimatedGridPatternDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "width",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "height",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "x",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "y",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "strokeDasharray",
-        type: "string | number",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["string", "number"],
-        },
-      },
-      {
-        name: "numSquares",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "maxOpacity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "repeatDelay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          width: 0,
-          height: 0,
-          x: 0,
-          y: 0,
-          strokeDasharray: "",
-          numSquares: 0,
-          className: "",
-          maxOpacity: 0,
-          duration: 0,
-          repeatDelay: 0,
-        },
-      },
+        type: "string | string[]",
+        description: "Color(s) of the shine effect.",
+        control: { type: "color" }
+      }
     ],
   },
-
-  {
-    slug: "aurora-background",
-    title: "AuroraBackground",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.AuroraBackgroundDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "showRadialGradient",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { showRadialGradient: false } }],
-  },
-
-  {
-    slug: "background-beams",
-    title: "BackgroundBeams",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.BackgroundBeamsDemo ?? ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "dot-pattern",
-    title: "DotPattern",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.DotPatternDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "width",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "height",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "x",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "y",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "cx",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "cy",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "cr",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "dotColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "interactive",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "maxDistance",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          width: 0,
-          height: 0,
-          x: 0,
-          y: 0,
-          cx: 0,
-          cy: 0,
-          cr: 0,
-          dotColor: "",
-          interactive: false,
-          maxDistance: 0,
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "flickering-grid",
-    title: "FlickeringGrid",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.FlickeringGridDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "squareSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "gridGap",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "flickerChance",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "color",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "maxOpacity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "interactive",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "interactionRadius",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          squareSize: 0,
-          gridGap: 0,
-          flickerChance: 0,
-          color: "",
-          maxOpacity: 0,
-          interactive: false,
-          interactionRadius: 0,
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "grid-pattern",
-    title: "GridPattern",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.GridPatternDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "width",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "height",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "x",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "y",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "strokeDasharray",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "strokeWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "strokeColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          width: 0,
-          height: 0,
-          x: 0,
-          y: 0,
-          strokeDasharray: "",
-          strokeWidth: 0,
-          strokeColor: "",
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "interactive-grid-pattern",
-    title: "InteractiveGridPattern",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.InteractiveGridPatternDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "width",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "height",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "squares",
-        type: "Array<[number, number]>",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "squaresClassName",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { width: 0, height: 0, className: "", squaresClassName: "" } },
-    ],
-  },
-
-  {
-    slug: "light-lines",
-    title: "LightLines",
-    category: "Backgrounds",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "perspective-grid",
-    title: "PerspectiveGrid",
-    category: "Backgrounds",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "retro-grid",
-    title: "RetroGrid",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.RetroGridDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "angle",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "speed",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { angle: 0, speed: 0 } }],
-  },
-
-  {
-    slug: "ripple",
-    title: "Ripple",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.RippleDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "mainCircleSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "mainCircleOpacity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "numCircles",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { mainCircleSize: 0, mainCircleOpacity: 0, numCircles: 0 } },
-    ],
-  },
-
-  {
-    slug: "shooting-stars",
-    title: "ShootingStars",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.ShootingStarsDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "minDelay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "maxDelay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "starColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "trailColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "starWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "starHeight",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          minDelay: 0,
-          maxDelay: 0,
-          starColor: "",
-          trailColor: "",
-          starWidth: 0,
-          starHeight: 0,
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "stars",
-    title: "Stars",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.StarsDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "count",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "minSpeed",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "maxSpeed",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "starColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { className: "", count: 0, minSpeed: 0, maxSpeed: 0, starColor: "" },
-      },
-    ],
-  },
-
-  {
-    slug: "striped-pattern",
-    title: "StripedPattern",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.StripedPatternDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "stripeWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "stripeColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "angle",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "animated",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "speed",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { stripeWidth: 0, stripeColor: "", angle: 0, animated: false, speed: 0 },
-      },
-    ],
-  },
-
-  {
-    slug: "warp-background",
-    title: "WarpBackground",
-    category: "Backgrounds",
-    description: "",
-    component: Demos.WarpBackgroundDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "perspective",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "beamColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "lineCount",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { perspective: 0, beamColor: "", lineCount: 0 } }],
-  },
-
-  {
-    slug: "animated-gradient-text",
-    title: "AnimatedGradientText",
-    category: "Text",
-    description: "",
-    component: Demos.AnimatedGradientTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "shimmerWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", shimmerWidth: 0 } }],
-  },
-
-  {
-    slug: "animated-number",
-    title: "AnimatedNumber",
-    category: "Text",
-    description: "",
-    component: Demos.AnimatedNumberDemo ?? ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "animated-shiny-text",
-    title: "AnimatedShinyText",
-    category: "Text",
-    description: "",
-    component: Demos.AnimatedShinyTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "shimmerWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", className: "", shimmerWidth: 0 } }],
-  },
-
-  {
-    slug: "aurora-text",
-    title: "AuroraText",
-    category: "Text",
-    description: "",
-    component: Demos.AuroraTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example" } }],
-  },
-
-  {
-    slug: "blur-fade",
-    title: "BlurFade",
-    category: "Text",
-    description: "",
-    component: Demos.BlurFadeDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "yOffset",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "blur",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { children: "Example", delay: 0, duration: 0, yOffset: 0, blur: "" },
-      },
-    ],
-  },
-
-  {
-    slug: "box-reveal",
-    title: "BoxReveal",
-    category: "Text",
-    description: "",
-    component: Demos.BoxRevealDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "width",
-        type: "fit-content | 100%",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["fit-content", "100%"],
-        },
-      },
-      {
-        name: "boxColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", boxColor: "", duration: 0 } }],
-  },
-
-  {
-    slug: "comic-text",
-    title: "ComicText",
-    category: "Text",
-    description: "",
-    component: Demos.ComicTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "", className: "" } }],
-  },
-
-  {
-    slug: "fade-text",
-    title: "FadeText",
-    category: "Text",
-    description: "",
-    component: Demos.FadeTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "direction",
-        type: "up | down | left | right",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["up", "down", "left", "right"],
-        },
-      },
-      {
-        name: "framerProps",
-        type: "object",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "" } }],
-  },
-
-  {
-    slug: "flip-fade-text",
-    title: "FlipFadeText",
-    category: "Text",
-    description: "",
-    component: Demos.FadeTextDemo ?? ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "flip-text-3d",
-    title: "FlipText3d",
-    category: "Text",
-    description: "",
-    component: Demos.FlipText3DDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes for the wrapper",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "string",
-        description: "The text content to animate (will be split by spaces)",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "Duration of the flip animation in seconds",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "Initial delay before animation starts in seconds",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "loop",
-        type: "boolean",
-        description: "Whether the animation should loop infinitely",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "separator",
-        type: "string",
-        description: "Custom separator for splitting text (default is space)",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { className: "", children: "", duration: 0, delay: 0, loop: false, separator: "" },
-      },
-    ],
-  },
-
-  {
-    slug: "flip-text",
-    title: "FlipText",
-    category: "Text",
-    description: "",
-    component: Demos.FlipTextDemo ?? ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "gradual-spacing",
-    title: "GradualSpacing",
-    category: "Text",
-    description: "",
-    component: Demos.GradualSpacingDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "delayMultiple",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "", duration: 0, delayMultiple: 0 } }],
-  },
-
-  {
-    slug: "hyper-text",
-    title: "HyperText",
-    category: "Text",
-    description: "",
-    component: Demos.HyperTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "", duration: 0, delay: 0 } }],
-  },
-
-  {
-    slug: "letter-pullup",
-    title: "LetterPullup",
-    category: "Text",
-    description: "",
-    component: Demos.LetterPullupDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "", delay: 0 } }],
-  },
-
-  {
-    slug: "line-hover-link",
-    title: "LineHoverLink",
-    category: "Text",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "line-shadow-text",
-    title: "LineShadowText",
-    category: "Text",
-    description: "",
-    component: Demos.LineShadowTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "shadowColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { shadowColor: "", children: "Example" } }],
-  },
-
-  {
-    slug: "liquid-text",
-    title: "LiquidText",
-    category: "Text",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [],
-  },
-
-  {
-    slug: "morphing-text",
-    title: "MorphingText",
-    category: "Text",
-    description: "",
-    component: Demos.MorphingTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "texts",
-        type: "string[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { className: "" } }],
-  },
-
-  {
-    slug: "number-ticker",
-    title: "NumberTicker",
-    category: "Text",
-    description: "",
-    component: Demos.NumberTickerDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "value",
-        type: "number",
-        description: "",
-        required: true,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "direction",
-        type: "up | down",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["up", "down"],
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { value: 0, delay: 0, className: "" } }],
-  },
-
-  {
-    slug: "rotate-text",
-    title: "RotateText",
-    category: "Text",
-    description: "",
-    component: Demos.RotateTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "words",
-        type: "string[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { duration: 0 } }],
-  },
-
-  {
-    slug: "scroll-based-velocity",
-    title: "ScrollBasedVelocity",
-    category: "Text",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "default_velocity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "baseVelocity",
-        type: "number",
-        description: "",
-        required: true,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { text: "", default_velocity: 0, className: "", children: "", baseVelocity: 0 },
-      },
-    ],
-  },
-
-  {
-    slug: "separate-away",
-    title: "SeparateAway",
-    category: "Text",
-    description: "",
-    component: Demos.SeparateAwayDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "upperText",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "lowerText",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { upperText: "", lowerText: "", duration: 0 } }],
-  },
-
   {
     slug: "sparkles-text",
-    title: "SparklesText",
+    title: "Sparkles Text",
     category: "Text",
-    description: "",
+    description: "Text with sparkling animation effects.",
     component: Demos.SparklesTextDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "text",
         type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "colors",
-        type: "{ first: string; second: string }",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "sparklesCount",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "", sparklesCount: 0 } }],
-  },
-
-  {
-    slug: "spinning-text",
-    title: "SpinningText",
-    category: "Text",
-    description: "",
-    component: Demos.SpinningTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "reverse",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "radius",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { children: "", className: "", reverse: false, duration: 0, radius: 0 },
-      },
+        defaultValue: "Sparkles",
+        description: "The text to display.",
+        control: { type: "text" }
+      }
     ],
   },
-
-  {
-    slug: "text-animate",
-    title: "TextAnimate",
-    category: "Text",
-    description: "",
-    component: Demos.TextAnimateDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "type",
-        type: "popIn | slideUp | fadeIn",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["popIn", "slideUp", "fadeIn"],
-        },
-      },
-      {
-        name: "by",
-        type: "character | word",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["character", "word"],
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "", duration: 0, delay: 0 } }],
-  },
-
-  {
-    slug: "text-highlighter",
-    title: "TextHighlighter",
-    category: "Text",
-    description: "",
-    component: Demos.TextHighlighterDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "highlight",
-        type: "string | string[]",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "highlightClassName",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "", highlight: "", highlightClassName: "" } }],
-  },
-
-  {
-    slug: "text-reveal",
-    title: "TextReveal",
-    category: "Text",
-    description: "",
-    component: Demos.TextRevealDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "" } }],
-  },
-
   {
     slug: "typing-animation",
-    title: "TypingAnimation",
+    title: "Typing Animation",
     category: "Text",
-    description: "",
+    description: "Animated typing effect for text.",
     component: Demos.TypingAnimationDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "text",
         type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
+        defaultValue: "Typing Animation",
+        description: "The text to animate.",
+        control: { type: "text" }
       },
       {
         name: "duration",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "", duration: 0, className: "" } }],
-  },
-
-  {
-    slug: "velocity-scroll",
-    title: "VelocityScroll",
-    category: "Text",
-    description: "",
-    component: Demos.VelocityScrollDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "defaultVelocity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "baseVelocity",
-        type: "number",
-        description: "",
-        required: true,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { text: "", defaultVelocity: 0, className: "", children: "", baseVelocity: 0 },
-      },
+        defaultValue: 200,
+        description: "Duration of typing per character in ms.",
+        control: { type: "number", min: 10, max: 1000 }
+      }
     ],
   },
-
-  {
-    slug: "video-text",
-    title: "VideoText",
-    category: "Text",
-    description: "",
-    component: Demos.VideoTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "videoSrc",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { videoSrc: "", text: "" } }],
-  },
-
-  {
-    slug: "wavy-text",
-    title: "WavyText",
-    category: "Text",
-    description: "",
-    component: Demos.WavyTextDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "text",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { text: "", delay: 0, duration: 0 } }],
-  },
-
   {
     slug: "word-rotate",
-    title: "WordRotate",
+    title: "Word Rotate",
     category: "Text",
-    description: "",
+    description: "Rotates through a list of words.",
     component: Demos.WordRotateDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "words",
         type: "string[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
+        description: "Array of words to rotate.",
+        control: { type: "object" }
       },
       {
         name: "duration",
         type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
+        defaultValue: 2500,
+        description: "Time between rotations in ms.",
+        control: { type: "number", min: 1000, max: 10000 }
+      }
     ],
-    stories: [{ name: "Default", args: { duration: 0 } }],
   },
-
+  // Buttons
   {
     slug: "animated-button",
-    title: "AnimatedButton",
+    title: "Animated Button",
     category: "Buttons",
-    description: "",
+    description: "A button with enhanced animations.",
     component: Demos.AnimatedButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "shimmerColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "borderGradient",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { children: "Example", shimmerColor: "", borderGradient: "", duration: 0, delay: 0 },
-      },
-    ],
+    props: [],
   },
-
   {
     slug: "creepy-button",
-    title: "CreepyButton",
+    title: "Creepy Button",
     category: "Buttons",
-    description: "",
+    description: "A button with a creepy hover effect.",
     component: Demos.CreepyButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "any",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example" } }],
+    props: [],
   },
-
   {
     slug: "glow-button",
-    title: "GlowButton",
+    title: "Glow Button",
     category: "Buttons",
-    description: "",
+    description: "A button that glows.",
     component: Demos.GlowButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "glowColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "glowIntensity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", glowColor: "", glowIntensity: 0 } }],
+    props: [],
   },
-
   {
     slug: "gooey-button",
-    title: "GooeyButton",
+    title: "Gooey Button",
     category: "Buttons",
-    description: "",
+    description: "A button with a gooey liquid effect.",
     component: Demos.GooeyButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "backgroundColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "foregroundColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { backgroundColor: "", foregroundColor: "" } }],
+    props: [],
   },
-
   {
     slug: "interactive-hover-button",
-    title: "InteractiveHoverButton",
+    title: "Interactive Hover Button",
     category: "Buttons",
-    description: "",
+    description: "A button that responds interactively to hover.",
     component: Demos.InteractiveHoverButtonDemo ?? ComponentPlaceholder,
     props: [],
   },
-
   {
     slug: "magnetic-button",
-    title: "MagneticButton",
+    title: "Magnetic Button",
     category: "Buttons",
-    description: "",
+    description: "A button that magnetically attracts the cursor.",
     component: Demos.MagneticButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "strength",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { strength: 0, children: "Example" } }],
+    props: [],
   },
-
   {
     slug: "pulsating-button",
-    title: "PulsatingButton",
+    title: "Pulsating Button",
     category: "Buttons",
-    description: "",
+    description: "A button that pulsates for attention.",
     component: Demos.PulsatingButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "pulseColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "duration",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", pulseColor: "", duration: "" } }],
+    props: [],
   },
-
   {
     slug: "rainbow-button",
-    title: "RainbowButton",
+    title: "Rainbow Button",
     category: "Buttons",
-    description: "",
+    description: "A button with a rainbow gradient effect.",
     component: Demos.RainbowButtonDemo ?? ComponentPlaceholder,
     props: [],
   },
-
   {
     slug: "ripple-button",
-    title: "RippleButton",
+    title: "Ripple Button",
     category: "Buttons",
-    description: "",
+    description: "A button with a material-design style ripple effect.",
     component: Demos.RippleButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "rippleColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "duration",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { rippleColor: "", duration: "" } }],
+    props: [],
   },
-
   {
     slug: "shimmer-button",
-    title: "ShimmerButton",
+    title: "Shimmer Button",
     category: "Buttons",
-    description: "",
+    description: "A button with mobile-style shimmer effect.",
     component: Demos.ShimmerButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "shimmerColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "shimmerSize",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { children: "Example", shimmerColor: "", shimmerSize: "" } },
-    ],
+    props: [],
   },
-
   {
     slug: "shiny-button",
-    title: "ShinyButton",
+    title: "Shiny Button",
     category: "Buttons",
-    description: "",
+    description: "A button with a shiny reflection effect.",
     component: Demos.ShinyButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example" } }],
+    props: [],
   },
-
   {
     slug: "social-flip-button",
-    title: "SocialFlipButton",
+    title: "Social Flip Button",
     category: "Buttons",
-    description: "",
+    description: "A social media button that flips on hover.",
     component: Demos.SocialFlipButtonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "icon",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "icon",
-        },
-      },
-      {
-        name: "href",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", href: "", className: "" } }],
+    props: [],
   },
-
   {
-    slug: "animated-circular-progress-bar",
-    title: "AnimatedCircularProgressBar",
-    category: "Misc",
-    description: "",
-    component: Demos.AnimatedCircularProgressBarDemo ?? ComponentPlaceholder,
+    slug: "spotlight-new",
+    title: "Spotlight Button",
+    category: "Buttons",
+    description: "A button with a spotlight effect following the cursor.",
+    component: Demos.SpotlightNewDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  // Text
+  {
+    slug: "animated-gradient-text",
+    title: "Animated Gradient Text",
+    category: "Text",
+    description: "Text with an animated gradient background.",
+    component: Demos.AnimatedGradientTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "animated-number",
+    title: "Animated Number",
+    category: "Text",
+    description: "Animate numbers counting up or down.",
+    component: Demos.AnimatedNumberDemo ?? ComponentPlaceholder,
     props: [
       {
         name: "value",
         type: "number",
-        description: "",
-        required: true,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "max",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "size",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "strokeWidth",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "showValue",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { value: 0, max: 0, size: 0, strokeWidth: 0, showValue: false } },
+        defaultValue: 100,
+        description: "The value to animate to.",
+        control: { type: "number" }
+      }
     ],
   },
-
   {
-    slug: "card-stack",
-    title: "CardStack",
-    category: "Misc",
-    description: "",
-    component: Demos.CardStackDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "items",
-        type: "ReactNode[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "offset",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "scaleFactor",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { offset: 0, scaleFactor: 0 } }],
-  },
-
-  {
-    slug: "code-comparison",
-    title: "CodeComparison",
-    category: "Misc",
-    description: "",
-    component: Demos.CodeComparisonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "beforeCode",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "afterCode",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "language",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "filename",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { beforeCode: "", afterCode: "", language: "", filename: "" } },
-    ],
-  },
-
-  {
-    slug: "confetti-side-cannons",
-    title: "ConfettiSideCannons",
-    category: "Misc",
-    description: "",
-    component: Demos.ConfettiSideCannonsDemo ?? ComponentPlaceholder,
+    slug: "animated-shiny-text",
+    title: "Animated Shiny Text",
+    category: "Text",
+    description: "Text with a shiny scanning effect.",
+    component: Demos.AnimatedShinyTextDemo ?? ComponentPlaceholder,
     props: [],
   },
-
   {
-    slug: "cool-mode",
-    title: "CoolMode",
-    category: "Misc",
-    description: "",
-    component: Demos.CoolModeDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example" } }],
-  },
-
-  {
-    slug: "custom-pointer",
-    title: "CustomPointer",
-    category: "Misc",
-    description: "",
-    component: Demos.CustomPointerDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "cursorSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "cursorColor",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "trailLength",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { cursorSize: 0, cursorColor: "", trailLength: 0 } }],
-  },
-
-  {
-    slug: "device-mockups",
-    title: "DeviceMockups",
-    category: "Misc",
-    description: "",
-    component: Demos.DeviceMockupsDemo ?? ComponentPlaceholder,
+    slug: "aurora-text",
+    title: "Aurora Text",
+    category: "Text",
+    description: "Text with an aurora borealis effect.",
+    component: Demos.AuroraTextDemo ?? ComponentPlaceholder,
     props: [],
   },
-
   {
-    slug: "file-tree",
-    title: "FileTree",
-    category: "Misc",
-    description: "",
-    component: Demos.FileTreeDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "data",
-        type: "FileNode[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "onFileClick",
-        type: "(file: FileNode) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "node",
-        type: "FileNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "level",
-        type: "number",
-        description: "",
-        required: true,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "onFileClick",
-        type: "(file: FileNode) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { level: 0 } }],
-  },
-
-  {
-    slug: "follower-pointer",
-    title: "FollowerPointer",
-    category: "Misc",
-    description: "",
-    component: Demos.FollowerPointerDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "cardContent",
-        type: "ReactNode[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "logo-slider",
-    title: "LogoSlider",
-    category: "Misc",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [
-      {
-        name: "logos",
-        type: "ReactNode[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "direction",
-        type: "left | right",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["left", "right"],
-        },
-      },
-      {
-        name: "speed",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "pauseOnHover",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { speed: 0, pauseOnHover: false, className: "" } }],
-  },
-
-  {
-    slug: "neon-gradient-card",
-    title: "NeonGradientCard",
-    category: "Misc",
-    description: "",
-    component: Demos.NeonGradientCardDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "borderSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "borderRadius",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "neonColors",
-        type: "{ first: string; second: string; third?: string; fourth?: string }",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { borderSize: 0, borderRadius: 0 } }],
-  },
-
-  {
-    slug: "pixel-trail",
-    title: "PixelTrail",
-    category: "Misc",
-    description: "",
-    component: Demos.PixelTrailDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "pixelSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "fadeDuration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "color",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { pixelSize: 0, fadeDuration: 0, color: "", children: "Example" } },
-    ],
-  },
-
-  {
-    slug: "scroll-progress",
-    title: "ScrollProgress",
-    category: "Misc",
-    description: "",
-    component: Demos.ScrollProgressDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "position",
-        type: "top | bottom",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["top", "bottom"],
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "scroll-progressive-blur",
-    title: "ScrollProgressiveBlur",
-    category: "Misc",
-    description: "",
-    component: Demos.ScrollProgressiveBlurDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "blurAmount",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "fadeDistance",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { children: "Example", blurAmount: 0, fadeDistance: 0 } }],
-  },
-
-  {
-    slug: "smooth-scroll",
-    title: "SmoothScroll",
-    category: "Misc",
-    description: "",
-    component: ComponentPlaceholder,
+    slug: "box-reveal",
+    title: "Box Reveal",
+    category: "Text",
+    description: "Reveals text with a sliding box animation.",
+    component: Demos.BoxRevealDemo ?? ComponentPlaceholder,
     props: [],
   },
-
   {
-    slug: "stacked-logos",
-    title: "StackedLogos",
-    category: "Misc",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [
-      {
-        name: "items",
-        type: "ReactNode[]",
-        description: "",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { className: "" } }],
-  },
-
-  {
-    slug: "animated-theme-toggler",
-    title: "AnimatedThemeToggler",
-    category: "Feedback",
-    description: "",
-    component: Demos.AnimatedThemeTogglerDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "defaultTheme",
-        type: "light | dark",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["light", "dark"],
-        },
-      },
-      {
-        name: "onThemeChange",
-        type: "(theme: string) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-    ],
-  },
-
-  {
-    slug: "command-menu",
-    title: "CommandMenu",
-    category: "Feedback",
-    description: "",
-    component: Demos.CommandMenuDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "open",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "onOpenChange",
-        type: "(open: boolean) => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "placeholder",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "commands",
-        type: "Array",
-        description: "",
-        required: false,
-        control: {
-          type: "object",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { open: false, placeholder: "" } }],
-  },
-
-  {
-    slug: "percent-loader",
-    title: "PercentLoader",
-    category: "Feedback",
-    description: "",
-    component: Demos.PercentLoaderDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "onComplete",
-        type: "() => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { duration: 0, className: "" } }],
-  },
-
-  {
-    slug: "reveal-loader",
-    title: "RevealLoader",
-    category: "Feedback",
-    description: "",
-    component: Demos.RevealLoaderDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "Content to reveal",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "loading",
-        type: "boolean",
-        description: "Loading state",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "Duration of reveal animation in seconds",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { children: "Example", loading: false, duration: 0, className: "" },
-      },
-    ],
-  },
-
-  {
-    slug: "skeleton",
-    title: "Skeleton",
-    category: "Feedback",
-    description: "",
-    component: Demos.SkeletonDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "variant",
-        type: "text | circular | rectangular | rounded",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["text", "circular", "rectangular", "rounded"],
-        },
-      },
-      {
-        name: "animation",
-        type: "pulse | wave | none",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["pulse", "wave", "none"],
-        },
-      },
-      {
-        name: "width",
-        type: "string | number",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["string", "number"],
-        },
-      },
-      {
-        name: "height",
-        type: "string | number",
-        description: "",
-        required: false,
-        control: {
-          type: "select",
-          options: ["string", "number"],
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { width: "", height: "" } }],
-  },
-
-  {
-    slug: "smart-input",
-    title: "SmartInput",
-    category: "Feedback",
-    description: "",
-    component: Demos.SmartInputDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "label",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "error",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "isLoading",
-        type: "boolean",
-        description: "",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "leftIcon",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "icon",
-        },
-      },
-      {
-        name: "onClear",
-        type: "() => void",
-        description: "",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { label: "", error: "", isLoading: false } }],
-  },
-
-  {
-    slug: "theme-toggle",
-    title: "ThemeToggle",
-    category: "Feedback",
-    description: "",
-    component: Demos.ThemeToggleDemo ?? ComponentPlaceholder,
+    slug: "comic-text",
+    title: "Comic Text",
+    category: "Text",
+    description: "Text with a comic book style.",
+    component: Demos.ComicTextDemo ?? ComponentPlaceholder,
     props: [],
   },
-
   {
-    slug: "custom-cursor",
-    title: "CustomCursor",
-    category: "Interaction",
-    description: "",
-    component: Demos.CustomCursorDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "color",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { className: "", color: "" } }],
-  },
-
-  {
-    slug: "hover-reveal-card",
-    title: "HoverRevealCard",
-    category: "Interaction",
-    description: "",
-    component: Demos.HoverRevealCardDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "title",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "subtitle",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "image",
-        type: "string",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: { title: "", subtitle: "", image: "", children: "Example", className: "" },
-      },
-    ],
-  },
-
-  {
-    slug: "magnetic-wrapper",
-    title: "MagneticWrapper",
-    category: "Interaction",
-    description: "",
-    component: Demos.MagneticWrapperDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "intensity",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "range",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { children: "Example", className: "", intensity: 0, range: 0 } },
-    ],
-  },
-
-  {
-    slug: "fade-in",
-    title: "FadeIn",
-    category: "Animation",
-    description: "",
-    component: Demos.FadeInDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "",
-        required: true,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "delay",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      { name: "Default", args: { children: "Example", delay: 0, duration: 0, className: "" } },
-    ],
-  },
-
-  {
-    slug: "orbiting-dots",
-    title: "OrbitingDots",
-    category: "Animation",
-    description: "",
-    component: Demos.OrbitingDotsDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "count",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "dotSize",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "color",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "speed",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "radius",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { count: 0, dotSize: 0, color: "", speed: 0, radius: 0 } }],
-  },
-
-  {
-    slug: "pixelated-image-trail",
-    title: "PixelatedImageTrail",
-    category: "Animation",
-    description: "",
-    component: Demos.PixelTrailDemo ?? ComponentPlaceholder,
+    slug: "fade-text",
+    title: "Fade Text",
+    category: "Text",
+    description: "Text that fades in.",
+    component: Demos.FadeTextDemo ?? ComponentPlaceholder,
     props: [],
   },
-
+  {
+    slug: "flip-text",
+    title: "Flip Text",
+    category: "Text",
+    description: "Text that flips characters on reveal.",
+    component: Demos.FlipTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "flip-text-3d",
+    title: "Flip Text 3D",
+    category: "Text",
+    description: "3D text flip animation.",
+    component: Demos.FlipText3DDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "gradual-spacing",
+    title: "Gradual Spacing",
+    category: "Text",
+    description: "Text that gradually increases spacing.",
+    component: Demos.GradualSpacingDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "hyper-text",
+    title: "Hyper Text",
+    category: "Text",
+    description: "Text that scrambles and unscrambles on hover.",
+    component: Demos.HyperTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "letter-pullup",
+    title: "Letter Pullup",
+    category: "Text",
+    description: "Text characters that pull up into position.",
+    component: Demos.LetterPullupDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "line-shadow-text",
+    title: "Line Shadow Text",
+    category: "Text",
+    description: "Text with a line shadow effect.",
+    component: Demos.LineShadowTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "morphing-text",
+    title: "Morphing Text",
+    category: "Text",
+    description: "Text that morphs between different words.",
+    component: Demos.MorphingTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "number-ticker",
+    title: "Number Ticker",
+    category: "Text",
+    description: "A ticking number animation.",
+    component: Demos.NumberTickerDemo ?? ComponentPlaceholder,
+    props: [
+      {
+        name: "value",
+        type: "number",
+        defaultValue: 100,
+        description: "The target value.",
+        control: { type: "number" }
+      }
+    ],
+  },
+  {
+    slug: "rotate-text",
+    title: "Rotate Text",
+    category: "Text",
+    description: "Text revolving in a circle.",
+    component: Demos.RotateTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "scroll-based-velocity",
+    title: "Scroll Velocity",
+    category: "Text",
+    description: "Text that moves based on scroll speed.",
+    component: Demos.ScrollBasedVelocityDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "separate-away",
+    title: "Separate Away",
+    category: "Text",
+    description: "Text characters separating away from each other.",
+    component: Demos.SeparateAwayDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "spinning-text",
+    title: "Spinning Text",
+    category: "Text",
+    description: "Text spinning in 3D.",
+    component: Demos.SpinningTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "text-animate",
+    title: "Text Animate",
+    category: "Text",
+    description: "Various text animations.",
+    component: Demos.TextAnimateDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "text-highlighter",
+    title: "Text Highlighter",
+    category: "Text",
+    description: "Highlights selected text.",
+    component: Demos.TextHighlighterDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "text-reveal",
+    title: "Text Reveal",
+    category: "Text",
+    description: "Reveals text on scroll.",
+    component: Demos.TextRevealDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "velocity-scroll",
+    title: "Velocity Scroll",
+    category: "Text",
+    description: "Scroll velocity based text movement.",
+    component: Demos.VelocityScrollDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "video-text",
+    title: "Video Text",
+    category: "Text",
+    description: "Text with video background.",
+    component: Demos.VideoTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "wavy-text",
+    title: "Wavy Text",
+    category: "Text",
+    description: "Text with a wave animation.",
+    component: Demos.WavyTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  // Backgrounds
+  {
+    slug: "animated-grid-pattern",
+    title: "Animated Grid Pattern",
+    category: "Backgrounds",
+    description: "An animated background grid pattern.",
+    component: Demos.AnimatedGridPatternDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "aurora-background",
+    title: "Aurora Background",
+    category: "Backgrounds",
+    description: "A background with aurora borealis effect.",
+    component: Demos.AuroraBackgroundDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "background-beams",
+    title: "Background Beams",
+    category: "Backgrounds",
+    description: "Beams of light in the background.",
+    component: Demos.BackgroundBeamsDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "dot-pattern",
+    title: "Dot Pattern",
+    category: "Backgrounds",
+    description: "A simple dot pattern background.",
+    component: Demos.DotPatternDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "dotted-map",
+    title: "Dotted Map",
+    category: "Backgrounds",
+    description: "A map represented by dots.",
+    component: Demos.DottedMapDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "flickering-grid",
+    title: "Flickering Grid",
+    category: "Backgrounds",
+    description: "A grid with flickering squares.",
+    component: Demos.FlickeringGridDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "grid-pattern",
+    title: "Grid Pattern",
+    category: "Backgrounds",
+    description: "A static grid pattern background.",
+    component: Demos.GridPatternDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "interactive-grid-pattern",
+    title: "Interactive Grid Pattern",
+    category: "Backgrounds",
+    description: "A grid pattern that reacts to mouse movement.",
+    component: Demos.InteractiveGridPatternDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "matrix-effect",
+    title: "Matrix Effect",
+    category: "Backgrounds",
+    description: "The classic Matrix digital rain effect.",
+    component: ComponentPlaceholder, // Using placeholder until demo is confirmed
+    props: [],
+  },
+  {
+    slug: "noise-overlay",
+    title: "Noise Overlay",
+    category: "Backgrounds",
+    description: "Adds a noise texture overlay.",
+    component: Demos.NoiseOverlayDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "retro-grid",
+    title: "Retro Grid",
+    category: "Backgrounds",
+    description: "A retro-style perspective grid.",
+    component: Demos.RetroGridDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "ripple-effect",
+    title: "Ripple Effect",
+    category: "Backgrounds",
+    description: "A water ripple background effect.",
+    component: Demos.RippleEffectDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "shooting-stars",
+    title: "Shooting Stars",
+    category: "Backgrounds",
+    description: "Background with shooting stars.",
+    component: Demos.ShootingStarsDemo ?? ComponentPlaceholder,
+    props: [],
+  },
   {
     slug: "snow",
     title: "Snow",
-    category: "Animation",
-    description: "",
+    category: "Backgrounds",
+    description: "Falling snow effect.",
     component: Demos.SnowDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "size",
-        type: "number",
-        description: "",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { size: 0, className: "" } }],
-  },
-
-  {
-    slug: "android",
-    title: "Android",
-    category: "Mocks",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [
-      {
-        name: "src",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { src: "" } }],
-  },
-
-  {
-    slug: "iphone",
-    title: "Iphone",
-    category: "Mocks",
-    description: "",
-    component: ComponentPlaceholder,
-    props: [
-      {
-        name: "src",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { src: "" } }],
-  },
-
-  {
-    slug: "safari",
-    title: "Safari",
-    category: "Mocks",
-    description: "",
-    component: Demos.DeviceMockupsDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "url",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "src",
-        type: "string",
-        description: "",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [{ name: "Default", args: { url: "", src: "" } }],
-  },
-
-  {
-    slug: "component-page-skeleton",
-    title: "ComponentPageSkeleton",
-    category: "Skeletons",
-    description: "",
-    component: Demos.ComponentPageSkeletonDemo ?? ComponentPlaceholder,
     props: [],
   },
-
   {
-    slug: "data-table",
-    title: "DataTable",
-    category: "Core",
-    description: "A powerful data table component with sorting, filtering, pagination, and row selection built on @tanstack/react-table.",
-    component: Demos.DataTableDemo ?? ComponentPlaceholder,
+    slug: "stars",
+    title: "Stars",
+    category: "Backgrounds",
+    description: "Twinkling stars background.",
+    component: Demos.StarsDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "striped-pattern",
+    title: "Striped Pattern",
+    category: "Backgrounds",
+    description: "A diagonal stripe pattern.",
+    component: Demos.StripedPatternDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "warp-background",
+    title: "Warp Background",
+    category: "Backgrounds",
+    description: "A time-warp background effect.",
+    component: Demos.WarpBackgroundDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  // Layout
+  {
+    slug: "bento-grid",
+    title: "Bento Grid",
+    category: "Layout",
+    description: "A bento-box style grid layout.",
+    component: Demos.BentoGridDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "collapsible-sidebar",
+    title: "Collapsible Sidebar",
+    category: "Layout",
+    description: "A sidebar that can be collapsed.",
+    component: Demos.CollapsibleSidebarDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "expandable-bento-card",
+    title: "Expandable Bento Card",
+    category: "Layout",
+    description: "A bento card that expands on click.",
+    component: Demos.ExpandableBentoCardDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "file-tree",
+    title: "File Tree",
+    category: "Layout",
+    description: "A hierarchical file tree component.",
+    component: Demos.FileTreeDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "glass-dock",
+    title: "Glass Dock",
+    category: "Layout",
+    description: "A dock with glassmorphism effect.",
+    component: Demos.GlassDockDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "glow-border-card",
+    title: "Glow Border Card",
+    category: "Layout",
+    description: "A card with a glowing border.",
+    component: Demos.GlowBorderCardDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "horizontal-scroll",
+    title: "Horizontal Scroll",
+    category: "Layout",
+    description: "Horizontal scrolling container.",
+    component: Demos.HorizontalScrollDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "hover-reveal-card",
+    title: "Hover Reveal Card",
+    category: "Layout",
+    description: "Reveals content on hover.",
+    component: Demos.HoverRevealCardDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "interactive-book",
+    title: "Interactive Book",
+    category: "Layout",
+    description: "A 3D interactive book component.",
+    component: Demos.InteractiveBookDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "parallax-image",
+    title: "Parallax Image",
+    category: "Layout",
+    description: "Image with parallax scroll effect.",
+    component: Demos.ParallaxImageDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "perspective-grid",
+    title: "Perspective Grid",
+    category: "Layout",
+    description: "A grid with 3D perspective.",
+    component: Demos.PerspectiveGridDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "perspective-menu",
+    title: "Perspective Menu",
+    category: "Layout",
+    description: "A menu with 3D perspective transition.",
+    component: Demos.PerspectiveMenuDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "reorderable-list",
+    title: "Reorderable List",
+    category: "Layout",
+    description: "A list where items can be reordered via drag and drop.",
+    component: Demos.ReorderableListDemo ?? ComponentPlaceholder,
     props: [
       {
-        name: "columns",
-        type: "ColumnDef<TData, TValue>[]",
-        description: "Array of column definitions from @tanstack/react-table",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
+        name: "items",
+        type: "string[]",
+        description: "The list of items to display.",
+      }
+    ],
+  },
+  {
+    slug: "sidebar",
+    title: "Sidebar",
+    category: "Layout",
+    description: "A navigational sidebar component.",
+    component: Demos.SidebarDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "staggered-grid",
+    title: "Staggered Grid",
+    category: "Layout",
+    description: "A masonry-style staggered grid.",
+    component: Demos.StaggeredGridDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "timeline",
+    title: "Timeline",
+    category: "Layout",
+    description: "A vertical timeline component.",
+    component: Demos.TimelineDemo ?? ComponentPlaceholder,
+    props: [
       {
         name: "data",
-        type: "TData[]",
-        description: "Array of data objects to display in the table",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "enableRowSelection",
-        type: "boolean",
-        description: "Enable row selection with checkboxes",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "enableSorting",
-        type: "boolean",
-        description: "Enable column sorting functionality",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "enableFiltering",
-        type: "boolean",
-        description: "Enable column filtering functionality",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "enablePagination",
-        type: "boolean",
-        description: "Enable pagination controls",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "dense",
-        type: "boolean",
-        description: "Use compact padding for a denser table layout",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "striped",
-        type: "boolean",
-        description: "Alternate row background colors for better readability",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "stickyHeader",
-        type: "boolean",
-        description: "Make table header sticky when scrolling",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes for the table container",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "pageSize",
-        type: "number",
-        description: "Initial number of rows per page",
-        required: false,
-        control: {
-          type: "number",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          enableRowSelection: false,
-          enableSorting: true,
-          enableFiltering: true,
-          enablePagination: true,
-          dense: false,
-          striped: false,
-          stickyHeader: false,
-          pageSize: 10,
-        },
-      },
+        type: "TimelineItem[]",
+        description: "Data for timeline items.",
+      }
     ],
   },
-
+  // Interaction
   {
-    slug: "date-picker",
-    title: "DatePicker",
-    category: "Core",
-    description: "A calendar date picker component with keyboard navigation and localization support using react-day-picker.",
-    component: Demos.DatePickerDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "value",
-        type: "Date",
-        description: "The currently selected date (controlled)",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "onChange",
-        type: "(date: Date | undefined) => void",
-        description: "Callback fired when the date changes",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "placeholder",
-        type: "string",
-        description: "Placeholder text when no date is selected",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "disabled",
-        type: "boolean",
-        description: "Whether the date picker is disabled",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes for the trigger button",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          placeholder: "Pick a date",
-          disabled: false,
-          className: "",
-        },
-      },
-    ],
+    slug: "code-comparison",
+    title: "Code Comparison",
+    category: "Interaction",
+    description: "Compare two blocks of code side-by-side.",
+    component: Demos.CodeComparisonDemo ?? ComponentPlaceholder,
+    props: [],
   },
-
   {
-    slug: "combobox",
-    title: "Combobox",
-    category: "Core",
-    description: "A searchable dropdown/autocomplete component with keyboard navigation using cmdk.",
-    component: Demos.ComboboxDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "options",
-        type: "ComboboxOption[]",
-        description: "Array of selectable options with value and label",
-        required: true,
-        control: {
-          type: "object",
-        },
-      },
-      {
-        name: "value",
-        type: "string",
-        description: "The currently selected value (controlled)",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "onChange",
-        type: "(value: string) => void",
-        description: "Callback fired when selection changes",
-        required: false,
-        control: {
-          type: "none",
-        },
-      },
-      {
-        name: "placeholder",
-        type: "string",
-        description: "Placeholder text for the search input",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "emptyText",
-        type: "string",
-        description: "Text to display when no results found",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes for the trigger button",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          placeholder: "Search...",
-          emptyText: "No results found.",
-          className: "",
-        },
-      },
-    ],
+    slug: "follower-pointer",
+    title: "Follower Pointer",
+    category: "Interaction",
+    description: "A custom element that follows the pointer.",
+    component: Demos.FollowerPointerDemo ?? ComponentPlaceholder,
+    props: [],
   },
-
   {
-    slug: "aria-live-region",
-    title: "AriaLiveRegion",
-    category: "Utility",
-    description: "An accessible live region for announcing dynamic content changes to screen readers.",
-    component: Demos.AriaLiveRegionDemo ?? ComponentPlaceholder,
-    props: [
-      {
-        name: "mode",
-        type: "polite | assertive | off",
-        description: "The politeness level of announcements (polite waits, assertive interrupts)",
-        required: false,
-        control: {
-          type: "select",
-          options: ["polite", "assertive", "off"],
-        },
-      },
-      {
-        name: "atomic",
-        type: "boolean",
-        description: "Whether updates should be read as one atomic unit",
-        required: false,
-        control: {
-          type: "boolean",
-        },
-      },
-      {
-        name: "relevant",
-        type: "additions | removals | text | all | additions text",
-        description: "What type of changes trigger announcements",
-        required: false,
-        control: {
-          type: "select",
-          options: ["additions", "removals", "text", "all", "additions text"],
-        },
-      },
-      {
-        name: "children",
-        type: "ReactNode",
-        description: "Content to announce to screen readers",
-        required: false,
-        control: {
-          type: "text",
-        },
-      },
-    ],
-    stories: [
-      {
-        name: "Default",
-        args: {
-          mode: "polite",
-          atomic: true,
-          relevant: "additions text",
-          children: "",
-        },
-      },
-    ],
+    slug: "glitch-effect",
+    title: "Glitch Effect",
+    category: "Interaction",
+    description: "Digital glitch effect on hover or active.",
+    component: Demos.GlitchEffectDemo ?? ComponentPlaceholder,
+    props: [],
   },
+  {
+    slug: "gravity",
+    title: "Gravity",
+    category: "Interaction",
+    description: "Elements affected by gravity physics.",
+    component: Demos.GravityDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "in-view",
+    title: "In View",
+    category: "Interaction",
+    description: "Animate components when they enter the viewport.",
+    component: Demos.InViewDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "liquid-text",
+    title: "Liquid Text",
+    category: "Interaction",
+    description: "Text with a liquid-like interaction.",
+    component: Demos.LiquidTextDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "magnifier",
+    title: "Magnifier",
+    category: "Interaction",
+    description: "Magnifying glass effect.",
+    component: Demos.MagnifierDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "orbiting-circles",
+    title: "Orbiting Circles",
+    category: "Interaction",
+    description: "Circles orbiting a central point.",
+    component: Demos.OrbitingCirclesDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "orbiting-dots",
+    title: "Orbiting Dots",
+    category: "Interaction",
+    description: "Dots orbiting around.",
+    component: Demos.OrbitingDotsDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "particle-image",
+    title: "Particle Image",
+    category: "Interaction",
+    description: "Image composed of interactive particles.",
+    component: Demos.ParticleImageDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "pixel-trail",
+    title: "Pixel Trail",
+    category: "Interaction",
+    description: "Leave a pixel trail as the mouse moves.",
+    component: Demos.PixelTrailDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "scroll-progress",
+    title: "Scroll Progress",
+    category: "Interaction",
+    description: "Bar showing scroll progress.",
+    component: Demos.ScrollProgressDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "smooth-cursor",
+    title: "Smooth Cursor",
+    category: "Interaction",
+    description: "A smoothly interpolated cursor.",
+    component: Demos.SmoothCursorDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "smooth-scroll",
+    title: "Smooth Scroll",
+    category: "Interaction",
+    description: "Enables smooth scrolling for the page.",
+    component: Demos.SmoothScrollDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "spotlight",
+    title: "Spotlight",
+    category: "Interaction",
+    description: "Spotlight effect on hover.",
+    component: Demos.SpotlightDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "spotlight-card",
+    title: "Spotlight Card",
+    category: "Interaction",
+    description: "Card with spotlight hover effect.",
+    component: Demos.SpotlightCardDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "tilt-card",
+    title: "Tilt Card",
+    category: "Interaction",
+    description: "3D tilt effect on hover.",
+    component: Demos.ThreeDCardDemo ?? ComponentPlaceholder, // Assuming regular 3D card relates to tilt
+    props: [],
+  },
+  {
+    slug: "tracing-beam",
+    title: "Tracing Beam",
+    category: "Interaction",
+    description: "Beam following the scroll position.",
+    component: Demos.TracingBeamDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  // Utils
+  {
+    slug: "animated-theme-toggler",
+    title: "Animated Theme Toggler",
+    category: "Utils",
+    description: "An animated button to toggle theme.",
+    component: Demos.AnimatedThemeTogglerDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "confetti-cannons",
+    title: "Confetti Cannons",
+    category: "Utils",
+    description: "Cannon bursts of confetti.",
+    component: Demos.ConfettiSideCannonsDemo ?? ComponentPlaceholder, // Duplicate mapping intended?
+    props: [],
+  },
+  {
+    slug: "theme-toggle",
+    title: "Theme Toggle",
+    category: "Utils",
+    description: "Simple theme toggle button.",
+    component: Demos.ThemeToggleDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  // Skeletons
+  {
+    slug: "card-skeleton",
+    title: "Card Skeleton",
+    category: "Skeletons",
+    description: "Loading skeleton for cards.",
+    component: ComponentPlaceholder, // Placeholder until skeleton demo is found/created
+    props: [],
+  },
+  {
+    slug: "skeleton",
+    title: "Skeleton",
+    category: "Skeletons",
+    description: "Basic loading skeleton.",
+    component: Demos.SkeletonDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "scene-3d",
+    title: "Scene 3D",
+    category: "Animations",
+    description: "3D Scene component.",
+    component: Demos.Scene3DDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "canvas-smudge",
+    title: "Canvas Smudge",
+    category: "Interaction",
+    description: "Interactive smudge effect on canvas.",
+    component: Demos.CanvasSmudgeDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "animated-list",
+    title: "Animated List",
+    category: "Animations",
+    description: "A list with entrance animations.",
+    component: Demos.AnimatedListDemo ?? ComponentPlaceholder,
+    props: [],
+  },
+  {
+    slug: "animated-circular-progress-bar",
+    title: "Animated Circular Progress Bar",
+    category: "Animations",
+    description: "Circular progress bar with animation.",
+    component: Demos.AnimatedCircularProgressBarDemo ?? ComponentPlaceholder,
+    props: [],
+  }
 ]
-export function getComponentBySlug(slug: string) {
-  const component = components.find((c) => c.slug === slug)
-  if (component) return component
 
-  const doc = docs.find((d) => d.slug === slug)
-  if (doc) {
-    return {
-      ...doc,
-      category: "Docs",
-      props: [],
-      stories: [],
-    }
-  }
 
-  const hook = hooks.find((h) => h.slug === slug)
-  if (hook) {
-    return {
-      slug: hook.slug,
-      title: hook.title,
-      category: "Hooks",
-      description: hook.description,
-      component: ComponentPlaceholder,
-      props: hook.data.props
-        ? hook.data.props.map((p) => ({
-          name: p.name,
-          type: p.type,
-          defaultValue: p.default,
-          description: p.description,
-          control: { type: "text" } as const,
-        }))
-        : [],
-      stories: [
-        {
-          name: "Usage",
-          args: {
-            example: hook.data.examples[0],
-          },
-        },
-      ],
-    }
-  }
-
-  return undefined
-}
-
-export function getAllComponentSlugs() {
-  return [...components.map((c) => c.slug), ...docs.map((d) => d.slug), ...hooks.map((h) => h.slug)]
-}
-
-export function getSidebarData() {
-  const categories: Record<string, { title: string; slug: string }[]> = {}
-
-  // Process components
-  components.forEach((c) => {
-    if (!categories[c.category]) {
-      categories[c.category] = []
-    }
-    categories[c.category].push({ title: c.title, slug: c.slug })
-  })
-
-  // Process docs
-  docs.forEach((d) => {
-    const cat = "Docs"
-    if (!categories[cat]) categories[cat] = []
-    categories[cat].push({ title: d.title, slug: d.slug })
-  })
-
-  // Process hooks
-  hooks.forEach((h) => {
-    const cat = "Hooks"
-    if (!categories[cat]) categories[cat] = []
-    categories[cat].push({ title: h.title, slug: h.slug })
-  })
-
-  const titleCase = (str: string) => str.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-
-  // Convert to array and sort keys if needed (though Object.entries order is not guaranteed stable across all environments, it's usually insertion order)
-  // We might want to enforce a specific order: Docs, Core, ...
-  const order = [
-    "Docs",
-    "Core",
-    "Layout",
-    "Text",
-    "Backgrounds",
-    "Buttons",
-    "Special",
-    "Feedback",
-    "Interaction",
-    "Utils",
-    "Hooks",
-  ]
-
-  return Object.entries(categories)
-    .sort((a, b) => {
-      const indexA = order.indexOf(a[0])
-      const indexB = order.indexOf(b[0])
-      // If both are in order list, sort by index
-      if (indexA !== -1 && indexB !== -1) return indexA - indexB
-      // If only A is in list, A comes first
-      if (indexA !== -1) return -1
-      // If only B is in list, B comes first
-      if (indexB !== -1) return 1
-      // Otherwise sort alphabetically
-      return a[0].localeCompare(b[0])
-    })
-    .map(([name, items]) => ({
-      name,
-      items: items.sort((a, b) => a.title.localeCompare(b.title)),
-    }))
-}

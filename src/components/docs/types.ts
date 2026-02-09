@@ -9,6 +9,7 @@ export type ControlType =
   | "json"
   | "icon"
   | "none"
+  | "src"
 
 export interface PropDefinition {
   name: string
@@ -22,6 +23,8 @@ export interface PropDefinition {
     min?: number
     max?: number
     step?: number
+    /** File accept attribute for src/file controls (e.g., "image/*", "video/*") */
+    accept?: string
   }
 }
 

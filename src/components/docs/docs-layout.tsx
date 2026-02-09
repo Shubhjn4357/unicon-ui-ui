@@ -21,7 +21,7 @@ import {
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { getSidebarData } from "@/data/component-docs"
+import { getSidebarData } from "@/lib/docs-utils"
 
 import { useLocalStorage } from "../../hooks/use-async"
 
@@ -32,8 +32,14 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
   // Persist opened accordion items
   const [openedCategories, setOpenedCategories] = useLocalStorage<string[]>(
     "docs-accordion-state",
-    ["Getting Started", "Components"]
+    ["Core"]
   )
+
+  const resolveDocHref = (categoryName: string, slug: string) => {
+    if (categoryName === "Hooks") return `/docs/hooks/${slug}`
+    if (categoryName === "Docs") return `/docs/${slug}`
+    return `/docs/components/${slug}`
+  }
 
   const componentAccordionItems = sidebarData.map(
     (category: { name: string; items: { title: string; slug: string }[] }) => ({
@@ -42,7 +48,7 @@ export function DocsLayout({ children }: { children: React.ReactNode }) {
       content: (
         <div className="flex flex-col space-y-1 pl-2">
           {category.items.map((item: { title: string; slug: string }) => {
-            const href = `/docs/components/${item.slug}`
+            const href = resolveDocHref(category.name, item.slug)
             return (
               <Link key={item.slug} href={href} className="block">
                 <SidebarItem

@@ -10,6 +10,8 @@ export interface AnimatedCircularProgressBarProps extends React.HTMLAttributes<H
   size?: number
   strokeWidth?: number
   showValue?: boolean
+  gaugePrimaryColor?: string
+  gaugeSecondaryColor?: string
 }
 
 export const AnimatedCircularProgressBar = React.forwardRef<
@@ -17,7 +19,17 @@ export const AnimatedCircularProgressBar = React.forwardRef<
   AnimatedCircularProgressBarProps
 >(
   (
-    { value, max = 100, size = 120, strokeWidth = 10, showValue = true, className, ...props },
+    {
+      value,
+      max = 100,
+      size = 120,
+      strokeWidth = 10,
+      showValue = true,
+      gaugePrimaryColor,
+      gaugeSecondaryColor,
+      className,
+      ...props
+    },
     ref
   ) => {
     const radius = (size - strokeWidth) / 2
@@ -37,20 +49,20 @@ export const AnimatedCircularProgressBar = React.forwardRef<
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="currentColor"
+            stroke={gaugeSecondaryColor ?? "currentColor"}
             strokeWidth={strokeWidth}
-            className="text-surface-elevated"
+            className={gaugeSecondaryColor ? undefined : "text-surface-elevated"}
           />
           <motion.circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="currentColor"
+            stroke={gaugePrimaryColor ?? "currentColor"}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeDasharray={circumference}
-            className="text-[hsl(var(--primary))]"
+            className={gaugePrimaryColor ? undefined : "text-[hsl(var(--primary))]"}
             initial={{ strokeDashoffset: circumference }}
             animate={{ strokeDashoffset: offset }}
             transition={{ duration: 1, ease: "easeInOut" }}

@@ -39,7 +39,7 @@ export function ThemeCustomizer() {
 
     applyTheme({
       name: "Custom",
-      colors: { ...basePreset.palette.colors, ...newColors } as any,
+      colors: { ...basePreset.palette.colors, ...newColors },
     })
   }
 
@@ -138,7 +138,11 @@ export function ThemeCustomizer() {
                     downloadTheme(
                       {
                         name: "custom-theme",
-                        colors: customColors as any, // TODO: Fix proper type mapping partial to full
+                        colors: {
+                          ...(presets.find((p: ThemePreset) => p.id === activePreset) || presets[0])
+                            .palette.colors,
+                          ...customColors,
+                        },
                       },
                       "theme"
                     )

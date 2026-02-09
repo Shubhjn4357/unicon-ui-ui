@@ -1,5 +1,5 @@
 ---
-description: Example changeset for version 0.2.1
+"@unicorn-ui/ui": patch
 ---
 
 # Initial Release

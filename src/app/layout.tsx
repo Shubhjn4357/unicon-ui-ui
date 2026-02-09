@@ -1,4 +1,3 @@
-import "@/styles/design-system.css"
 import "./globals.css"
 import { LayoutContent } from "@/components/site/layout/layout-content"
 import { APP_CONSTANTS } from "@/constants/constants"
@@ -17,12 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body className="min-h-screen bg-background text-foreground font-sans antialiased">
         <ThemeProvider defaultTheme="system" storageKey="unicorn-ui-theme">
           <DesignStyleProvider>
-            <SmoothScroll>
+            {/* <SmoothScroll> */}
               <LayoutContent>{children}</LayoutContent>
-            </SmoothScroll>
+            {/* </SmoothScroll> */}
           </DesignStyleProvider>
         </ThemeProvider>
       </body>
